@@ -86,10 +86,11 @@ const DirectorDashboardPage = () => {
             <Text className="text-xs xl:text-base text-gray-400 font-medium">
               Sisa :{' '}
             </Text>
-            <Text className="text-xs xl:text-base  text-nowrap font-medium">
-              {' '}
-              51.496.465
-            </Text>
+            <CurrencyFormatter
+              currency="IDR"
+              value={remainingData.data?.remainingSales}
+              className="font-medium"
+            />
           </Group>
         </AnalyticsCard>
 
