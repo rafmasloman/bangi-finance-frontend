@@ -1,7 +1,9 @@
 export interface IApiBaseResponse<T> {
-  statusCode: number;
+  status: string;
   message: string;
   data: T;
+  statusCode: number;
+  timestamp: string;
 }
 
 export enum PaymentStatus {

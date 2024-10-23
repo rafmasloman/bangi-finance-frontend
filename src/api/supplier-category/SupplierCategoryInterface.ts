@@ -3,6 +3,7 @@ export interface ISupplierCategoryRequestParams {
 }
 
 export interface ISupplierCategoryResponseData {
+  id: number;
   name: string;
   suppliers: ISupplierCategoryResponseData[];
 }

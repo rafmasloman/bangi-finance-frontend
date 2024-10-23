@@ -44,7 +44,7 @@ class SupplierCategory {
   }
 
   async getSupplierCategory(
-    id: string,
+    id?: string,
   ): Promise<IApiBaseResponse<ISupplierCategoryResponseData>> {
     try {
       const response: AxiosResponse = await http.get(
@@ -53,6 +53,38 @@ class SupplierCategory {
 
       const data: IApiBaseResponse<ISupplierCategoryResponseData> =
         await response.data;
+
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateSupplierCategory(params: {
+    id: string;
+    payload: ISupplierCategoryRequestParams;
+  }) {
+    try {
+      const response = await http.put(
+        `${SUPPLIER_CATEGORY_API_ROUTE}/${params.id}`,
+        params.payload,
+      );
+
+      const data = await response.data;
+
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteSupplierCategory(id: string) {
+    try {
+      const response = await http.delete(
+        `${SUPPLIER_CATEGORY_API_ROUTE}/${id}`,
+      );
+
+      const data = await response.data;
 
       return data;
     } catch (error) {

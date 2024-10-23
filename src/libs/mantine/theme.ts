@@ -1,4 +1,4 @@
-import { createTheme, mergeThemeOverrides } from '@mantine/core';
+import { createTheme, mergeThemeOverrides, PasswordInput } from '@mantine/core';
 
 const primaryTheme = createTheme({
   fontFamily: 'Urbanist, sans-serif',
@@ -12,6 +12,17 @@ const primaryTheme = createTheme({
       defaultProps: {
         radius: 'md',
       },
+      classNames: {
+        label: `text-base`,
+      },
+    },
+    PasswordInput: {
+      defaultProps: {
+        radius: 'md',
+      },
+      classNames: {
+        label: `text-base`,
+      },
     },
     DateInput: {
       defaultProps: {
@@ -20,13 +31,7 @@ const primaryTheme = createTheme({
     },
     InputWrapper: {
       classNames: {
-        label: `mb-1.5`,
-      },
-    },
-    Modal: {
-      classNames: {
-        title: `font-semibold text-xl`,
-        header: `border-t-[20px]  border-t-lime-200 `,
+        label: `mb-2`,
       },
     },
   },
