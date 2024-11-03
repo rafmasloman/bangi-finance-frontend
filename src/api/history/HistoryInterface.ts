@@ -29,6 +29,7 @@ export interface IHistoryRemainingResponseData {
   remainingMonthManagementService: number;
   remainingMonthTax: number;
   remainingSales: number;
+  balance: number;
 }
 
 export interface IMDRResponseData {

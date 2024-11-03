@@ -25,7 +25,7 @@ import { MdOutlineDeleteOutline } from 'react-icons/md';
 import ModalDelete from '../../../features/director/components/modal/ModalDelete';
 import { useDeleteIncome } from '../../../api/income/hooks/useDeleteIncome';
 import { useUpdateIncome } from '../../../api/income/hooks/useUpdateIncome';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useGetIncomeDetail } from '../../../api/income/hooks/useGetIncomeDetail';
 import moment from 'moment';
 import { AuthContext } from '../../../context/AuthContext';
@@ -158,8 +158,6 @@ const DailyReportPage = () => {
           userId: user.id,
         },
       });
-      setIncomeId(null);
-      closeEdit();
     }
   };
 
@@ -187,6 +185,13 @@ const DailyReportPage = () => {
     }
   };
 
+  useEffect(() => {
+    if (updateIncome.isSuccess) {
+      setIncomeId(null);
+      closeEdit();
+    }
+  }, [updateIncome.isSuccess, closeEdit]);
+
   if (!incomes.data) {
     return <Text>Loading ....</Text>;
   }
@@ -199,7 +204,11 @@ const DailyReportPage = () => {
         opened={opened}
         onClose={close}
       >
-        <IncomeForm handleSubmit={handleSubmitForm} close={close} />
+        <IncomeForm
+          handleSubmit={handleSubmitForm}
+          close={close}
+          loading={createIncome.isPending}
+        />
       </ModalForm>
 
       <ModalForm
@@ -215,6 +224,7 @@ const DailyReportPage = () => {
             handleSubmit={handleSubmitForm}
             close={closeEdit}
             initialValues={incomeDetail.data}
+            loading={updateIncome.isPending}
           />
         )}
       </ModalForm>

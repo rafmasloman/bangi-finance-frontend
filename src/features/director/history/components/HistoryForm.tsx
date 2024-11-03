@@ -10,6 +10,7 @@ interface IHistoryFormProps {
   handleSubmit: (data: any) => void;
   close?: () => void;
   initialValues?: IHistoryResponseData;
+  loading?: boolean;
 }
 
 const HistoryForm = (props: IHistoryFormProps) => {
@@ -20,7 +21,6 @@ const HistoryForm = (props: IHistoryFormProps) => {
       remainingManagementService:
         props.initialValues?.remainingManagementService || 0,
       remainingTax: props.initialValues?.remainingTax || 0,
-      remainingSales: props.initialValues?.remainingSales || 0,
       remainingRawMaterials: props.initialValues?.remainingRawMaterials || 0,
       // month: props.initialValues?.month || undefined,
       date: dayjs(props.initialValues?.date).toDate() || undefined,
@@ -72,14 +72,6 @@ const HistoryForm = (props: IHistoryFormProps) => {
 
         <Grid.Col span={{ base: 12, md: 6 }}>
           <BaseCurrencyInput
-            label="Sisa Sales Bulan lalu"
-            placeholder="Masukkan Sisa Sales"
-            {...historyDataForm.getInputProps('remainingSales')}
-          />
-        </Grid.Col>
-
-        <Grid.Col span={{ base: 12 }}>
-          <BaseCurrencyInput
             label="Sisa Bahan Baku Bulan lalu"
             placeholder="Masukkan Sisa Bahan Baku"
             {...historyDataForm.getInputProps('remainingRawMaterials')}
@@ -91,7 +83,9 @@ const HistoryForm = (props: IHistoryFormProps) => {
         <BaseButton btnVariant="secondary" onClick={props.close}>
           Batal
         </BaseButton>
-        <BaseButton type="submit">Input</BaseButton>
+        <BaseButton type="submit" loading={props.loading}>
+          Input
+        </BaseButton>
       </Group>
     </form>
   );

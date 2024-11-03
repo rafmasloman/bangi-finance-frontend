@@ -34,7 +34,7 @@ import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { useUpdateHistory } from '../../../api/history/hooks/useUpdateHistory';
 import { EmptyStateHistory } from '../../../assets/images';
 
-const DirectorHistoryPage = () => {
+const AdminHistoryPage = () => {
   const { user } = useContext(AuthContext);
   const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -83,15 +83,13 @@ const DirectorHistoryPage = () => {
       remainingEmployeeService: values.remainingEmployeeService,
       remainingManagementService: values.remainingManagementService,
       remainingRawMaterials: values.remainingRawMaterials,
-      remainingSales: 0,
+      remainingSales: values.remainingSales,
       remainingTax: values.remainingTax,
       date: values.date,
       month: initialMonth,
       year: initialYear,
       userId: user?.id,
     };
-
-    console.log('history id : ', !!historyId);
 
     if (!!historyId) {
       updateHistory.mutate({ id: historyId, payload: data });
@@ -135,6 +133,10 @@ const DirectorHistoryPage = () => {
   //   if (histories.isLoading) {
   //     return <Text>Loading...</Text>;
   //   }
+
+  if (histories.isFetching) {
+    return <Text>Loading History ... </Text>;
+  }
 
   return (
     <Stack>
@@ -184,131 +186,120 @@ const DirectorHistoryPage = () => {
 
       <Group justify="space-between" className="w-full h-fit py-3.5">
         <Text className="font-semibold text-xl">Data History</Text>
-
-        <Group wrap="nowrap">
-          <BaseButton leftSection={<FaPlus />} onClick={open}>
-            Input History
-          </BaseButton>
-        </Group>
       </Group>
 
       {/* <TableDataLayout>
-        <Group justify="space-between" className="w-full h-fit py-3.5">
-          <Text className="font-semibold text-xl">Data History</Text>
-
-          <Group wrap="nowrap">
-            
-            <BaseButton leftSection={<FaPlus />} onClick={open}>
-              Input History
-            </BaseButton>
+          <Group justify="space-between" className="w-full h-fit py-3.5">
+            <Text className="font-semibold text-xl">Data History</Text>
+  
+            <Group wrap="nowrap">
+              
+              <BaseButton leftSection={<FaPlus />} onClick={open}>
+                Input History
+              </BaseButton>
+            </Group>
           </Group>
-        </Group>
-        <Stack className="overflow-x-auto scrollbar-hide">
-          <Table
-            classNames={{
-              th: `text-base`,
-            }}
-          >
-            <TableDataHead data={tableHead} />
+          <Stack className="overflow-x-auto scrollbar-hide">
+            <Table
+              classNames={{
+                th: `text-base`,
+              }}
+            >
+              <TableDataHead data={tableHead} />
+  
+              {!histories.data ? null : (
+                <TableDataBody
+                  data={histories.data}
+                  columns={[
+                    { key: 'no', render: (row) => <Text>{row.no}</Text> },
+                    { key: 'title', render: (row) => <Text>{row.title}</Text> },
+  
+                    {
+                      key: 'remainingEmployeeService',
+                      render: (row) => (
+                        <CurrencyFormatter
+                          className="text-nowrap"
+                          currency="IDR"
+                          value={row.remainingEmployeeService}
+                        />
+                      ),
+                    },
+                    {
+                      key: 'remainingManagementService',
+                      render: (row) => (
+                        <CurrencyFormatter
+                          currency="IDR"
+                          value={row.remainingManagementService}
+                          className="text-nowrap"
+                        />
+                      ),
+                    },
+  
+                    {
+                      key: 'remainingTax',
+                      render: (row) => (
+                        <CurrencyFormatter
+                          className="text-nowrap"
+                          value={row.remainingTax}
+                          currency="IDR"
+                        />
+                      ),
+                    },
+  
+                    {
+                      key: 'remainingSales',
+                      render: (row) => (
+                        <CurrencyFormatter
+                          className="text-nowrap"
+                          value={row.remainingSales}
+                          currency="IDR"
+                        />
+                      ),
+                    },
+                    {
+                      key: 'remainingRawMaterials',
+                      render: (row) => (
+                        <CurrencyFormatter
+                          className="text-nowrap"
+                          value={row.remainingRawMaterials}
+                          currency="IDR"
+                        />
+                      ),
+                    },
+  
+                    {
+                      key: 'action',
+                      render: (row) => (
+                        <Group gap={10} wrap="nowrap">
+                          <ActionIcon
+                            onClick={() => handleOpenModalEdit(row.id)}
+                            radius={'md'}
+                            size={27}
+                            className="bg-indigo-500 text-lg"
+                          >
+                            <TbEdit />
+                          </ActionIcon>
+  
+                          <ActionIcon
+                            onClick={() => handleOpenModalDelete(row.id)}
+                            radius={'md'}
+                            size={27}
+                            className="bg-rose-400  text-md"
+                          >
+                            <MdOutlineDeleteOutline className=" text-lg" />
+                          </ActionIcon>
+                        </Group>
+                      ),
+                    },
+                  ]}
+                />
+              )}
+            </Table>
+          </Stack>
+        </TableDataLayout> */}
 
-            {!histories.data ? null : (
-              <TableDataBody
-                data={histories.data}
-                columns={[
-                  { key: 'no', render: (row) => <Text>{row.no}</Text> },
-                  { key: 'title', render: (row) => <Text>{row.title}</Text> },
-
-                  {
-                    key: 'remainingEmployeeService',
-                    render: (row) => (
-                      <CurrencyFormatter
-                        className="text-nowrap"
-                        currency="IDR"
-                        value={row.remainingEmployeeService}
-                      />
-                    ),
-                  },
-                  {
-                    key: 'remainingManagementService',
-                    render: (row) => (
-                      <CurrencyFormatter
-                        currency="IDR"
-                        value={row.remainingManagementService}
-                        className="text-nowrap"
-                      />
-                    ),
-                  },
-
-                  {
-                    key: 'remainingTax',
-                    render: (row) => (
-                      <CurrencyFormatter
-                        className="text-nowrap"
-                        value={row.remainingTax}
-                        currency="IDR"
-                      />
-                    ),
-                  },
-
-                  {
-                    key: 'remainingSales',
-                    render: (row) => (
-                      <CurrencyFormatter
-                        className="text-nowrap"
-                        value={row.remainingSales}
-                        currency="IDR"
-                      />
-                    ),
-                  },
-                  {
-                    key: 'remainingRawMaterials',
-                    render: (row) => (
-                      <CurrencyFormatter
-                        className="text-nowrap"
-                        value={row.remainingRawMaterials}
-                        currency="IDR"
-                      />
-                    ),
-                  },
-
-                  {
-                    key: 'action',
-                    render: (row) => (
-                      <Group gap={10} wrap="nowrap">
-                        <ActionIcon
-                          onClick={() => handleOpenModalEdit(row.id)}
-                          radius={'md'}
-                          size={27}
-                          className="bg-indigo-500 text-lg"
-                        >
-                          <TbEdit />
-                        </ActionIcon>
-
-                        <ActionIcon
-                          onClick={() => handleOpenModalDelete(row.id)}
-                          radius={'md'}
-                          size={27}
-                          className="bg-rose-400  text-md"
-                        >
-                          <MdOutlineDeleteOutline className=" text-lg" />
-                        </ActionIcon>
-                      </Group>
-                    ),
-                  },
-                ]}
-              />
-            )}
-          </Table>
-        </Stack>
-      </TableDataLayout> */}
-
-      {!histories.data || histories.data.length <= 0 ? (
-        <Stack gap={0} justify="center" align="center">
-          <Image src={EmptyStateHistory} className="w-[450px] h-20" />
-          <Text className="text-xl md:text-2xl text-gray-400 font-medium">
-            History Belum dibuat
-          </Text>
-        </Stack>
+      {!histories.data || histories.data?.length <= 0 ? (
+        <Image src={EmptyStateHistory} />
       ) : (
         <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 4 }}>
           {histories.data?.map((history, index) => {
@@ -324,45 +315,47 @@ const DirectorHistoryPage = () => {
                   <Group justify="space-between">
                     <FcOpenedFolder size={40} />
 
-                    <Menu
-                      classNames={{
-                        dropdown: ``,
-                      }}
-                      position="bottom-end"
-                    >
-                      <Menu.Target>
-                        <ActionIcon
-                          variant="transparent"
-                          classNames={{
-                            icon: `hover:text-gray-500 text-black_primary`,
-                          }}
-                        >
-                          <BiDotsHorizontalRounded
-                            size={30}
-                            className="cursor-pointer hover:text-gray-500"
-                          />
-                        </ActionIcon>
-                      </Menu.Target>
+                    {user?.role !== 'DIRECTOR' ? null : (
+                      <Menu
+                        classNames={{
+                          dropdown: ``,
+                        }}
+                        position="bottom-end"
+                      >
+                        <Menu.Target>
+                          <ActionIcon
+                            variant="transparent"
+                            classNames={{
+                              icon: `hover:text-gray-500 text-black_primary`,
+                            }}
+                          >
+                            <BiDotsHorizontalRounded
+                              size={30}
+                              className="cursor-pointer hover:text-gray-500"
+                            />
+                          </ActionIcon>
+                        </Menu.Target>
 
-                      <Menu.Dropdown>
-                        <Menu.Item
-                          onClick={() => handleOpenModalEdit(history.id)}
-                          className="text-indigo-600 font-medium"
-                          leftSection={<TbEdit className=" text-lg" />}
-                        >
-                          Edit
-                        </Menu.Item>
-                        <Menu.Item
-                          className="text-rose-500 font-medium"
-                          leftSection={
-                            <MdOutlineDeleteOutline className=" text-lg" />
-                          }
-                          onClick={() => handleOpenModalDelete(history.id)}
-                        >
-                          Hapus
-                        </Menu.Item>
-                      </Menu.Dropdown>
-                    </Menu>
+                        <Menu.Dropdown>
+                          <Menu.Item
+                            onClick={() => handleOpenModalEdit(history.id)}
+                            className="text-indigo-600 font-medium"
+                            leftSection={<TbEdit className=" text-lg" />}
+                          >
+                            Edit
+                          </Menu.Item>
+                          <Menu.Item
+                            className="text-rose-500 font-medium"
+                            leftSection={
+                              <MdOutlineDeleteOutline className=" text-lg" />
+                            }
+                            onClick={() => handleOpenModalDelete(history.id)}
+                          >
+                            Hapus
+                          </Menu.Item>
+                        </Menu.Dropdown>
+                      </Menu>
+                    )}
                   </Group>
 
                   <Stack gap={5}>
@@ -380,7 +373,11 @@ const DirectorHistoryPage = () => {
                       <Text
                         className="text-sm text-indigo-400 font-medium hover:text-indigo-700"
                         component={Link}
-                        to={`/books/director/${history.id}/dashboard`}
+                        to={`${
+                          user?.role !== 'DIRECTOR'
+                            ? `/books/admin/${history.id}/daily-report`
+                            : `/books/director/${history.id}/dashboard`
+                        }`}
                       >
                         Masuk ke Buku
                       </Text>
@@ -402,4 +399,4 @@ const DirectorHistoryPage = () => {
   );
 };
 
-export default DirectorHistoryPage;
+export default AdminHistoryPage;

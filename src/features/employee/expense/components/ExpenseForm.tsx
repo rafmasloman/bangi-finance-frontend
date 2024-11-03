@@ -3,20 +3,23 @@ import { DateInput } from '@mantine/dates';
 import BaseButton from '../../../../shared/components/button/BaseButton';
 import BaseTextInput from '../../../../shared/components/input/BaseTextInput';
 import { useForm } from '@mantine/form';
-import { useGetAllExpensesCategories } from '../../../../api/expense-category/hooks/useGetAllExpenseCategories';
 import BaseCurrencyInput from '../../../../shared/components/input/BaseCurrencyInput';
-import { IExpenseResponseData } from '../../../../api/expense/ExpenseInterface';
+import {
+  IExpenseResponseData,
+  IExpenseResponseDetailData,
+} from '../../../../api/expense/ExpenseInterface';
 import dayjs from 'dayjs';
 import { useGetAllHistories } from '../../../../api/history/hooks/useGetAllHistories';
+import { useGetExpenseCategories } from '../../../../api/expense/hooks/useGetExpenseCategories';
 
 interface IExpenseFormProps {
   handleSubmit: (data: any) => void;
   close?: () => void;
-  initialValues?: IExpenseResponseData;
+  initialValues?: IExpenseResponseDetailData;
 }
 
 const ExpenseForm = (props: IExpenseFormProps) => {
-  const expenseCategories = useGetAllExpensesCategories();
+  const expenseCategories = useGetExpenseCategories();
   const historiesData = useGetAllHistories();
 
   const expenseDataForm = useForm({
@@ -24,8 +27,7 @@ const ExpenseForm = (props: IExpenseFormProps) => {
       evidence: props.initialValues?.evidence || '',
       price: props.initialValues?.price || 0,
       date: dayjs(props.initialValues?.date).toDate() || undefined,
-      expenseCategoryId:
-        props.initialValues?.expenseCategory.id.toString() || undefined,
+      expenseCategoryId: props.initialValues?.expenseCategory || undefined,
       note: props.initialValues?.note || '',
     },
   });
@@ -65,10 +67,10 @@ const ExpenseForm = (props: IExpenseFormProps) => {
           <Select
             placeholder="Pilih Kategori"
             label="Kategori"
-            data={expenseCategories.data?.map((expense) => {
+            data={expenseCategories.data?.map((category) => {
               return {
-                label: expense.name,
-                value: expense.id.toString(),
+                label: category.category,
+                value: category.category,
               };
             })}
             {...expenseDataForm.getInputProps('expenseCategoryId')}

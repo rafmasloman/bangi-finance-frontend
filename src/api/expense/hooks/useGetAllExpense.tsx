@@ -17,10 +17,7 @@ export const useGetAllExpenses = () => {
           evidence: expense.evidence,
           price: expense.price,
           date: moment(expense.date).format('DD MMMM YYYY'),
-          expenseCategory: {
-            id: expense.expenseCategory.id,
-            name: expense.expenseCategory.name,
-          },
+          expenseCategory: expense.expenseCategory,
           note: expense.note,
         };
       });

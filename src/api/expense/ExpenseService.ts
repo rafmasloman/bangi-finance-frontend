@@ -84,6 +84,18 @@ class ExpenseService {
     }
   }
 
+  async getExpenseCategories(): Promise<IApiBaseResponse<string[]>> {
+    try {
+      const response = await http.get(`${EXPENSE_API_ROUTE}/categories`);
+
+      const data: IApiBaseResponse<string[]> = await response.data;
+
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateExpense(params: {
     id: string;
     payload: IExpenseRequestParams;
@@ -98,6 +110,8 @@ class ExpenseService {
 
       return data;
     } catch (error) {
+      console.log('error : ', error);
+
       throw error;
     }
   }

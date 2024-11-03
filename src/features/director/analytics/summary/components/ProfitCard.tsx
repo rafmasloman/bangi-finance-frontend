@@ -39,7 +39,7 @@ const ProfitCard = (props: IProfitCardProps) => {
             value={props.amount}
           />
 
-          <Text className="text-sm text-gray-400 font-medium">
+          <Text className="text-sm md:text-base text-gray-400 font-medium">
             Profit anda sebanyak{' '}
             <span className="text-green-600 font-semibold">
               {props.percent}%

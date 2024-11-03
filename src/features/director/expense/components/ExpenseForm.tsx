@@ -3,27 +3,25 @@ import { DateInput } from '@mantine/dates';
 import BaseButton from '../../../../shared/components/button/BaseButton';
 import BaseTextInput from '../../../../shared/components/input/BaseTextInput';
 import { useForm } from '@mantine/form';
-import { useGetAllExpensesCategories } from '../../../../api/expense-category/hooks/useGetAllExpenseCategories';
 import BaseCurrencyInput from '../../../../shared/components/input/BaseCurrencyInput';
 import { IExpenseResponseDetailData } from '../../../../api/expense/ExpenseInterface';
 import dayjs from 'dayjs';
+import { expenseCategoryData } from '../helpers/expense.helper';
 
 interface IExpenseFormProps {
   handleSubmit: (data: any) => void;
   close?: () => void;
   initialValues?: IExpenseResponseDetailData;
+  isLoading?: boolean;
 }
 
 const ExpenseForm = (props: IExpenseFormProps) => {
-  const expenseCategories = useGetAllExpensesCategories();
-
   const expenseDataForm = useForm({
     initialValues: {
       evidence: props.initialValues?.evidence || '',
       price: props.initialValues?.price || 0,
       date: dayjs(props.initialValues?.date).toDate() || undefined,
-      expenseCategoryId:
-        props.initialValues?.expenseCategory.id.toString() || undefined,
+      expenseCategory: props.initialValues?.expenseCategory || undefined,
       note: props.initialValues?.note || '',
     },
   });
@@ -63,13 +61,8 @@ const ExpenseForm = (props: IExpenseFormProps) => {
           <Select
             placeholder="Pilih Kategori"
             label="Kategori"
-            data={expenseCategories.data?.map((expense) => {
-              return {
-                label: expense.name,
-                value: expense.id.toString(),
-              };
-            })}
-            {...expenseDataForm.getInputProps('expenseCategoryId')}
+            data={expenseCategoryData}
+            {...expenseDataForm.getInputProps('expenseCategory')}
           />
         </Grid.Col>
 
@@ -86,7 +79,9 @@ const ExpenseForm = (props: IExpenseFormProps) => {
         <BaseButton btnVariant="secondary" onClick={props.close}>
           Batal
         </BaseButton>
-        <BaseButton type="submit">Input</BaseButton>
+        <BaseButton type="submit" loading={props.isLoading}>
+          Input
+        </BaseButton>
       </Group>
     </form>
   );

@@ -3,17 +3,38 @@ import LoginForm from '../../../features/auth/components/LoginForm';
 import { useLoginMutation } from '../../../api/auth/hooks/useLoginMutation';
 import { ILoginInterfacePropsType } from '../../../features/auth/interfaces/AuthInterfaces';
 import { LogoBangi } from '../../../assets/images';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import cookieLibs from '../../../libs/js-cookie/cookie';
-import { DIRECTOR_HISTORY_PAGE } from '../../../constants/pages-route';
+import {
+  ADMIN_HISTORY_PAGE,
+  DIRECTOR_HISTORY_PAGE,
+} from '../../../constants/pages-route';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from '../../../context/AuthContext';
+import { useCredentialUser } from '../../../api/auth/hooks/useCredentialUser';
 
 const LoginPage = () => {
   const loginMutation = useLoginMutation();
   const token = cookieLibs.getCookie('token');
+  const navigate = useNavigate();
+
+  const credential = useCredentialUser();
+
+  console.log('credential : ', credential.data);
 
   const handleSubmitForm = (values: ILoginInterfacePropsType) => {
     loginMutation.mutate(values);
   };
+
+  useEffect(() => {
+    if (!!credential.data && !!token) {
+      if (credential.data.role === 'DIRECTOR') {
+        navigate(DIRECTOR_HISTORY_PAGE);
+      } else if (credential.data.role === 'EMPLOYEE') {
+        navigate(ADMIN_HISTORY_PAGE);
+      }
+    }
+  }, [credential.data, navigate, token]);
 
   return (
     <Stack className="container mx-auto h-screen">

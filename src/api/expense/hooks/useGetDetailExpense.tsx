@@ -12,10 +12,7 @@ export const useGetDetailExpenses = (id?: string, isModalOpened?: boolean) => {
         evidence: data.data.evidence,
         price: data.data.price,
         date: data.data.date,
-        expenseCategory: {
-          id: data.data.expenseCategory.id,
-          name: data.data.expenseCategory.name,
-        },
+        expenseCategory: data.data.expenseCategory,
         note: data.data.note,
       };
     },

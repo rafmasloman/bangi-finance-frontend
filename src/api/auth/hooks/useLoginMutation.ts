@@ -5,6 +5,7 @@ import ShowNotification from '../../../shared/components/notifications/BaseNotif
 import { useNavigate } from 'react-router-dom';
 import { DIRECTOR_HISTORY_PAGE } from '../../../constants/pages-route';
 import { GET_USER_CREDENTIAL } from '../../../constants/query-key';
+import { useCredentialUser } from './useCredentialUser';
 
 export const useLoginMutation = () => {
   const queryClient = useQueryClient();
@@ -21,6 +22,9 @@ export const useLoginMutation = () => {
         });
       } else {
         cookieLibs.setCookie('token', data.data.token);
+
+        console.log('token : ', cookieLibs.getCookie('token'));
+
         ShowNotification({
           message: 'Login Berhasil',
           title: 'Silahkan klik tombol go to dashboard',
@@ -30,7 +34,7 @@ export const useLoginMutation = () => {
           queryKey: [GET_USER_CREDENTIAL],
         });
 
-        navigate(DIRECTOR_HISTORY_PAGE);
+        // navigate(DIRECTOR_HISTORY_PAGE);
       }
     },
     onError() {

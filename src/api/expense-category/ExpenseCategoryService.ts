@@ -29,7 +29,9 @@ class ExpenseCategoryService {
     IApiBaseResponse<IExpenseCategoryResponseData[]>
   > {
     try {
-      const response = await http.get(`${EXPENSE_CATEGORY_API_ROUTE}`);
+      const response = await http.get(
+        `${EXPENSE_CATEGORY_API_ROUTE}/categories`,
+      );
 
       const data: IApiBaseResponse<IExpenseCategoryResponseData[]> =
         await response.data;

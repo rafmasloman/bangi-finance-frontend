@@ -6,8 +6,6 @@ import ShowNotification from '../components/notifications/BaseNotification';
 const RoleProtectedRoute = () => {
   const credential = useCredentialUser();
 
-  console.log('credential : ', credential.data);
-
   if (credential.isLoading) {
     return (
       <Group
@@ -31,11 +29,11 @@ const RoleProtectedRoute = () => {
   // }
 
   if (credential.isSuccess && credential.data?.role !== 'DIRECTOR') {
-    ShowNotification({
-      message: 'Hanya bos yang dapat mengakses url tersebut',
-      title: 'Byee',
-      type: 'failed',
-    });
+    // ShowNotification({
+    //   message: 'Hanya bos yang dapat mengakses url tersebut',
+    //   title: 'Byee',
+    //   type: 'failed',
+    // });
     return <Navigate to={'/login'} />;
   }
 

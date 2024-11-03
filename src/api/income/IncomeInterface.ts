@@ -68,6 +68,10 @@ export interface IIncomeProfitSummaryResponse {
     amount: number;
     percent: number;
   };
+  foodCost: number;
+  operational: number;
+  employeePayroll: number;
+  discFoc: number;
 }
 
 export interface IIncomeSummaryResponse {

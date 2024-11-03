@@ -42,7 +42,7 @@ const ExpensePanelEmployee = () => {
     const data = {
       evidence: values.evidence,
       price: values.price,
-      expenseCategoryId: Number(values.expenseCategoryId),
+      expenseCategory: values.expenseCategory,
       note: values.note,
       date: values.date,
       historyId,

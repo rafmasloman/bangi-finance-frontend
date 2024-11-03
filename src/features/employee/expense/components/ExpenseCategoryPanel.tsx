@@ -10,13 +10,13 @@ import { TbEdit } from 'react-icons/tb';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import ModalDelete from '../../../../features/director/components/modal/ModalDelete';
 import { useState } from 'react';
-import { useGetAllExpensesCategories } from '../../../../api/expense-category/hooks/useGetAllExpenseCategories';
 import { useUpdateExpenseCategory } from '../../../../api/expense-category/hooks/useUpdateExpenseCategory';
 import { IExpenseCategoryInputProps } from '../../../../features/director/community/expense-categories/helpers/expense-category-helper';
 import ExpenseCategoryForm from '../../../../features/director/community/expense-categories/components/ExpenseCategoryForm';
 import { useCreateExpenseCategory } from '../../../../api/expense-category/hooks/useCreateExpenseCategory';
 import { useGetDetailExpensesCategory } from '../../../../api/expense-category/hooks/useGetDetailExpenseCategory';
 import { useDeleteExpenseCategory } from '../../../../api/expense-category/hooks/useDeleteExpenseCategory';
+import { useGetExpenseCategories } from '../../../../api/expense/hooks/useGetExpenseCategories';
 
 const tableHead = [
   {
@@ -37,7 +37,7 @@ const ExpenseCategoryPanelEmployee = () => {
   const [openedDeleteForm, { open: openDelete, close: closeDelete }] =
     useDisclosure();
 
-  const expenseCategories = useGetAllExpensesCategories();
+  const expenseCategories = useGetExpenseCategories();
   const createExpenseCategory = useCreateExpenseCategory();
   const deleteExpenseCategory = useDeleteExpenseCategory();
   const updateExpenseCategory = useUpdateExpenseCategory();

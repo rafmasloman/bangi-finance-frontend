@@ -9,3 +9,13 @@ export const tableHeadExpense = [
   { label: 'Note' },
   { label: 'Action' },
 ];
+
+export const expenseCategoryData = [
+  'SALES',
+  'SERVICE_KARYAWAN',
+  'SERVICE_MANAJEMEN',
+  'PPN',
+  'GAJI_KARYAWAN',
+  'PENGEMBALIAN_MODAL',
+  'OPERASIONAL',
+];

@@ -14,6 +14,7 @@ interface ISupplierFormProps {
   close?: () => void;
   handleSubmit: (data: any) => void;
   initialValues?: ISupplierResponseDetailData;
+  loading?: boolean;
 }
 
 const SupplierForm = (props: ISupplierFormProps) => {
@@ -111,7 +112,11 @@ const SupplierForm = (props: ISupplierFormProps) => {
         <BaseButton btnVariant="secondary" onClick={props.close}>
           Batal
         </BaseButton>
-        <BaseButton type="submit" leftSection={<HiPlus />}>
+        <BaseButton
+          type="submit"
+          leftSection={<HiPlus />}
+          loading={props.loading}
+        >
           Input
         </BaseButton>
       </Group>

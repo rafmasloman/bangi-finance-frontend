@@ -1,9 +1,11 @@
 import {
   ActionIcon,
+  Checkbox,
   Group,
   Stack,
   Table,
   Text,
+  Tooltip,
   UnstyledButton,
 } from '@mantine/core';
 import { FaPlus } from 'react-icons/fa';
@@ -20,7 +22,7 @@ import { useUpdateSupplier } from '../../../../api/supplier/hooks/useUpdateSuppl
 import { useDeleteSupplier } from '../../../../api/supplier/hooks/useDeleteSupplier';
 import { useGetSupplierDetail } from '../../../../api/supplier/hooks/useGetSupplierDetail';
 import { useDisclosure } from '@mantine/hooks';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ISupplierRequestParams } from '../../../../api/supplier/SupplierApiInterface';
 import { tableHeadSuppliers } from '../helpers/supplier.helper';
 import moment from 'moment';
@@ -51,10 +53,15 @@ interface ISupplierPanelProps {
     };
   }[];
 }
+
 const SupplierPanel = (props: ISupplierPanelProps) => {
   const { historyId } = useParams();
   const { user } = useContext(AuthContext);
   const [supplierId, setSupplierId] = useState<string | null>(null);
+  const [supplierPaymentId, setSupplierPaymentId] = useState<string[] | null>(
+    [],
+  );
+  const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
   const [opened, { open, close }] = useDisclosure(false);
   const [openedEditForm, { open: openEdit, close: closeEdit }] =
@@ -79,7 +86,7 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
     paymentStatus: 'PAID' | 'UNPAID';
   }) => {
     const data = {
-      id: supplierId,
+      id: selectedRows,
       paymentStatus: values.paymentStatus,
     };
 
@@ -87,11 +94,6 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
       id: data.id ?? undefined,
       paymentStatus: data.paymentStatus,
     });
-
-    if (updatePaymentStatus.isSuccess) {
-      closeEditPayment();
-      setSupplierId(null);
-    }
   };
 
   const handleSubmitSupplier = (values: ISupplierRequestParams) => {
@@ -114,16 +116,12 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
         },
         id: supplierId,
       });
-
-      if (updateSupplier.isSuccess) {
-        setSupplierId(null);
-        closeEdit();
-      }
     } else {
       createSupplier.mutate({
         ...data,
         paymentStatus: 'UNPAID',
       });
+      close();
     }
   };
 
@@ -135,11 +133,11 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
     openEdit();
   };
 
-  const handleOpenModalPaymentStatus = (supplierId: string | null) => {
+  const handleOpenModalPaymentStatus = (supplierId: string) => {
     // if (supplierId) {
     // }
 
-    setSupplierId(supplierId);
+    setSupplierPaymentId([supplierId]);
 
     openEditPayment();
   };
@@ -159,6 +157,20 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
     }
   };
 
+  useEffect(() => {
+    if (updateSupplier.isSuccess) {
+      setSupplierId(null);
+      closeEdit();
+    }
+  }, [updateSupplier.isSuccess, closeEdit]);
+
+  useEffect(() => {
+    if (updatePaymentStatus.isSuccess) {
+      closeEditPayment();
+      setSelectedRows([]);
+    }
+  }, [updatePaymentStatus.isSuccess, closeEditPayment]);
+
   return (
     <>
       <ModalForm
@@ -167,7 +179,11 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
         opened={opened}
         onClose={close}
       >
-        <SupplierForm close={close} handleSubmit={handleSubmitSupplier} />
+        <SupplierForm
+          close={close}
+          handleSubmit={handleSubmitSupplier}
+          loading={createSupplier.isPending}
+        />
       </ModalForm>
 
       <ModalForm
@@ -202,6 +218,7 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
             close={closeEdit}
             handleSubmit={handleSubmitSupplier}
             initialValues={supplierDetail.data}
+            loading={updateSupplier.isPending}
           />
         )}
       </ModalForm>
@@ -220,9 +237,19 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
               Data Supplier
             </Text>
 
-            <BaseButton leftSection={<FaPlus />} onClick={open}>
-              Input Supplier
-            </BaseButton>
+            <Group>
+              <BaseButton
+                disabled={selectedRows.length <= 0}
+                leftSection={<FaPlus />}
+                onClick={openEditPayment}
+              >
+                Ubah Status
+              </BaseButton>
+
+              <BaseButton leftSection={<FaPlus />} onClick={open}>
+                Input Supplier
+              </BaseButton>
+            </Group>
           </Group>
           <Stack className="overflow-x-auto scrollbar-hide">
             <Table
@@ -236,6 +263,22 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
                 <TableDataBody
                   data={props.suppliers}
                   columns={[
+                    {
+                      key: 'checkbox',
+                      render: (row) => (
+                        <Checkbox
+                          checked={selectedRows.includes(row.id)}
+                          onChange={(event) =>
+                            setSelectedRows(
+                              event.currentTarget.checked
+                                ? [...selectedRows, row.id]
+                                : selectedRows.filter((id) => id !== row.id),
+                            )
+                          }
+                        />
+                      ),
+                    },
+
                     { key: 'no', render: (row) => <Text>{row.no}</Text> },
                     {
                       key: 'date',

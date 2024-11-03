@@ -1,6 +1,7 @@
 export const LOGIN_PAGE = 'login';
 
 export const BOOK_BASE_DIRECTOR_PAGE = '/books/director';
+export const BOOK_BASE_ADMIN_PAGE = '/books/admin';
 export const ADMIN_BASE_PAGE = 'admin';
 export const DIRECTOR_BASE_PAGE = 'director';
 

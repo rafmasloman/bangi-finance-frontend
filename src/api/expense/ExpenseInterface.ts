@@ -2,7 +2,7 @@ export interface IExpenseRequestParams {
   evidence: string;
   price: number;
   date: Date;
-  expenseCategoryId: number;
+  expenseCategory: number;
   note: string;
   historyId?: string;
   userId?: string;
@@ -14,10 +14,7 @@ export interface IExpenseResponseData {
     evidence: string;
     price: number;
     date: Date;
-    expenseCategory: {
-      id: number;
-      name: string;
-    };
+    expenseCategory: string;
     note: string;
     historyId?: string;
   }[];
@@ -29,21 +26,15 @@ export interface IExpenseResponseDetailData {
   evidence: string;
   price: number;
   date: Date;
-  expenseCategory: {
-    id: number;
-    name: string;
-  };
+  expenseCategory: string;
   note: string;
   historyId?: string;
 }
 
 export interface IExpenseAmountCategoryResponseData {
   expense: {
-    _sum: {
-      price: number;
-    };
-    expenseCategoryId: number;
-    expenseCategoryName: string;
+    category: string;
+    amount: number;
   }[];
   totalExpense: number;
 }

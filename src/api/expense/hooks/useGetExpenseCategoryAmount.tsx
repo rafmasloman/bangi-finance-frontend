@@ -12,9 +12,8 @@ export const useGetExpenseCategoryAmount = (
     select(data) {
       return {
         expense: data.data.expense.map((ctx) => ({
-          _sum: ctx._sum,
-          expenseCategoryId: ctx.expenseCategoryId,
-          expenseCategoryName: ctx.expenseCategoryName,
+          category: ctx.category,
+          amount: ctx.amount,
         })),
         totalExpense: data.data.totalExpense,
       };

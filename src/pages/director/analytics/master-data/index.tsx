@@ -16,6 +16,7 @@ import { useGetExpenseCategoryAmount } from '../../../../api/expense/hooks/useGe
 import { useParams } from 'react-router-dom';
 import { useGetDetailHistory } from '../../../../api/history/hooks/useGetHistoryDetail';
 import CurrencyFormatter from '../../../../shared/components/formatter/CurrencyFormatter';
+import { PiAlignBottomBold } from 'react-icons/pi';
 
 const DirectorMasterData = () => {
   const { historyId } = useParams();
@@ -149,6 +150,44 @@ const DirectorMasterData = () => {
             className="text-nowrap w-[230px] md:w-[180px] lg:w-[200px] xl:w-full"
           >
             <Group justify="space-between">
+              <Text className="text-xl text-gray-400 font-semibold">
+                Bahan Baku
+              </Text>
+
+              <ActionIcon
+                variant="light"
+                size={40}
+                radius={'xl'}
+                className="bg-indigo-200/[0.5]"
+              >
+                <PiAlignBottomBold className="text-indigo-600 text-2xl" />
+              </ActionIcon>
+            </Group>
+
+            <CurrencyFormatter
+              className="text-3xl font-semibold"
+              currency="IDR"
+              value={historyDetail.data?.remainingRawMaterials}
+            />
+
+            <Text className="text-base text-gray-400 font-medium ">
+              Sisa Bahan Baku Bulan Lalu{' '}
+            </Text>
+          </Stack>
+        </Card>
+
+        <Card
+          w={300}
+          radius={25}
+          shadow=""
+          className="overflow-visible h-fit py-5 border border-neutral-300"
+        >
+          <Stack
+            justify="space-between"
+            gap={20}
+            className="text-nowrap w-[230px] md:w-[180px] lg:w-[200px] xl:w-full"
+          >
+            <Group justify="space-between">
               <Text className="text-xl text-gray-400 font-semibold">PPN</Text>
 
               <ActionIcon
@@ -198,8 +237,8 @@ const DirectorMasterData = () => {
             <SimpleGrid cols={{ base: 1, md: 2 }}>
               {totalExpenseByCategory.data?.expense.map((categoryAmount) => (
                 <MasterDataCard
-                  amount={categoryAmount._sum.price}
-                  title={categoryAmount.expenseCategoryName}
+                  amount={categoryAmount.amount}
+                  title={categoryAmount.category}
                 />
               ))}
             </SimpleGrid>

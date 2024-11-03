@@ -1,29 +1,24 @@
-import { ActionIcon, Group, Stack, Table, Text } from '@mantine/core';
+import { Group, Stack, Table, Text } from '@mantine/core';
 import TableDataHead from '../../../../shared/components/table/TableDataHead';
 import TableDataBody from '../../../../shared/components/table/TableDataBody';
 import TableDataLayout from '../../../../shared/components/table/TableDataLayout';
-import BaseButton from '../../../../shared/components/button/BaseButton';
-import { FaPlus } from 'react-icons/fa6';
 import ModalForm from '../../../../features/director/components/modal/ModalForm';
 import { useDisclosure } from '@mantine/hooks';
-import { TbEdit } from 'react-icons/tb';
-import { MdOutlineDeleteOutline } from 'react-icons/md';
 import ModalDelete from '../../../../features/director/components/modal/ModalDelete';
 import { useState } from 'react';
-import { useGetAllExpensesCategories } from '../../../../api/expense-category/hooks/useGetAllExpenseCategories';
 import { useUpdateExpenseCategory } from '../../../../api/expense-category/hooks/useUpdateExpenseCategory';
 import { IExpenseCategoryInputProps } from '../../../../features/director/community/expense-categories/helpers/expense-category-helper';
 import ExpenseCategoryForm from '../../../../features/director/community/expense-categories/components/ExpenseCategoryForm';
 import { useCreateExpenseCategory } from '../../../../api/expense-category/hooks/useCreateExpenseCategory';
 import { useGetDetailExpensesCategory } from '../../../../api/expense-category/hooks/useGetDetailExpenseCategory';
 import { useDeleteExpenseCategory } from '../../../../api/expense-category/hooks/useDeleteExpenseCategory';
+import { useGetExpenseCategories } from '../../../../api/expense/hooks/useGetExpenseCategories';
 
 const tableHead = [
   {
     label: 'No',
   },
   { label: 'Category Name' },
-  { label: 'Action' },
 ];
 
 const ExpenseCategoryPanel = () => {
@@ -37,7 +32,7 @@ const ExpenseCategoryPanel = () => {
   const [openedDeleteForm, { open: openDelete, close: closeDelete }] =
     useDisclosure();
 
-  const expenseCategories = useGetAllExpensesCategories();
+  const expenseCategories = useGetExpenseCategories();
   const createExpenseCategory = useCreateExpenseCategory();
   const deleteExpenseCategory = useDeleteExpenseCategory();
   const updateExpenseCategory = useUpdateExpenseCategory();
@@ -45,6 +40,8 @@ const ExpenseCategoryPanel = () => {
     expenseCategoryId ?? undefined,
     openedEditForm,
   );
+
+  console.log('expense ccategories : ', expenseCategories.data);
 
   const handleSubmitForm = (values: IExpenseCategoryInputProps) => {
     if (values && !expenseCategoryId) {
@@ -127,14 +124,6 @@ const ExpenseCategoryPanel = () => {
             <Text className="font-semibold text-xl">
               Data Expense Community / Name
             </Text>
-
-            <BaseButton
-              btnVariant="primary"
-              onClick={open}
-              leftSection={<FaPlus />}
-            >
-              Input Community
-            </BaseButton>
           </Group>
           <Table classNames={{ th: `text-base` }}>
             <TableDataHead data={tableHead} />
@@ -145,32 +134,7 @@ const ExpenseCategoryPanel = () => {
                 { key: 'no', render: (row) => <Text>{row.no}</Text> },
                 {
                   key: 'name',
-                  render: (row) => <Text>{row.name}</Text>,
-                },
-
-                {
-                  key: 'action',
-                  render: (row) => (
-                    <Group gap={10}>
-                      <ActionIcon
-                        onClick={() => handleOpenModalEdit(row.id)}
-                        radius={'md'}
-                        size={27}
-                        className="bg-indigo-500 text-lg"
-                      >
-                        <TbEdit />
-                      </ActionIcon>
-
-                      <ActionIcon
-                        onClick={() => handleOpenModalDelete(row.id)}
-                        radius={'md'}
-                        size={27}
-                        className="bg-rose-400  text-md"
-                      >
-                        <MdOutlineDeleteOutline className=" text-lg" />
-                      </ActionIcon>
-                    </Group>
-                  ),
+                  render: (row) => <Text>{row.category}</Text>,
                 },
               ]}
             />

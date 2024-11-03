@@ -15,7 +15,7 @@ const BaseButton = (props: IBaseButtonPropsType) => {
           props.btnVariant === 'secondary'
             ? 'bg-white hover:bg-white'
             : ' bg-primary hover:bg-primary'
-        } border border-black_primary shadow-[4px_4px_0] shadow-black_primary   hover:translate-y-1.5 hover:translate-x-1.5 duration-500 hover:shadow-[0px_0px_0]  duration-300 `,
+        } border border-black_primary shadow-[4px_4px_0] shadow-black_primary disabled:cursor-not-allowed  disabled:bg-gray-300 disabled:shadow-gray-200  disabled:border-gray-400  hover:translate-y-1.5 hover:translate-x-1.5 duration-500 hover:shadow-[0px_0px_0]  duration-300 `,
         label: `text-black_primary
         `,
         section: `text-black_primary `,

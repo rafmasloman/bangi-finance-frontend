@@ -5,8 +5,7 @@ import DailyReportPage from '../pages/director/daily-report';
 import ExpenseDirectorPage from '../pages/director/expense';
 import SupplierDirectorPage from '../pages/director/supplier';
 import LoginPage from '../pages/auth/login';
-import SupplierCommunityPage from '../pages/community/supplier-community';
-import ExpenseCategoryDirectorPage from '../pages/community/expense-categories';
+// import ExpenseCategoryDirectorPage from '../pages/community/expense-categories';
 import DirectorMasterData from '../pages/director/analytics/master-data';
 import DirectorSummaryPage from '../pages/director/analytics/summary';
 import DirectorHistoryPage from '../pages/director/history';
@@ -17,41 +16,44 @@ import MainLayout from '../shared/layouts/MainLayouts';
 import ExpenseEmployeePage from '../pages/employee/expense';
 import RoleProtectedRoute from '../shared/routes/RoleProtectedRoute';
 import EmployeeLayout from '../shared/layouts/EmployeeLayout';
+import AdminHistoryPage from '../pages/employee/history';
+import EmployeeDailyReportPage from '../pages/employee/daily-report';
+import SupplierEmployeePage from '../pages/employee/suppliers';
 
 const RouterPage = () => {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route element={<ProtectedRoute />}>
-        <Route path="/employee" element={<EmployeeLayout />}>
+        <Route path="/admin" element={<MainLayout />}>
+          <Route path="histories" element={<AdminHistoryPage />} />
+        </Route>
+
+        <Route path="/books/admin/:historyId" element={<EmployeeLayout />}>
+          <Route path="daily-report" element={<EmployeeDailyReportPage />} />
           <Route path="expense" element={<ExpenseEmployeePage />} />
+          <Route path="supplier" element={<SupplierEmployeePage />} />
         </Route>
 
-        <Route path="/director" element={<MainLayout />}>
-          <Route path="user" element={<UserAccountPage />} />
-          <Route path="histories" element={<DirectorHistoryPage />} />
-          <Route
-            path="user/account-setting"
-            element={<DirectorAccountSettingPage />}
-          />
-        </Route>
+        <Route element={<RoleProtectedRoute />}>
+          <Route path="/director" element={<MainLayout />}>
+            <Route path="user" element={<UserAccountPage />} />
+            <Route path="histories" element={<DirectorHistoryPage />} />
+            <Route
+              path="user/account-setting"
+              element={<DirectorAccountSettingPage />}
+            />
+          </Route>
 
-        <Route path="/books/director/:historyId" element={<DirectorLayout />}>
-          <Route index path="dashboard" element={<DirectorDashboardPage />} />
-          <Route path="daily-report" element={<DailyReportPage />} />
-          <Route path="income" />
-          <Route path="expense" element={<ExpenseDirectorPage />} />
-          <Route path="supplier" element={<SupplierDirectorPage />} />
-          <Route
-            path="suppliers-community"
-            element={<SupplierCommunityPage />}
-          />
-          <Route
-            path="expenses-category"
-            element={<ExpenseCategoryDirectorPage />}
-          />
-          <Route path="master-data" element={<DirectorMasterData />} />
-          <Route path="summary" element={<DirectorSummaryPage />} />
+          <Route path="/books/director/:historyId" element={<DirectorLayout />}>
+            <Route path="dashboard" element={<DirectorDashboardPage />} />
+            <Route path="daily-report" element={<DailyReportPage />} />
+            <Route path="income" />
+            <Route path="expense" element={<ExpenseDirectorPage />} />
+            <Route path="supplier" element={<SupplierDirectorPage />} />
+            <Route path="master-data" element={<DirectorMasterData />} />
+            <Route path="summary" element={<DirectorSummaryPage />} />
+          </Route>
         </Route>
 
         {/* <Route element={<RoleProtectedRoute />}></Route> */}

@@ -32,6 +32,7 @@ import MDRForm from '../../../../features/director/dashboard/components/MDRForm'
 import { useGetRemainingData } from '../../../../api/history/hooks/useGetRemainingDataHistory';
 import { useGetSupplierAmountByPaymentStatus } from '../../../../api/supplier/hooks/useGetSupplierAmountByStatus';
 import { useState } from 'react';
+import { useGetDetailHistory } from '../../../../api/history/hooks/useGetHistoryDetail';
 
 const DirectorDashboardPage = () => {
   const { historyId } = useParams();
@@ -44,6 +45,7 @@ const DirectorDashboardPage = () => {
   const suppliers = useGetSupplierAmountByPaymentStatus(
     isPaid ? 'PAID' : 'UNPAID',
   );
+  const historyDetail = useGetDetailHistory(historyId, true);
 
   const [opened, { open, close }] = useDisclosure();
 
@@ -64,8 +66,8 @@ const DirectorDashboardPage = () => {
         className="overflow-y-visible pb-8 overflow-x-auto scrollbar-hide"
       >
         <BalanceCard
-          value={analyticsIncome.data?.salesAnalytics.total}
-          month="Januari"
+          value={remainingData.data?.balance}
+          month={historyDetail.data?.month}
         />
 
         <AnalyticsCard
@@ -110,7 +112,7 @@ const DirectorDashboardPage = () => {
         >
           <Stack align="start" gap={10}>
             <Text className="text-nowrap text-xs xl:text-base text-gray-400 font-medium">
-              Rata-rata bulan januari
+              Rata-rata bulan {historyDetail.data?.month}
             </Text>
           </Stack>
         </AnalyticsCard>
@@ -131,7 +133,7 @@ const DirectorDashboardPage = () => {
         >
           <Stack align="start" gap={10}>
             <Text className="text-nowrap text-xs xl:text-base text-gray-400 font-medium">
-              Rata-rata bulan januari
+              Collection Bulan {historyDetail.data?.month}
             </Text>
           </Stack>
         </AnalyticsCard>

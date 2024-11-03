@@ -24,10 +24,6 @@ const ProtectedRoute = () => {
     );
   }
 
-  // if (credential.isSuccess) {
-  //   return <Navigate to={DIRECTOR_DASHBOARD_PAGE} />;
-  // }
-
   if (!credential.data) {
     if (credential.isError) {
       ShowNotification({
@@ -36,13 +32,6 @@ const ProtectedRoute = () => {
         type: 'failed',
       });
     }
-    return <Navigate to={'/login'} />;
-  } else if (credential.data.role !== 'DIRECTOR') {
-    ShowNotification({
-      message: 'Hanya bos yang dapat mengakses url tersebut',
-      title: 'Byee',
-      type: 'failed',
-    });
     return <Navigate to={'/login'} />;
   }
 

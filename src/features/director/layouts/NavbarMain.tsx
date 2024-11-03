@@ -13,6 +13,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { RiDoorOpenLine } from 'react-icons/ri';
 import { checkPathname } from '../../../shared/utils/navbar.utils';
 import {
+  ADMIN_HISTORY_PAGE,
   DIRECTOR_HISTORY_PAGE,
   DIRECTOR_USER_PAGE,
 } from '../../../constants/pages-route';
@@ -87,26 +88,34 @@ const NavbarMain = () => {
         <Stack>
           <Text className="text-neutral-400 font-medium">Main Menu</Text>
 
+          {user?.role !== 'DIRECTOR' ? null : (
+            <NavLink
+              component={Link}
+              to={DIRECTOR_USER_PAGE}
+              leftSection={<FaPerson className="text-lg xl:text-xl " />}
+              label="Users"
+              classNames={{
+                label: `text-sm xl:text-base `,
+
+                root: `${
+                  checkPathname('user')
+                    ? 'bg-primary text-black font-semibold'
+                    : 'text-white'
+                } rounded-xl`,
+                section: `${
+                  checkPathname('user') ? 'text-black' : 'text-white'
+                }`,
+              }}
+            />
+          )}
+
           <NavLink
             component={Link}
-            to={DIRECTOR_USER_PAGE}
-            leftSection={<FaPerson className="text-lg xl:text-xl " />}
-            label="Users"
-            classNames={{
-              label: `text-sm xl:text-base `,
-
-              root: `${
-                checkPathname('user')
-                  ? 'bg-primary text-black font-semibold'
-                  : 'text-white'
-              } rounded-xl`,
-              section: `${checkPathname('user') ? 'text-black' : 'text-white'}`,
-            }}
-          />
-
-          <NavLink
-            component={Link}
-            to={DIRECTOR_HISTORY_PAGE}
+            to={
+              user?.role !== 'DIRECTOR'
+                ? ADMIN_HISTORY_PAGE
+                : DIRECTOR_HISTORY_PAGE
+            }
             leftSection={
               <LuDatabaseBackup className="text-lg xl:text-xl text-white" />
             }
@@ -120,24 +129,28 @@ const NavbarMain = () => {
 
         <Stack gap={16}>
           <Text className="text-neutral-400 font-medium">Settings</Text>
-          <NavLink
-            component={Link}
-            to={`${DIRECTOR_USER_PAGE}/account-setting`}
-            leftSection={<IoSettingsOutline className="text-lg xl:text-xl " />}
-            label="Account"
-            classNames={{
-              label: `text-sm xl:text-base `,
+          {user?.role !== 'DIRECTOR' ? null : (
+            <NavLink
+              component={Link}
+              to={`${DIRECTOR_USER_PAGE}/account-setting`}
+              leftSection={
+                <IoSettingsOutline className="text-lg xl:text-xl " />
+              }
+              label="Account"
+              classNames={{
+                label: `text-sm xl:text-base `,
 
-              root: `${
-                checkPathname('user-account')
-                  ? 'bg-primary text-black font-semibold'
-                  : 'text-white'
-              } rounded-xl`,
-              section: `${
-                checkPathname('user-account') ? 'text-black' : 'text-white'
-              }`,
-            }}
-          />
+                root: `${
+                  checkPathname('user-account')
+                    ? 'bg-primary text-black font-semibold'
+                    : 'text-white'
+                } rounded-xl`,
+                section: `${
+                  checkPathname('user-account') ? 'text-black' : 'text-white'
+                }`,
+              }}
+            />
+          )}
           <NavLink
             component={Button}
             onClick={open}

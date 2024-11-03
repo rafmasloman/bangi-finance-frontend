@@ -21,7 +21,8 @@ import { RiHome3Line } from 'react-icons/ri';
 import { HiOutlineInboxStack } from 'react-icons/hi2';
 import { checkPathname } from '../../../shared/utils/navbar.utils';
 import {
-  BOOK_BASE_DIRECTOR_PAGE,
+  ADMIN_HISTORY_PAGE,
+  BOOK_BASE_ADMIN_PAGE,
   DAILY_REPORT_PAGE,
   DASHBOARD_PAGE,
   DIRECTOR_HISTORY_PAGE,
@@ -100,12 +101,11 @@ const NavbarEmployee = () => {
 
           <NavLink
             component={Link}
-            to={`${BOOK_BASE_DIRECTOR_PAGE}/${historyId}/${DAILY_REPORT_PAGE}`}
+            to={`${BOOK_BASE_ADMIN_PAGE}/${historyId}/${DAILY_REPORT_PAGE}`}
             leftSection={<TbReport className="text-lg xl:text-xl " />}
             label="Daily Report"
             classNames={{
-              label: `text-sm xl:text-base `,
-
+              label: `text-sm xl:text-base`,
               root: `${
                 checkPathname('daily-report')
                   ? 'bg-primary text-black font-semibold'
@@ -119,7 +119,7 @@ const NavbarEmployee = () => {
 
           <NavLink
             component={Link}
-            to={`${BOOK_BASE_DIRECTOR_PAGE}/${historyId}/${EXPENSE_PAGE}`}
+            to={`${BOOK_BASE_ADMIN_PAGE}/${historyId}/${EXPENSE_PAGE}`}
             leftSection={<TbCashRegister className="text-lg xl:text-xl" />}
             label="Pengeluaran"
             classNames={{
@@ -138,7 +138,7 @@ const NavbarEmployee = () => {
 
           <NavLink
             component={Link}
-            to={`${BOOK_BASE_DIRECTOR_PAGE}/${historyId}/${SUPPLIER_PAGE}`}
+            to={`${BOOK_BASE_ADMIN_PAGE}/${historyId}/${SUPPLIER_PAGE}`}
             leftSection={<TbTruckLoading className="text-lg xl:text-xl" />}
             label="Supplier"
             classNames={{
@@ -157,7 +157,7 @@ const NavbarEmployee = () => {
         </Stack>
         <NavLink
           component={Link}
-          to={`${DIRECTOR_HISTORY_PAGE}`}
+          to={`${ADMIN_HISTORY_PAGE}`}
           leftSection={<RiHome3Line className="text-lg xl:text-xl " />}
           label="Kembali ke home"
           classNames={{

@@ -11,6 +11,7 @@ interface IIncomeFormProps {
   close?: () => void;
   handleSubmit: (data: any) => void;
   initialValues?: IIncomeRequestParams;
+  loading?: boolean;
 }
 
 const IncomeForm = (props: IIncomeFormProps) => {
@@ -23,8 +24,6 @@ const IncomeForm = (props: IIncomeFormProps) => {
       focItem: props.initialValues?.focItem || 0,
       focBill: props.initialValues?.focBill || 0,
       service: props.initialValues?.service || 0,
-      
-
     },
     validate: zodResolver(IncomeFormSchema),
   });
@@ -48,6 +47,7 @@ const IncomeForm = (props: IIncomeFormProps) => {
           <BaseCurrencyInput
             placeholder="Jumlah Item Sales"
             label="Item Sales"
+            min={0}
             {...formIncome.getInputProps('itemSales')}
           />
         </Grid.Col>
@@ -56,6 +56,7 @@ const IncomeForm = (props: IIncomeFormProps) => {
           <BaseCurrencyInput
             placeholder="Jumlah Item Discount"
             label="Item Discount"
+            min={0}
             {...formIncome.getInputProps('itemDiscount')}
           />
         </Grid.Col>
@@ -64,6 +65,7 @@ const IncomeForm = (props: IIncomeFormProps) => {
           <BaseCurrencyInput
             placeholder="Jumlah Bill Discount"
             label="Bill Discount"
+            min={0}
             {...formIncome.getInputProps('billDiscount')}
           />
         </Grid.Col>
@@ -72,6 +74,7 @@ const IncomeForm = (props: IIncomeFormProps) => {
           <BaseCurrencyInput
             placeholder="Jumlah Foc Item"
             label="Foc Item"
+            min={0}
             {...formIncome.getInputProps('focItem')}
           />
         </Grid.Col>
@@ -80,6 +83,7 @@ const IncomeForm = (props: IIncomeFormProps) => {
           <BaseCurrencyInput
             placeholder="Jumlah Foc Bill"
             label="Foc Bill"
+            min={0}
             {...formIncome.getInputProps('focBill')}
           />
         </Grid.Col>
@@ -88,6 +92,7 @@ const IncomeForm = (props: IIncomeFormProps) => {
           <BaseCurrencyInput
             placeholder="Jumlah Service"
             label="Service"
+            min={0}
             {...formIncome.getInputProps('service')}
           />
         </Grid.Col>
@@ -97,7 +102,7 @@ const IncomeForm = (props: IIncomeFormProps) => {
         <BaseButton btnVariant="secondary" onClick={props.close}>
           Batal
         </BaseButton>
-        <BaseButton btnVariant="primary" type="submit">
+        <BaseButton btnVariant="primary" type="submit" loading={props.loading}>
           Input
         </BaseButton>
       </Group>

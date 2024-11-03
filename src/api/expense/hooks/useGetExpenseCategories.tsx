@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { GET_ALL_EXPENSE_CATEGORIES_DATA } from '../../../constants/query-key';
-import expenseCategoryServiceApi from '../ExpenseCategoryService';
+import expenseServiceApi from '../ExpenseService';
 
-export const useGetAllExpensesCategories = () => {
+export const useGetExpenseCategories = () => {
   const query = useQuery({
     queryKey: [GET_ALL_EXPENSE_CATEGORIES_DATA],
-    queryFn: () => expenseCategoryServiceApi.getAllExpenseCategories(),
+    queryFn: () => expenseServiceApi.getExpenseCategories(),
     select(data) {
-      console.log('dat a : ', data);
+      console.log('data : ', data);
 
       return data.data.map((ctx, index) => {
         return {

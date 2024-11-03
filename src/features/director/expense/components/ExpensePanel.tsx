@@ -15,13 +15,14 @@ import { useGetAllExpenses } from '../../../../api/expense/hooks/useGetAllExpens
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { TbEdit } from 'react-icons/tb';
 import CurrencyFormatter from '../../../../shared/components/formatter/CurrencyFormatter';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useDeleteExpense } from '../../../../api/expense/hooks/useDeleteExpense';
 import { useGetDetailExpenses } from '../../../../api/expense/hooks/useGetDetailExpense';
 import ModalDelete from '../../../../features/director/components/modal/ModalDelete';
 import { AuthContext } from '../../../../context/AuthContext';
 import { tableHeadExpense } from '../helpers/expense.helper';
 import { useParams } from 'react-router-dom';
+import { useUpdateExpense } from '../../../../api/expense/hooks/useUpdateExpense';
 
 const ExpensePanel = () => {
   const { user } = useContext(AuthContext);
@@ -37,6 +38,7 @@ const ExpensePanel = () => {
     useDisclosure();
 
   const createExpense = useCreateExpense();
+  const updateExpense = useUpdateExpense();
   const deleteExpense = useDeleteExpense();
   const expenses = useGetAllExpenses();
   const expenseDetail = useGetDetailExpenses(
@@ -48,17 +50,19 @@ const ExpensePanel = () => {
     const data = {
       evidence: values.evidence,
       price: values.price,
-      expenseCategoryId: Number(values.expenseCategoryId),
+      expenseCategory: values.expenseCategory,
       note: values.note,
       date: values.date,
       historyId,
       userId: user?.id,
     };
 
-    if (!!user?.id) {
+    if (!!expenseId) {
+      updateExpense.mutate({ payload: data, id: expenseId });
+    } else {
       createExpense.mutate(data);
+      close();
     }
-    close();
   };
 
   const handleOpenModalEdit = (id: string) => {
@@ -84,6 +88,13 @@ const ExpensePanel = () => {
       closeDelete();
     }
   };
+
+  useEffect(() => {
+    if (updateExpense.isSuccess) {
+      closeEdit();
+      setExpenseId(null);
+    }
+  }, [updateExpense.isSuccess, closeEdit]);
 
   if (expenses.isLoading) {
     return <Text>Loading...</Text>;
@@ -113,6 +124,7 @@ const ExpensePanel = () => {
             handleSubmit={handleSubmitExpense}
             close={closeEdit}
             initialValues={expenseDetail.data}
+            isLoading={updateExpense.isPending}
           />
         )}
       </ModalForm>
@@ -125,7 +137,7 @@ const ExpensePanel = () => {
       />
 
       <Text className="text-xl font-semibold">Halaman Pengeluaran</Text>
-
+      {/* 
       <Group
         wrap="nowrap"
         className="w-full overflow-scroll no-scrollbar scrollbar-hide"
@@ -246,16 +258,19 @@ const ExpensePanel = () => {
             <Text className="text-3xl font-semibold"> Rp 24.158.274</Text>
           </Stack>
         </Card>
-      </Group>
+      </Group> */}
 
       <TableDataLayout>
         <Group justify="space-between" className="w-full h-fit py-3.5">
           <Text className="font-semibold text-xl">Data Pengeluaran</Text>
 
-          <BaseButton leftSection={<FaPlus />} onClick={open}>
-            Input Pengeluaran
-          </BaseButton>
+          <Group>
+            <BaseButton leftSection={<FaPlus />} onClick={open}>
+              Input Pengeluaran
+            </BaseButton>
+          </Group>
         </Group>
+
         <Stack className="overflow-x-auto scrollbar-hide">
           <Table classNames={{ th: `text-base` }}>
             <TableDataHead data={tableHeadExpense} />
@@ -288,9 +303,7 @@ const ExpensePanel = () => {
                   {
                     key: 'category',
                     render: (row) => (
-                      <Text className="text-nowrap">
-                        {row.expenseCategory.name}
-                      </Text>
+                      <Text className="text-nowrap">{row.expenseCategory}</Text>
                     ),
                   },
                   {

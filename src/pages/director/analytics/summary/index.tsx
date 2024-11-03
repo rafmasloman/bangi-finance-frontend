@@ -11,11 +11,15 @@ import { useParams } from 'react-router-dom';
 import { useGetIncomeProfit } from '../../../../api/income/hooks/useGetIncomeProfit';
 import { useGetIncomeSummary } from '../../../../api/income/hooks/useGetIncomeSummary';
 import { useGetExpenseSummary } from '../../../../api/expense/hooks/useGetExpenseSummary';
+import CostCard from '../../../../features/director/analytics/summary/components/CostCard';
 
 const DirectorSummaryPage = () => {
   const { historyId } = useParams();
 
   const profit = useGetIncomeProfit(historyId);
+
+  console.log('profit : ', profit.data);
+
   const incomeSummary = useGetIncomeSummary(historyId);
   const expenseSummary = useGetExpenseSummary(historyId);
 
@@ -76,15 +80,15 @@ const DirectorSummaryPage = () => {
         </Group>
 
         <Grid gutter={50}>
-          <Grid.Col span={{ base: 12, lg: 4 }}>
+          <Grid.Col span={{ base: 12, md: 6, xl: 4 }}>
             <MasterBalanceCard
               title="Total Pengeluaran"
               value={expenseSummary.data?.totalExpense}
             />
           </Grid.Col>
 
-          <Grid.Col span={{ base: 12, lg: 8 }}>
-            <SimpleGrid cols={{ base: 1, md: 2 }}>
+          <Grid.Col span={{ base: 12, md: 6, xl: 8 }}>
+            <SimpleGrid cols={{ base: 1, lg: 2 }}>
               <SummaryExpenseCard
                 amount={expenseSummary.data?.rawMaterials}
                 title="Bahan Baku"
@@ -101,6 +105,16 @@ const DirectorSummaryPage = () => {
           </Grid.Col>
         </Grid>
       </Stack>
+
+      <Group className="overflow-x-scroll scrollbar-hide" wrap="nowrap">
+        <CostCard label="Food Cost" percent={profit.data?.foodCost} />
+        <CostCard label="Operasional" percent={profit.data?.operational} />
+        <CostCard
+          label="Gaji Karyawan"
+          percent={profit.data?.employeePayroll}
+        />
+        <CostCard label="Disc/Foc" percent={profit.data?.discFoc} />
+      </Group>
     </Stack>
   );
 };

@@ -22,9 +22,9 @@ const HeaderPageLayout = (props: IHeaderPageLayoutProps) => {
       <Group>
         <Avatar className="border border-neutral-300 " size={'md'} />
         <Stack gap={0}>
-          <Text className="text-base lg:text-xl font-semibold">{`${props.user?.firstname} ${props.user?.lastname}`}</Text>
-          <Text className="text-sm md:text-base text-gray-400 ">{`${
-            props.user?.role === 'DIRECTOR' ? 'Direktur' : 'Admin'
+          <Text className="text-base sm:text-lg lg:text-xl font-semibold">{`${props.user?.firstname} ${props.user?.lastname}`}</Text>
+          <Text className="text-base sm:text-lg font-medium text-gray-400 ">{`${
+            props.user?.role === 'DIRECTOR' ? 'Boss' : 'Admin'
           }`}</Text>
         </Stack>
       </Group>

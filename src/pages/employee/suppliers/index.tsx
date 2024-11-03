@@ -16,7 +16,7 @@ import SupplierCommunityPanel from '../../../features/director/supplier/componen
 import { useParams } from 'react-router-dom';
 import { useGetTotalPaymentSupplier } from '../../../api/supplier/hooks/useGetTotalPaymentSupplier';
 
-const SupplierDirectorPage = () => {
+const SupplierEmployeePage = () => {
   const { historyId } = useParams();
   const [totalSupplier, setTotalSupplier] = useState<number>(0);
   const [totalPaidSupplier, setTotalPaidSupplier] = useState<number>(0);
@@ -24,8 +24,6 @@ const SupplierDirectorPage = () => {
 
   const suppliers = useGetAllSuppliers(historyId);
   const totalPaymentSupplier = useGetTotalPaymentSupplier(historyId);
-
-  console.log('total payment : ', totalPaymentSupplier.data?.totalPaid);
 
   useEffect(() => {
     if (!totalPaymentSupplier.data?.totalPaid) {
@@ -43,8 +41,6 @@ const SupplierDirectorPage = () => {
       setTotalUnpaidSupplier(totalPaymentSupplier.data.totalUnpaid);
     }
   }, [totalPaymentSupplier.data]);
-
-  console.log('unpaid : ', totalUnpaidSupplier);
 
   if (suppliers.isLoading) {
     return <Text>Loading...</Text>;
@@ -204,4 +200,4 @@ const SupplierDirectorPage = () => {
   );
 };
 
-export default SupplierDirectorPage;
+export default SupplierEmployeePage;

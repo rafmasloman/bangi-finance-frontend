@@ -9,7 +9,16 @@ export const SupplierInputSchema = z.object({
   ppn: z.number(),
 });
 
+export const SupplierPaymentInputSchema = z.object({
+  paymentStatus: z
+    .string({ message: 'Status pembayaran harus dipilih' })
+    .min(1, { message: 'Status pembayaran harus dipilih' }),
+});
+
 export const tableHeadSuppliers = [
+  {
+    label: '',
+  },
   {
     label: 'No',
   },

@@ -159,59 +159,61 @@ const UserAccountPage = () => {
             Tambah User
           </BaseButton>
         </Group>
-        <Table classNames={{ th: `text-base` }}>
-          <TableDataHead data={tableHead} />
+        <Stack className="overflow-x-auto scrollbar-hide">
+          <Table classNames={{ th: `text-base` }}>
+            <TableDataHead data={tableHead} />
 
-          <TableDataBody
-            data={userAccounts.data}
-            columns={[
-              { key: 'no', render: (row) => <Text>{row.no}</Text> },
-              {
-                key: 'fullname',
-                render: (row) => (
-                  <Text>{`${row.firstname} ${row.lastname}`}</Text>
-                ),
-              },
+            <TableDataBody
+              data={userAccounts.data}
+              columns={[
+                { key: 'no', render: (row) => <Text>{row.no}</Text> },
+                {
+                  key: 'fullname',
+                  render: (row) => (
+                    <Text>{`${row.firstname} ${row.lastname}`}</Text>
+                  ),
+                },
 
-              {
-                key: 'email',
-                render: (row) => <Text>{row.email}</Text>,
-              },
-              {
-                key: 'username',
-                render: (row) => <Text>{row.username}</Text>,
-              },
-              {
-                key: 'phoneNumber',
-                render: (row) => <Text>{row.phoneNumber}</Text>,
-              },
-              {
-                key: 'action',
-                render: (row) => (
-                  <Group gap={10} wrap="nowrap">
-                    <ActionIcon
-                      onClick={() => handleOpenModalEdit(row.id)}
-                      radius={'md'}
-                      size={27}
-                      className="bg-indigo-500 text-lg"
-                    >
-                      <TbEdit />
-                    </ActionIcon>
+                {
+                  key: 'email',
+                  render: (row) => <Text>{row.email}</Text>,
+                },
+                {
+                  key: 'username',
+                  render: (row) => <Text>{row.username}</Text>,
+                },
+                {
+                  key: 'phoneNumber',
+                  render: (row) => <Text>{row.phoneNumber}</Text>,
+                },
+                {
+                  key: 'action',
+                  render: (row) => (
+                    <Group gap={10} wrap="nowrap">
+                      <ActionIcon
+                        onClick={() => handleOpenModalEdit(row.id)}
+                        radius={'md'}
+                        size={27}
+                        className="bg-indigo-500 text-lg"
+                      >
+                        <TbEdit />
+                      </ActionIcon>
 
-                    <ActionIcon
-                      onClick={() => handleOpenModalDelete(row.id)}
-                      radius={'md'}
-                      size={27}
-                      className="bg-rose-400  text-md"
-                    >
-                      <MdOutlineDeleteOutline className=" text-lg" />
-                    </ActionIcon>
-                  </Group>
-                ),
-              },
-            ]}
-          />
-        </Table>
+                      <ActionIcon
+                        onClick={() => handleOpenModalDelete(row.id)}
+                        radius={'md'}
+                        size={27}
+                        className="bg-rose-400  text-md"
+                      >
+                        <MdOutlineDeleteOutline className=" text-lg" />
+                      </ActionIcon>
+                    </Group>
+                  ),
+                },
+              ]}
+            />
+          </Table>
+        </Stack>
       </TableDataLayout>
     </Stack>
   );

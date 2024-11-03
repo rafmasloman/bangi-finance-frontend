@@ -15,6 +15,7 @@ export const useGetRemainingData = () => {
           data.data.remainingMonthManagementService,
         remainingMonthTax: data.data.remainingMonthTax,
         remainingSales: data.data.remainingSales,
+        balance: data.data.balance,
       };
     },
     enabled: !!historyId,

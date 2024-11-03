@@ -1,48 +1,6 @@
-import {
-  ActionIcon,
-  Card,
-  Group,
-  Stack,
-  Table,
-  Tabs,
-  Text,
-} from '@mantine/core';
-import TableDataHead from '../../../shared/components/table/TableDataHead';
-import TableDataBody from '../../../shared/components/table/TableDataBody';
-import TableDataLayout from '../../../shared/components/table/TableDataLayout';
-import BaseButton from '../../../shared/components/button/BaseButton';
-import { FaBoxOpen, FaPeopleGroup, FaPlus } from 'react-icons/fa6';
-import { IoFileTrayFull } from 'react-icons/io5';
-import { HiReceiptTax } from 'react-icons/hi';
-import { useDisclosure } from '@mantine/hooks';
-import ModalForm from '../../../features/director/components/modal/ModalForm';
-import ExpenseForm from '../../../features/director/expense/components/ExpenseForm';
-import { IExpenseRequestParams } from '../../../api/expense/ExpenseInterface';
-import { useCreateExpense } from '../../../api/expense/hooks/useCreateExpense';
-import { useGetAllExpenses } from '../../../api/expense/hooks/useGetAllExpense';
-import { MdOutlineDeleteOutline } from 'react-icons/md';
-import { TbEdit } from 'react-icons/tb';
-import CurrencyFormatter from '../../../shared/components/formatter/CurrencyFormatter';
-import { useContext, useState } from 'react';
-import { useDeleteExpense } from '../../../api/expense/hooks/useDeleteExpense';
-import { useGetDetailExpenses } from '../../../api/expense/hooks/useGetDetailExpense';
-import ModalDelete from '../../../features/director/components/modal/ModalDelete';
-import { AuthContext } from '../../../context/AuthContext';
+import { Stack, Tabs } from '@mantine/core';
 import ExpensePanel from '../../../features/director/expense/components/ExpensePanel';
 import ExpenseCategoryPanel from '../../../features/director/expense/components/ExpenseCategoryPanel';
-import { baseColors } from '../../../constants/colors';
-
-const tableHead = [
-  {
-    label: 'No',
-  },
-  { label: 'Tanggal' },
-  { label: 'Keterangan' },
-  { label: 'Jumlah' },
-  { label: 'Kategori' },
-  { label: 'Note' },
-  { label: 'Action' },
-];
 
 const ExpenseDirectorPage = () => {
   return (
