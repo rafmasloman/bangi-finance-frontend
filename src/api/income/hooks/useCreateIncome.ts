@@ -8,7 +8,7 @@ export const useCreateIncome = () => {
 
   const mutation = useMutation({
     mutationFn: incomeServiceApi.createIncome,
-    onSuccess(data, variables, context) {
+    onSuccess(data) {
       if (data.statusCode === 201) {
         ShowNotification({
           message: 'Berhasil menambah history buku',
@@ -25,9 +25,7 @@ export const useCreateIncome = () => {
 
       queryClient.invalidateQueries({ queryKey: [GET_ALL_INCOMES_DATA] });
     },
-    onError(error, variables, context) {
-      console.log('error : ', error);
-    },
+    onError() {},
   });
 
   return mutation;

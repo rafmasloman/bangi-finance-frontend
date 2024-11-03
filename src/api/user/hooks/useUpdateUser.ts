@@ -6,11 +6,11 @@ export const useUpdateUserAccount = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: userServiceApi.updateUser,
-    onSuccess(data, variables, context) {
+    onSuccess() {
       queryClient.invalidateQueries({
         queryKey: [GET_ALL_USERS_DATA],
       });
     },
-    onError(error, variables, context) {},
+    onError() {},
   });
 };

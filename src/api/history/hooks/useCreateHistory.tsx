@@ -24,7 +24,7 @@ export const useCreateHistory = () => {
 
       queryClient.invalidateQueries({ queryKey: [GET_ALL_HISTORIES_DATA] });
     },
-    onError(error) {
+    onError() {
       ShowNotification({
         message: 'Gagal menambah history buku',
         title: 'History buku gagal ditambah',

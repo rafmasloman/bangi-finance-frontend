@@ -6,7 +6,7 @@ export const useDeleteIncome = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: incomeServiceApi.deleteIncome,
-    onSuccess(data, variables, context) {
+    onSuccess() {
       queryClient.invalidateQueries({ queryKey: [GET_ALL_INCOMES_DATA] });
     },
   });

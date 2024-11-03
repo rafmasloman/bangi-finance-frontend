@@ -1,7 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useCredentialUser } from '../../api/auth/hooks/useCredentialUser';
 import { Group, Loader } from '@mantine/core';
-import ShowNotification from '../components/notifications/BaseNotification';
 
 const RoleProtectedRoute = () => {
   const credential = useCredentialUser();

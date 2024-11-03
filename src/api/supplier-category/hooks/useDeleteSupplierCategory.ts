@@ -7,7 +7,7 @@ export const useDeleteSupplierCategory = () => {
 
   return useMutation({
     mutationFn: supplierCategoryApi.deleteSupplierCategory,
-    onSuccess(data, variables, context) {
+    onSuccess() {
       queryClient.invalidateQueries({
         queryKey: [GET_ALL_SUPPLIER_CATEGORIES_DATA],
       });

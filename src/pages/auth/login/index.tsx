@@ -9,8 +9,7 @@ import {
   ADMIN_HISTORY_PAGE,
   DIRECTOR_HISTORY_PAGE,
 } from '../../../constants/pages-route';
-import { useContext, useEffect } from 'react';
-import { AuthContext } from '../../../context/AuthContext';
+import { useEffect } from 'react';
 import { useCredentialUser } from '../../../api/auth/hooks/useCredentialUser';
 
 const LoginPage = () => {
@@ -19,8 +18,6 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const credential = useCredentialUser();
-
-  console.log('credential : ', credential.data);
 
   const handleSubmitForm = (values: ILoginInterfacePropsType) => {
     loginMutation.mutate(values);

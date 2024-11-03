@@ -1,16 +1,7 @@
-import {
-  ActionIcon,
-  Group,
-  NumberFormatter,
-  Stack,
-  Table,
-  Text,
-} from '@mantine/core';
+import { ActionIcon, Group, Stack, Table, Text } from '@mantine/core';
 import TableDataHead from '../../../shared/components/table/TableDataHead';
 import TableDataBody from '../../../shared/components/table/TableDataBody';
-import TableDataLayout, {
-  ITableRow,
-} from '../../../shared/components/table/TableDataLayout';
+import TableDataLayout from '../../../shared/components/table/TableDataLayout';
 import BaseButton from '../../../shared/components/button/BaseButton';
 import { FaPlus } from 'react-icons/fa6';
 import ModalForm from '../../../features/director/components/modal/ModalForm';
@@ -30,53 +21,6 @@ import { useGetIncomeDetail } from '../../../api/income/hooks/useGetIncomeDetail
 import moment from 'moment';
 import { AuthContext } from '../../../context/AuthContext';
 import { useParams } from 'react-router-dom';
-
-const tableData: ITableRow[] = [
-  {
-    no: 1,
-    itemSales: 10300000,
-    itemDiscount: null,
-    billDiscount: 71400,
-    focItem: null,
-    totalSales: 10228600,
-    ppn: 1022860,
-    service: 509750,
-    collection: 11761210,
-  },
-  {
-    no: 2,
-    itemSales: 10300000,
-    itemDiscount: null,
-    billDiscount: 71400,
-    focItem: null,
-    totalSales: 10228600,
-    ppn: 1022860,
-    service: 509750,
-    collection: 11761210,
-  },
-  {
-    no: 3,
-    itemSales: 10300000,
-    itemDiscount: null,
-    billDiscount: 71400,
-    focItem: null,
-    totalSales: 10228600,
-    ppn: 1022860,
-    service: 509750,
-    collection: 11761210,
-  },
-  {
-    no: 4,
-    itemSales: 10300000,
-    itemDiscount: null,
-    billDiscount: 71400,
-    focItem: null,
-    totalSales: 10228600,
-    ppn: 1022860,
-    service: 509750,
-    collection: 11761210,
-  },
-];
 
 // const tableData: ITableRow[] = [
 //     {

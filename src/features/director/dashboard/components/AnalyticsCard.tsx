@@ -1,4 +1,4 @@
-import { ActionIcon, Card, CardProps, Group, Stack, Text } from '@mantine/core';
+import { Card, CardProps, Group, Stack, Text } from '@mantine/core';
 import CurrencyFormatter from '../../../../shared/components/formatter/CurrencyFormatter';
 import { ReactNode } from 'react';
 

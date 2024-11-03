@@ -1,33 +1,16 @@
-import {
-  ActionIcon,
-  Group,
-  NumberFormatter,
-  Stack,
-  Table,
-  Text,
-} from '@mantine/core';
+import { ActionIcon, Group, Stack, Table, Text } from '@mantine/core';
 import TableDataHead from '../../../shared/components/table/TableDataHead';
 import TableDataBody from '../../../shared/components/table/TableDataBody';
-import TableDataLayout, {
-  ITableRow,
-} from '../../../shared/components/table/TableDataLayout';
+import TableDataLayout from '../../../shared/components/table/TableDataLayout';
 import BaseButton from '../../../shared/components/button/BaseButton';
 import { FaPlus } from 'react-icons/fa6';
 import ModalForm from '../../../features/director/components/modal/ModalForm';
 import { useDisclosure } from '@mantine/hooks';
-import IncomeForm from '../../../features/director/daily-report/components/IncomeForm';
-import { IIncomeFormInputData } from '../../../features/director/daily-report/helpers/income.helper';
-import { useCreateIncome } from '../../../api/income/hooks/useCreateIncome';
-import { useGetAllIncomes } from '../../../api/income/hooks/useGetAllIncome';
-import CurrencyFormatter from '../../../shared/components/formatter/CurrencyFormatter';
 import { TbEdit } from 'react-icons/tb';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import ModalDelete from '../../../features/director/components/modal/ModalDelete';
-import { useDeleteIncome } from '../../../api/income/hooks/useDeleteIncome';
-import { useUpdateIncome } from '../../../api/income/hooks/useUpdateIncome';
+
 import { useState } from 'react';
-import { useGetIncomeDetail } from '../../../api/income/hooks/useGetIncomeDetail';
-import moment from 'moment';
 import UserForm from '../../../features/director/user/components/UserForm';
 import { useGetUserDetail } from '../../../api/user/hooks/useGetUserDetail';
 import { useCreatePostUserAccount } from '../../../api/user/hooks/usePostUser';

@@ -1,11 +1,9 @@
-import { ActionIcon, Card, Group, Stack, Table, Text } from '@mantine/core';
+import { ActionIcon, Group, Stack, Table, Text } from '@mantine/core';
 import TableDataHead from '../../../../shared/components/table/TableDataHead';
 import TableDataBody from '../../../../shared/components/table/TableDataBody';
 import TableDataLayout from '../../../../shared/components/table/TableDataLayout';
 import BaseButton from '../../../../shared/components/button/BaseButton';
-import { FaBoxOpen, FaPeopleGroup, FaPlus } from 'react-icons/fa6';
-import { IoFileTrayFull } from 'react-icons/io5';
-import { HiReceiptTax } from 'react-icons/hi';
+import { FaPlus } from 'react-icons/fa6';
 import { useDisclosure } from '@mantine/hooks';
 import ModalForm from '../../../../features/director/components/modal/ModalForm';
 import ExpenseForm from '../../../../features/director/expense/components/ExpenseForm';

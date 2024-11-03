@@ -1,5 +1,4 @@
-import { Stack, Tabs, Text } from '@mantine/core';
-import AccountForm from '../../../features/account/components/AccountForm';
+import { Stack, Tabs } from '@mantine/core';
 import ProfilePanel from '../../../features/account/Tabs/ProfilePanel';
 import AccountPanel from '../../../features/account/Tabs/AccountPanel';
 

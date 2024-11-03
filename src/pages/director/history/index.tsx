@@ -40,9 +40,9 @@ const DirectorHistoryPage = () => {
     useDisclosure(false);
 
   const [historyId, setHistoryId] = useState<string | null>(null);
-  const [filterDate, setFilterDate] = useState<Date | null>(null);
-  const [monthFilter, setMonthFilter] = useState<string | null>(null);
-  const [yearFilter, setYearFilter] = useState<string | null>(null);
+  // const [filterDate, setFilterDate] = useState<Date | null>(null);
+  // const [monthFilter, setMonthFilter] = useState<string | null>(null);
+  // const [yearFilter, setYearFilter] = useState<string | null>(null);
 
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -60,19 +60,19 @@ const DirectorHistoryPage = () => {
     openedEditForm,
   );
 
-  const handleFilterDate = (value: any) => {
-    const monthLocalTime = new Intl.DateTimeFormat('id-ID', {
-      month: 'long',
-    }).format(new Date(value));
+  // const handleFilterDate = (value: any) => {
+  //   const monthLocalTime = new Intl.DateTimeFormat('id-ID', {
+  //     month: 'long',
+  //   }).format(new Date(value));
 
-    const yearLocalTime = new Intl.DateTimeFormat('id-ID', {
-      year: 'numeric',
-    }).format(new Date(value));
+  //   const yearLocalTime = new Intl.DateTimeFormat('id-ID', {
+  //     year: 'numeric',
+  //   }).format(new Date(value));
 
-    setMonthFilter(monthLocalTime);
-    setYearFilter(yearLocalTime);
-    setFilterDate(value);
-  };
+  //   setMonthFilter(monthLocalTime);
+  //   setYearFilter(yearLocalTime);
+  //   setFilterDate(value);
+  // };
 
   const handleSubmitHistory = (values: IHistoryRequestPayload) => {
     const initialMonth = convertMonthInput(values.date);

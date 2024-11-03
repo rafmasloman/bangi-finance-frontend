@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import moment from 'moment';
 import { GET_ALL_SUPPLIERS_DATA } from '../../../../constants/query-key';
 import supplierService from '../../SupplierService';
 

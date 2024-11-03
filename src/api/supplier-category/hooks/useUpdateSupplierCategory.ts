@@ -10,7 +10,7 @@ export const useUpdateSupplierCategory = (id?: string) => {
 
   return useMutation({
     mutationFn: supplierCategoryApi.updateSupplierCategory,
-    onSuccess(data, variables, context) {
+    onSuccess() {
       queryClient.invalidateQueries({
         queryKey: [GET_ALL_SUPPLIER_CATEGORIES_DATA],
       });
@@ -19,6 +19,6 @@ export const useUpdateSupplierCategory = (id?: string) => {
         queryKey: [GET_SUPPLIER__CATEGORY_DETAIL_DATA, id],
       });
     },
-    onError(error, variables, context) {},
+    onError() {},
   });
 };

@@ -9,7 +9,7 @@ import {
 } from '@mantine/core';
 import MasterDataCard from '../../../../features/director/analytics/master-data/components/MasterDataCard';
 import MasterBalanceCard from '../../../../features/director/analytics/master-data/components/MasterBalanceCard';
-import { FaBoxOpen, FaPeopleGroup } from 'react-icons/fa6';
+import { FaPeopleGroup } from 'react-icons/fa6';
 import { IoFileTrayFull } from 'react-icons/io5';
 import { HiReceiptTax } from 'react-icons/hi';
 import { useGetExpenseCategoryAmount } from '../../../../api/expense/hooks/useGetExpenseCategoryAmount';

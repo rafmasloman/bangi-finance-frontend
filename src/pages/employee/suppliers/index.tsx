@@ -18,7 +18,7 @@ import { useGetTotalPaymentSupplier } from '../../../api/supplier/hooks/useGetTo
 
 const SupplierEmployeePage = () => {
   const { historyId } = useParams();
-  const [totalSupplier, setTotalSupplier] = useState<number>(0);
+  const [, setTotalSupplier] = useState<number>(0);
   const [totalPaidSupplier, setTotalPaidSupplier] = useState<number>(0);
   const [totalUnpaidSupplier, setTotalUnpaidSupplier] = useState<number>(0);
 

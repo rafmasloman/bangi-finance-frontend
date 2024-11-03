@@ -1,10 +1,4 @@
-import {
-  Grid,
-  Group,
-  NumberInput,
-  PasswordInput,
-  TextInput,
-} from '@mantine/core';
+import { Grid, Group, PasswordInput, TextInput } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { UserFormSchema } from '../helpers/user.helper';
 import BaseButton from '../../../../shared/components/button/BaseButton';

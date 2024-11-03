@@ -6,11 +6,11 @@ export const useCreateSupplierCategory = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: supplierCategoryApi.createSupplierCategory,
-    onSuccess(data, variables, context) {
+    onSuccess() {
       queryClient.invalidateQueries({
         queryKey: [GET_ALL_SUPPLIER_CATEGORIES_DATA],
       });
     },
-    onError(error, variables, context) {},
+    onError() {},
   });
 };

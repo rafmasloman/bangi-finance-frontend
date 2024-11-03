@@ -6,34 +6,21 @@ import {
   NavLink,
   ScrollArea,
   SimpleGrid,
-  Space,
   Stack,
   Text,
 } from '@mantine/core';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import {
-  TbCashRegister,
-  TbDeviceAnalytics,
-  TbReport,
-  TbTruckLoading,
-} from 'react-icons/tb';
+import { TbCashRegister, TbReport, TbTruckLoading } from 'react-icons/tb';
 import { RiHome3Line } from 'react-icons/ri';
-import { HiOutlineInboxStack } from 'react-icons/hi2';
 import { checkPathname } from '../../../shared/utils/navbar.utils';
 import {
   ADMIN_HISTORY_PAGE,
   BOOK_BASE_ADMIN_PAGE,
   DAILY_REPORT_PAGE,
-  DASHBOARD_PAGE,
-  DIRECTOR_HISTORY_PAGE,
   EXPENSE_PAGE,
-  MASTER_DATA_PAGE,
-  SUMMARY_PAGE,
   SUPPLIER_PAGE,
 } from '../../../constants/pages-route';
-import { LuLayoutDashboard } from 'react-icons/lu';
 import { LogoBangiLight } from '../../../assets/images';
-import { IoAnalyticsSharp } from 'react-icons/io5';
 import { useDisclosure } from '@mantine/hooks';
 import cookieLibs from '../../../libs/js-cookie/cookie';
 

@@ -7,7 +7,7 @@ export const useDeleteUserAccount = () => {
 
   return useMutation({
     mutationFn: userServiceApi.deleteUser,
-    onSuccess(data, variables, context) {
+    onSuccess() {
       queryClient.invalidateQueries({
         queryKey: [GET_ALL_USERS_DATA],
       });

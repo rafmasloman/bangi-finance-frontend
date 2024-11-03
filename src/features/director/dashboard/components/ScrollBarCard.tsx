@@ -1,12 +1,4 @@
-import {
-  ActionIcon,
-  Card,
-  CardProps,
-  Divider,
-  Group,
-  Stack,
-  Text,
-} from '@mantine/core';
+import { Card, CardProps, Divider, Group, Stack, Text } from '@mantine/core';
 import { ReactNode } from 'react';
 import ScrollBarCardBody from './ScrollBarCardBody';
 

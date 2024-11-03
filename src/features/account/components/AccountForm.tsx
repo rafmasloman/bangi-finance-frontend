@@ -1,12 +1,4 @@
-import {
-  Grid,
-  Group,
-  PasswordInput,
-  Space,
-  Stack,
-  Text,
-  TextInput,
-} from '@mantine/core';
+import { Grid, Group, PasswordInput, TextInput } from '@mantine/core';
 import BaseButton from '../../../shared/components/button/BaseButton';
 import { useForm } from '@mantine/form';
 

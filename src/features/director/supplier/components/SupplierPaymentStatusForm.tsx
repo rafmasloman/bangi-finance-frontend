@@ -3,11 +3,7 @@ import BaseButton from '../../../../shared/components/button/BaseButton';
 import { HiPlus } from 'react-icons/hi';
 import { useGetAllSupplierCategory } from '../../../../api/supplier-category/hooks/useGetAllSupplierCategory';
 import { useForm, zodResolver } from '@mantine/form';
-import {
-  SupplierInputSchema,
-  SupplierPaymentInputSchema,
-} from '../helpers/supplier.helper';
-import { ISupplierResponseDetailData } from '../../../../api/supplier/SupplierApiInterface';
+import { SupplierPaymentInputSchema } from '../helpers/supplier.helper';
 
 interface ISupplierPaymentStatusFormProps {
   close?: () => void;

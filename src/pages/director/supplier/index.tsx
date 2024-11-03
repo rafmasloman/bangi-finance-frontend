@@ -18,14 +18,11 @@ import { useGetTotalPaymentSupplier } from '../../../api/supplier/hooks/useGetTo
 
 const SupplierDirectorPage = () => {
   const { historyId } = useParams();
-  const [totalSupplier, setTotalSupplier] = useState<number>(0);
   const [totalPaidSupplier, setTotalPaidSupplier] = useState<number>(0);
   const [totalUnpaidSupplier, setTotalUnpaidSupplier] = useState<number>(0);
 
   const suppliers = useGetAllSuppliers(historyId);
   const totalPaymentSupplier = useGetTotalPaymentSupplier(historyId);
-
-  console.log('total payment : ', totalPaymentSupplier.data?.totalPaid);
 
   useEffect(() => {
     if (!totalPaymentSupplier.data?.totalPaid) {
@@ -37,14 +34,13 @@ const SupplierDirectorPage = () => {
     }
 
     if (!totalPaymentSupplier.data) {
-      setTotalSupplier(0);
+      setTotalPaidSupplier(0);
+      setTotalUnpaidSupplier(0);
     } else {
       setTotalPaidSupplier(totalPaymentSupplier.data.totalPaid);
       setTotalUnpaidSupplier(totalPaymentSupplier.data.totalUnpaid);
     }
   }, [totalPaymentSupplier.data]);
-
-  console.log('unpaid : ', totalUnpaidSupplier);
 
   if (suppliers.isLoading) {
     return <Text>Loading...</Text>;

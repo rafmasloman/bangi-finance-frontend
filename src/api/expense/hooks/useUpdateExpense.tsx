@@ -1,8 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  GET_ALL_EXPENSE_CATEGORIES_DATA,
-  GET_ALL_EXPENSE_DATA,
-} from '../../../constants/query-key';
+import { GET_ALL_EXPENSE_DATA } from '../../../constants/query-key';
 import ShowNotification from '../../../shared/components/notifications/BaseNotification';
 import expenseServiceApi from '../ExpenseService';
 

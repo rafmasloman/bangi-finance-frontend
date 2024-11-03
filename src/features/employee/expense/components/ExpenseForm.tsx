@@ -1,15 +1,11 @@
-import { Grid, Group, NumberInput, Select, Textarea } from '@mantine/core';
+import { Grid, Group, Select, Textarea } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import BaseButton from '../../../../shared/components/button/BaseButton';
 import BaseTextInput from '../../../../shared/components/input/BaseTextInput';
 import { useForm } from '@mantine/form';
 import BaseCurrencyInput from '../../../../shared/components/input/BaseCurrencyInput';
-import {
-  IExpenseResponseData,
-  IExpenseResponseDetailData,
-} from '../../../../api/expense/ExpenseInterface';
+import { IExpenseResponseDetailData } from '../../../../api/expense/ExpenseInterface';
 import dayjs from 'dayjs';
-import { useGetAllHistories } from '../../../../api/history/hooks/useGetAllHistories';
 import { useGetExpenseCategories } from '../../../../api/expense/hooks/useGetExpenseCategories';
 
 interface IExpenseFormProps {
@@ -20,7 +16,6 @@ interface IExpenseFormProps {
 
 const ExpenseForm = (props: IExpenseFormProps) => {
   const expenseCategories = useGetExpenseCategories();
-  const historiesData = useGetAllHistories();
 
   const expenseDataForm = useForm({
     initialValues: {

@@ -1,13 +1,4 @@
-import {
-  AppShell,
-  Burger,
-  Divider,
-  Flex,
-  Group,
-  Image,
-  Space,
-  Text,
-} from '@mantine/core';
+import { AppShell, Burger, Flex, Group, Image, Space } from '@mantine/core';
 import { Outlet } from 'react-router-dom';
 import NavbarDirector from '../../features/director/layouts/NavbaDirector';
 import { useDisclosure } from '@mantine/hooks';

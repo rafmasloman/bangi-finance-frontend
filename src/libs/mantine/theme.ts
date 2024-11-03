@@ -1,4 +1,4 @@
-import { createTheme, mergeThemeOverrides, PasswordInput } from '@mantine/core';
+import { createTheme, mergeThemeOverrides } from '@mantine/core';
 
 const primaryTheme = createTheme({
   fontFamily: 'Urbanist, sans-serif',

@@ -5,7 +5,6 @@ import {
   Stack,
   Table,
   Text,
-  Tooltip,
   UnstyledButton,
 } from '@mantine/core';
 import { FaPlus } from 'react-icons/fa';
@@ -58,9 +57,7 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
   const { historyId } = useParams();
   const { user } = useContext(AuthContext);
   const [supplierId, setSupplierId] = useState<string | null>(null);
-  const [supplierPaymentId, setSupplierPaymentId] = useState<string[] | null>(
-    [],
-  );
+  const [, setSupplierPaymentId] = useState<string[] | null>([]);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
   const [opened, { open, close }] = useDisclosure(false);

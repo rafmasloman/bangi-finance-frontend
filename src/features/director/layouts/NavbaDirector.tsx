@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Button,
   Group,
   Image,
@@ -18,32 +17,27 @@ import {
   TbReport,
   TbTruckLoading,
 } from 'react-icons/tb';
-import { RiDoorOpenLine, RiHome3Line } from 'react-icons/ri';
+import { RiHome3Line } from 'react-icons/ri';
 import { HiOutlineInboxStack } from 'react-icons/hi2';
 import { checkPathname } from '../../../shared/utils/navbar.utils';
 import {
   BOOK_BASE_DIRECTOR_PAGE,
   DAILY_REPORT_PAGE,
   DASHBOARD_PAGE,
-  DIRECTOR_BASE_PAGE,
   DIRECTOR_HISTORY_PAGE,
   EXPENSE_PAGE,
   MASTER_DATA_PAGE,
   SUMMARY_PAGE,
   SUPPLIER_PAGE,
 } from '../../../constants/pages-route';
-import { LuDatabaseBackup, LuLayoutDashboard } from 'react-icons/lu';
+import { LuLayoutDashboard } from 'react-icons/lu';
 import { LogoBangiLight } from '../../../assets/images';
-import { IoAnalyticsSharp, IoSettingsOutline } from 'react-icons/io5';
-import { FaPerson } from 'react-icons/fa6';
-import { useContext } from 'react';
-import { AuthContext } from '../../../context/AuthContext';
+import { IoAnalyticsSharp } from 'react-icons/io5';
 import { useDisclosure } from '@mantine/hooks';
 import cookieLibs from '../../../libs/js-cookie/cookie';
 
 const NavbarDirector = () => {
-  const { user } = useContext(AuthContext);
-  const [opened, { open, close }] = useDisclosure(false);
+  const [opened, { close }] = useDisclosure(false);
   const navigate = useNavigate();
   const { historyId } = useParams();
 
