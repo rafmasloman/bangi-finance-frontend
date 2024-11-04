@@ -1,8 +1,8 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import { useCredentialUser } from '../api/auth/hooks/useCredentialUser';
 import { IUserCredentialResponseData } from '../api/auth/AuthInterface';
-import { Group, Loader } from '@mantine/core';
 import cookieLibs from '../libs/js-cookie/cookie';
+import { Group, Loader } from '@mantine/core';
 
 interface IUserContextProps {
   user?: IUserCredentialResponseData;
@@ -24,16 +24,16 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     },
   });
 
-  // useEffect(() => {
-  //   if (token && !userCredential) {
-  //     credential.refetch();
-  //   }
-  // }, [token, userCredential, credential]);
   useEffect(() => {
     if (!token) {
       setUserCredential(undefined); // Set userCredential ke null jika token tidak ada
+    } else {
+      // Jika token ada dan userCredential masih null, maka coba ambil credential
+      if (!userCredential) {
+        credential.refetch();
+      }
     }
-  }, [token]);
+  }, [token, credential, userCredential]);
 
   if (credential.isLoading) {
     return (

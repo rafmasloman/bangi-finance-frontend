@@ -18,8 +18,6 @@ class AuthService {
 
       return data;
     } catch (error) {
-      console.log('error : ', error);
-
       throw error;
     }
   }

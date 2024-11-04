@@ -2,7 +2,7 @@ import axios from 'axios';
 import cookieLibs from '../js-cookie/cookie';
 
 export const http = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL_DEV,
   headers: {
     'Content-Type': 'application/json',
   },

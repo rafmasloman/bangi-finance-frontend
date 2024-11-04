@@ -15,11 +15,11 @@ function App() {
       <MantineProvider theme={theme}>
         <Notifications />
         <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <RouterProvider>
+          <RouterProvider>
+            <AuthProvider>
               <RouterPage />
-            </RouterProvider>
-          </AuthProvider>
+            </AuthProvider>
+          </RouterProvider>
         </QueryClientProvider>
       </MantineProvider>
     </>
