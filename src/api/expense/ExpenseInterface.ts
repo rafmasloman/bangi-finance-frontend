@@ -17,6 +17,13 @@ export interface IExpenseResponseData {
     expenseCategory: string;
     note: string;
     historyId?: string;
+    histories: {
+      title: string;
+    };
+    user: {
+      firstname: string;
+      lastname: string;
+    };
   }[];
   totalRecords: number;
 }

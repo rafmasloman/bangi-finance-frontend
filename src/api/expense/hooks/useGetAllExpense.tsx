@@ -2,11 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import { GET_ALL_EXPENSE_DATA } from '../../../constants/query-key';
 import expenseServiceApi from '../ExpenseService';
 import moment from 'moment';
+import { useParams } from 'react-router-dom';
 
 export const useGetAllExpenses = () => {
+  const { historyId } = useParams();
   const query = useQuery({
-    queryKey: [GET_ALL_EXPENSE_DATA],
-    queryFn: () => expenseServiceApi.getAllExpenses(),
+    queryKey: [GET_ALL_EXPENSE_DATA, historyId],
+    queryFn: () => expenseServiceApi.getAllExpenses(historyId),
     select(data) {
       return data.data.expense.map((expense, index) => {
         return {
@@ -17,6 +19,13 @@ export const useGetAllExpenses = () => {
           date: moment(expense.date).format('DD MMMM YYYY'),
           expenseCategory: expense.expenseCategory,
           note: expense.note,
+          historis: {
+            title: expense.histories.title,
+          },
+          user: {
+            firstname: expense.user.firstname,
+            lastname: expense.user.lastname,
+          },
         };
       });
     },

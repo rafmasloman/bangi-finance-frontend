@@ -22,7 +22,7 @@ const MDRForm = (props: IMDRFormProps) => {
           <NumberInput
             placeholder="Masukkan MDR %"
             label="MDR %"
-            decimalScale={2}
+            // decimalScale={2}
             fixedDecimalScale
             hideControls
             {...mdrForm.getInputProps('mdr')}

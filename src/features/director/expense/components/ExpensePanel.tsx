@@ -305,11 +305,23 @@ const ExpensePanel = () => {
                     ),
                   },
                   {
+                    key: 'user',
+                    render: (row) => (
+                      <Text className="text-nowrap">{row.user.firstname}</Text>
+                    ),
+                  },
+                  {
                     key: 'note',
                     render: (row) => (
                       <Text className="text-nowrap">{row.note}</Text>
                     ),
                   },
+                  // {
+                  //   key: 'user',
+                  //   render: (row) => (
+                  //     <Text className="text-nowrap">{row.user.firstname}</Text>
+                  //   ),
+                  // },
                   {
                     key: 'action',
                     render: (row) => (

@@ -40,12 +40,12 @@ class IncomeService {
     }
   }
 
-  async getIncomeAnalytics(): Promise<
-    IApiBaseResponse<IIncomeAnalyticsResponseData>
-  > {
+  async getIncomeAnalytics(
+    historyId?: string,
+  ): Promise<IApiBaseResponse<IIncomeAnalyticsResponseData>> {
     try {
       const response: AxiosResponse = await http.get(
-        `${INCOME_API_ROUTE}/analytics`,
+        `${INCOME_API_ROUTE}/${historyId}/analytics`,
       );
 
       const data: IApiBaseResponse<IIncomeAnalyticsResponseData> =

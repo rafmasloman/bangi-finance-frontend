@@ -6,6 +6,7 @@ export const tableHeadExpense = [
   { label: 'Keterangan' },
   { label: 'Jumlah' },
   { label: 'Kategori' },
+  { label: 'Yang Input' },
   { label: 'Note' },
   { label: 'Action' },
 ];

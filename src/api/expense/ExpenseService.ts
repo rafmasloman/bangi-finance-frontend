@@ -24,9 +24,13 @@ class ExpenseService {
     }
   }
 
-  async getAllExpenses(): Promise<IApiBaseResponse<IExpenseResponseData>> {
+  async getAllExpenses(
+    historyId?: string,
+  ): Promise<IApiBaseResponse<IExpenseResponseData>> {
     try {
-      const response = await http.get(`${EXPENSE_API_ROUTE}`);
+      const response = await http.get(
+        `${EXPENSE_API_ROUTE}?historyId=${historyId}`,
+      );
 
       const data: IApiBaseResponse<IExpenseResponseData> = await response.data;
 

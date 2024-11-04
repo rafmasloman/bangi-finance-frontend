@@ -147,8 +147,6 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
     }
   }, [updatePaymentStatus.isSuccess, closeEditPayment]);
 
-  console.log('sup id : ', supplierId);
-
   return (
     <>
       <ModalForm
