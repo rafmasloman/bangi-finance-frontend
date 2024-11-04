@@ -17,11 +17,12 @@ const HistoryForm = (props: IHistoryFormProps) => {
   const historyDataForm = useForm({
     initialValues: {
       remainingEmployeeService:
-        props.initialValues?.remainingEmployeeService || 0,
+        props.initialValues?.remainingEmployeeService || undefined,
       remainingManagementService:
-        props.initialValues?.remainingManagementService || 0,
-      remainingTax: props.initialValues?.remainingTax || 0,
-      remainingRawMaterials: props.initialValues?.remainingRawMaterials || 0,
+        props.initialValues?.remainingManagementService || undefined,
+      remainingTax: props.initialValues?.remainingTax || undefined,
+      remainingRawMaterials:
+        props.initialValues?.remainingRawMaterials || undefined,
       // month: props.initialValues?.month || undefined,
       date: dayjs(props.initialValues?.date).toDate() || undefined,
     },

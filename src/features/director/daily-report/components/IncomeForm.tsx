@@ -18,12 +18,12 @@ const IncomeForm = (props: IIncomeFormProps) => {
   const formIncome = useForm({
     initialValues: {
       date: dayjs(props.initialValues?.date).toDate() || undefined,
-      itemSales: props.initialValues?.itemSales || 0,
-      itemDiscount: props.initialValues?.itemDiscount || 0,
-      billDiscount: props.initialValues?.billDiscount || 0,
-      focItem: props.initialValues?.focItem || 0,
-      focBill: props.initialValues?.focBill || 0,
-      service: props.initialValues?.service || 0,
+      itemSales: props.initialValues?.itemSales || undefined,
+      itemDiscount: props.initialValues?.itemDiscount || undefined,
+      billDiscount: props.initialValues?.billDiscount || undefined,
+      focItem: props.initialValues?.focItem || undefined,
+      focBill: props.initialValues?.focBill || undefined,
+      service: props.initialValues?.service || undefined,
     },
     validate: zodResolver(IncomeFormSchema),
   });

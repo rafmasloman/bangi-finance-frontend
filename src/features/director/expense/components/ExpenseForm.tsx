@@ -19,7 +19,7 @@ const ExpenseForm = (props: IExpenseFormProps) => {
   const expenseDataForm = useForm({
     initialValues: {
       evidence: props.initialValues?.evidence || '',
-      price: props.initialValues?.price || 0,
+      price: props.initialValues?.price || undefined,
       date: dayjs(props.initialValues?.date).toDate() || undefined,
       expenseCategory: props.initialValues?.expenseCategory || undefined,
       note: props.initialValues?.note || '',

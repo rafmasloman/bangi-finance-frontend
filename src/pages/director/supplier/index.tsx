@@ -122,7 +122,7 @@ const SupplierDirectorPage = () => {
                   ? 0
                   : totalPaymentSupplier.data?.paymentStatusAmount[0]._count
                       ._all}{' '}
-                Supplier telah membayar
+                Supplier telah dibayar
               </Text>
             </Stack>
           </Card.Section>
