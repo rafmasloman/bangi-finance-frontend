@@ -14,6 +14,8 @@ const AccountPanel = () => {
     const payload = {
       email: values.email,
     };
+
+    console.log('payload : ', payload);
   };
 
   if (userDetail.isLoading) {
