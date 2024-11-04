@@ -14,11 +14,12 @@ import { useCreateExpense } from '../../../../api/expense/hooks/useCreateExpense
 import { useGetAllExpenses } from '../../../../api/expense/hooks/useGetAllExpense';
 import { TbEdit } from 'react-icons/tb';
 import CurrencyFormatter from '../../../../shared/components/formatter/CurrencyFormatter';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useGetDetailExpenses } from '../../../../api/expense/hooks/useGetDetailExpense';
 import { AuthContext } from '../../../../context/AuthContext';
 import { tableHeadExpense } from '../helpers/expense.helper';
 import { useParams } from 'react-router-dom';
+import { useUpdateExpense } from '../../../../api/expense/hooks/useUpdateExpense';
 
 const ExpensePanelEmployee = () => {
   const { user } = useContext(AuthContext);
@@ -33,6 +34,7 @@ const ExpensePanelEmployee = () => {
 
   const createExpense = useCreateExpense();
   const expenses = useGetAllExpenses();
+  const updateExpense = useUpdateExpense();
   const expenseDetail = useGetDetailExpenses(
     expenseId ?? undefined,
     openedEditForm,
@@ -49,10 +51,12 @@ const ExpensePanelEmployee = () => {
       userId: user?.id,
     };
 
-    if (!!user?.id) {
+    if (!!expenseId) {
+      updateExpense.mutate({ payload: data, id: expenseId });
+    } else {
       createExpense.mutate(data);
+      close();
     }
-    close();
   };
 
   const handleOpenModalEdit = (id: string) => {
@@ -62,6 +66,13 @@ const ExpensePanelEmployee = () => {
 
     openEdit();
   };
+
+  useEffect(() => {
+    if (updateExpense.isSuccess) {
+      closeEdit();
+      setExpenseId(null);
+    }
+  }, [updateExpense.isSuccess, closeEdit]);
 
   if (expenses.isLoading) {
     return <Text>Loading...</Text>;
@@ -96,128 +107,6 @@ const ExpensePanelEmployee = () => {
       </ModalForm>
 
       <Text className="text-xl font-semibold">Halaman Pengeluaran</Text>
-
-      <Group
-        wrap="nowrap"
-        className="w-full overflow-scroll no-scrollbar scrollbar-hide"
-      >
-        <Card
-          radius={25}
-          shadow="xs"
-          w={300}
-          className=" h-fit py-5 overflow-visible"
-          withBorder
-        >
-          <Stack
-            gap={20}
-            className="text-nowrap w-[230px] md:w-[180px] lg:w-[200px] xl:w-full"
-          >
-            <Group justify="space-between">
-              <Text className="text-xl font-semibold text-gray-400">
-                Total Sales :
-              </Text>
-              <ActionIcon
-                variant="light"
-                size={40}
-                radius={'xl'}
-                className="bg-[#E7FF6B]/[0.3] "
-              >
-                <FaBoxOpen className="text-xl text-[#bede1c]" />
-              </ActionIcon>
-            </Group>
-            <Text className="text-3xl font-semibold ">Rp. 232.227.800 </Text>
-          </Stack>
-        </Card>
-
-        <Card
-          w={300}
-          radius={25}
-          shadow="xs"
-          className="overflow-visible h-fit py-5"
-          withBorder
-        >
-          <Stack
-            gap={20}
-            className="text-nowrap w-[230px] md:w-[180px] lg:w-[200px] xl:w-full"
-          >
-            <Group justify="space-between">
-              <Text className="text-lg font-semibold text-gray-400">
-                SC Karyawan
-              </Text>
-              <ActionIcon
-                variant="light"
-                size={40}
-                radius={'xl'}
-                className="bg-[#FFA7B7]/[0.3]"
-              >
-                <FaPeopleGroup className="text-2xl text-[#FFA7B7]" />
-              </ActionIcon>
-            </Group>
-
-            <Text className="text-3xl font-semibold">Rp 14.514.238 </Text>
-          </Stack>
-        </Card>
-
-        <Card
-          w={300}
-          radius={25}
-          shadow="xs"
-          className="overflow-visible h-fit py-5"
-          withBorder
-        >
-          <Stack
-            justify="space-between"
-            className="text-nowrap w-[230px] md:w-[180px] lg:w-[200px] xl:w-full"
-            gap={20}
-          >
-            <Group justify="space-between">
-              <Text className="text-lg text-gray-400 font-semibold">
-                SC Manajemen
-              </Text>
-
-              <ActionIcon
-                variant="light"
-                size={40}
-                radius={'xl'}
-                className="bg-[#A2FFB5]/[0.5]"
-              >
-                <IoFileTrayFull className="text-xl text-[#7fc58d]" />
-              </ActionIcon>
-            </Group>
-
-            <Text className="text-3xl font-semibold">Rp 1.869.187 </Text>
-          </Stack>
-        </Card>
-
-        <Card
-          w={300}
-          radius={25}
-          shadow="xs"
-          className="overflow-visible h-fit py-5"
-          withBorder
-        >
-          <Stack
-            justify="space-between"
-            gap={20}
-            className="text-nowrap w-[230px] md:w-[180px] lg:w-[200px] xl:w-full"
-          >
-            <Group justify="space-between">
-              <Text className="text-xl text-gray-400 font-semibold">PPN</Text>
-
-              <ActionIcon
-                variant="light"
-                size={40}
-                radius={'xl'}
-                className="bg-[#A2FFB5]/[0.5]"
-              >
-                <HiReceiptTax className="text-green-600 text-2xl" />
-              </ActionIcon>
-            </Group>
-
-            <Text className="text-3xl font-semibold"> Rp 24.158.274</Text>
-          </Stack>
-        </Card>
-      </Group>
 
       <TableDataLayout>
         <Group justify="space-between" className="w-full h-fit py-3.5">

@@ -61,6 +61,7 @@ const EmployeeDailyReportPage = () => {
         billDiscount: values.billDiscount,
         focItem: values.focItem,
         itemDiscount: values.itemDiscount,
+        userId: user.id,
       });
       close();
     } else if (!!incomeId && !!user?.id) {
@@ -75,6 +76,7 @@ const EmployeeDailyReportPage = () => {
           billDiscount: values.billDiscount,
           focItem: values.focItem,
           itemDiscount: values.itemDiscount,
+          userId: user.id,
         },
       });
       setIncomeId(null);

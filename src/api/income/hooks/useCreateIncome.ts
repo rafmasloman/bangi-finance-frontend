@@ -11,14 +11,14 @@ export const useCreateIncome = () => {
     onSuccess(data) {
       if (data.statusCode === 201) {
         ShowNotification({
-          message: 'Berhasil menambah history buku',
-          title: 'History buku ditambah',
+          message: 'Berhasil menambah Income ',
+          title: 'Income  ditambah',
           type: 'success',
         });
       } else {
         ShowNotification({
-          message: 'Gagal menambah history buku',
-          title: 'History buku gagal ditambah',
+          message: 'Gagal menambah Income ',
+          title: 'Income  gagal ditambah',
           type: 'failed',
         });
       }

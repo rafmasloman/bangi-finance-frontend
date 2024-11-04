@@ -11,14 +11,14 @@ export const useUpdateIncome = () => {
     onSuccess(data) {
       if (data.statusCode === 200) {
         ShowNotification({
-          message: 'Berhasil mengubah history buku',
-          title: 'History buku diubah',
+          message: 'Berhasil mengubah Income',
+          title: 'Income diubah',
           type: 'success',
         });
       } else {
         ShowNotification({
-          message: 'Gagal mengubah history buku',
-          title: 'History buku gagal diubah',
+          message: 'Gagal mengubah Income',
+          title: 'Income gagal diubah',
           type: 'failed',
         });
       }
@@ -27,8 +27,8 @@ export const useUpdateIncome = () => {
     },
     onError() {
       ShowNotification({
-        message: 'Gagal mengubah history buku',
-        title: 'History buku gagal diubah',
+        message: 'Gagal mengubah Income',
+        title: 'Income gagal diubah',
         type: 'failed',
       });
     },
