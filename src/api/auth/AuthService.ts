@@ -31,8 +31,6 @@ class AuthService {
 
       return data;
     } catch (error) {
-      console.log('credential : ', error);
-
       throw error;
     }
   }

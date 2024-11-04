@@ -10,14 +10,12 @@ const AccountPanel = () => {
 
   const userDetail = useGetUserAccount(id);
 
-  console.log('user detail : ', userDetail.data);
-
   const handleSubmitAccount = (values: IUserAccountInitialValues) => {
     const payload = {
       email: values.email,
     };
 
-    console.log('account data : ', payload);
+    console.log('payload : ', payload);
   };
 
   if (userDetail.isLoading) {

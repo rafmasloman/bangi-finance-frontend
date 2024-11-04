@@ -14,11 +14,9 @@ import TableDataHead from '../../../../shared/components/table/TableDataHead';
 import TableDataBody from '../../../../shared/components/table/TableDataBody';
 import PaymentStatusBadge from './PaymentStatusBadge';
 import { TbEdit } from 'react-icons/tb';
-import { MdOutlineDeleteOutline } from 'react-icons/md';
 import CurrencyFormatter from '../../../../shared/components/formatter/CurrencyFormatter';
 import { useCreateSupplier } from '../../../../api/supplier/hooks/useCreateSupplier';
 import { useUpdateSupplier } from '../../../../api/supplier/hooks/useUpdateSupplier';
-import { useDeleteSupplier } from '../../../../api/supplier/hooks/useDeleteSupplier';
 import { useGetSupplierDetail } from '../../../../api/supplier/hooks/useGetSupplierDetail';
 import { useDisclosure } from '@mantine/hooks';
 import { useContext, useEffect, useState } from 'react';
@@ -26,15 +24,14 @@ import { ISupplierRequestParams } from '../../../../api/supplier/SupplierApiInte
 import { tableHeadSuppliers } from '../helpers/supplier.helper';
 import moment from 'moment';
 import SupplierForm from './SupplierForm';
-import ModalForm from '../../components/modal/ModalForm';
-import ModalDelete from '../../components/modal/ModalDelete';
 import { PaymentStatus } from '../../../../api/ApiInterface';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../../../context/AuthContext';
 import { useUpdateSupplierPaymentStatus } from '../../../../api/supplier/hooks/useUpdatePaymentStatus';
+import ModalForm from '../../../director/components/modal/ModalForm';
 import SupplierPaymentStatusForm from './SupplierPaymentStatusForm';
 
-interface ISupplierPanelProps {
+interface ISupplierEmployeePanelProps {
   suppliers: {
     no: number;
     id: string;
@@ -53,7 +50,7 @@ interface ISupplierPanelProps {
   }[];
 }
 
-const SupplierPanel = (props: ISupplierPanelProps) => {
+const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
   const { historyId } = useParams();
   const { user } = useContext(AuthContext);
   const [supplierId, setSupplierId] = useState<string | null>(null);
@@ -67,16 +64,13 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
     openedEditPaymentForm,
     { open: openEditPayment, close: closeEditPayment },
   ] = useDisclosure();
-  const [openedDeleteForm, { open: openDelete, close: closeDelete }] =
-    useDisclosure();
 
   const createSupplier = useCreateSupplier();
   const updateSupplier = useUpdateSupplier();
   const updatePaymentStatus = useUpdateSupplierPaymentStatus();
-  const deleteSupplier = useDeleteSupplier();
   const supplierDetail = useGetSupplierDetail(
     supplierId ?? undefined,
-    openedEditForm,
+    // openedEditForm || openedEditPaymentForm,
   );
 
   const handleUpdatePaymentStatus = (values: {
@@ -139,21 +133,6 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
     openEditPayment();
   };
 
-  const handleOpenModalDelete = (supplierId: string | null) => {
-    if (supplierId) {
-      setSupplierId(supplierId);
-    }
-
-    openDelete();
-  };
-
-  const handleConfirmationDelete = (id: string | null) => {
-    if (id) {
-      deleteSupplier.mutate(id);
-      closeDelete();
-    }
-  };
-
   useEffect(() => {
     if (updateSupplier.isSuccess) {
       setSupplierId(null);
@@ -163,10 +142,12 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
 
   useEffect(() => {
     if (updatePaymentStatus.isSuccess) {
-      closeEditPayment();
       setSelectedRows([]);
+      closeEditPayment();
     }
   }, [updatePaymentStatus.isSuccess, closeEditPayment]);
+
+  console.log('sup id : ', supplierId);
 
   return (
     <>
@@ -189,7 +170,7 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
         opened={openedEditPaymentForm}
         onClose={closeEditPayment}
       >
-        {supplierDetail.isLoading ? (
+        {supplierDetail.isFetching ? (
           <Text>Loading...</Text>
         ) : (
           <SupplierPaymentStatusForm
@@ -219,13 +200,6 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
           />
         )}
       </ModalForm>
-
-      <ModalDelete
-        name="Supplier"
-        opened={openedDeleteForm}
-        onClose={closeDelete}
-        onDelete={() => handleConfirmationDelete(supplierId)}
-      />
 
       <Stack gap={30}>
         <TableDataLayout>
@@ -352,15 +326,6 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
                           >
                             <TbEdit />
                           </ActionIcon>
-
-                          <ActionIcon
-                            onClick={() => handleOpenModalDelete(row.id)}
-                            radius={'md'}
-                            size={27}
-                            className="bg-rose-400  text-md"
-                          >
-                            <MdOutlineDeleteOutline className=" text-lg" />
-                          </ActionIcon>
                         </Group>
                       ),
                     },
@@ -375,4 +340,4 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
   );
 };
 
-export default SupplierPanel;
+export default SupplierEmployeePanel;

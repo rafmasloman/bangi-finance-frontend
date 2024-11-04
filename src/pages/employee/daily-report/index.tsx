@@ -50,8 +50,6 @@ const EmployeeDailyReportPage = () => {
   const incomeDetail = useGetIncomeDetail(incomeId ?? undefined);
   const updateIncome = useUpdateIncome();
 
-  console.log('detail income : ', incomeDetail.data);
-
   const handleSubmitForm = (values: IIncomeFormInputData) => {
     if (!incomeId && !!user?.id) {
       createIncome.mutate({

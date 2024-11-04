@@ -43,8 +43,6 @@ const UserAccountPage = () => {
   const userDetail = useGetUserDetail(userId ?? undefined);
   const deleteUser = useDeleteUserAccount();
 
-  console.log('users : ', userAccounts.data);
-
   const handleSubmitForm = (values: IUserInputFormProps) => {
     const payload = {
       firstname: values.firstname,

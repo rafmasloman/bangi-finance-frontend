@@ -18,8 +18,6 @@ const DirectorSummaryPage = () => {
 
   const profit = useGetIncomeProfit(historyId);
 
-  console.log('profit : ', profit.data);
-
   const incomeSummary = useGetIncomeSummary(historyId);
   const expenseSummary = useGetExpenseSummary(historyId);
 

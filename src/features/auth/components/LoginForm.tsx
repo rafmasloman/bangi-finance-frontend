@@ -12,7 +12,7 @@ const LoginForm = (props: ILoginFormPropsType) => {
   const loginFormData = useForm({
     initialValues: {
       //   username: '',
-      email: '',
+      username: '',
       password: '',
     },
     validate: zodResolver(LoginSchema),
@@ -24,13 +24,13 @@ const LoginForm = (props: ILoginFormPropsType) => {
     >
       <Stack gap={20} className="mb-12">
         <TextInput
-          placeholder="Masukkan Email"
-          label="Email"
+          placeholder="Masukkan Username"
+          label="Username"
           rightSection={<MdAlternateEmail />}
           classNames={{
             label: `text-base`,
           }}
-          {...loginFormData.getInputProps('email')}
+          {...loginFormData.getInputProps('username')}
           withAsterisk
         />
         <PasswordInput

@@ -19,8 +19,6 @@ export const useLoginMutation = () => {
       } else {
         cookieLibs.setCookie('token', data.data.token);
 
-        console.log('token : ', cookieLibs.getCookie('token'));
-
         ShowNotification({
           message: 'Login Berhasil',
           title: 'Silahkan klik tombol go to dashboard',

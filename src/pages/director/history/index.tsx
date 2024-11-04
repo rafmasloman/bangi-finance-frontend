@@ -91,8 +91,6 @@ const DirectorHistoryPage = () => {
       userId: user?.id,
     };
 
-    console.log('history id : ', !!historyId);
-
     if (!!historyId) {
       updateHistory.mutate({ id: historyId, payload: data });
     } else {

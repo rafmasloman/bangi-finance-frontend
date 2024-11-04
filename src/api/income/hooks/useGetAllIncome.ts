@@ -6,8 +6,6 @@ import { useParams } from 'react-router-dom';
 export const useGetAllIncomes = () => {
   const { historyId } = useParams();
 
-  console.log();
-
   const query = useQuery({
     queryKey: [GET_ALL_INCOMES_DATA, historyId],
     queryFn: () => incomeServiceApi.getAllIncomes(historyId),

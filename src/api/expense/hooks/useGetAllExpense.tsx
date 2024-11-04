@@ -8,8 +8,6 @@ export const useGetAllExpenses = () => {
     queryKey: [GET_ALL_EXPENSE_DATA],
     queryFn: () => expenseServiceApi.getAllExpenses(),
     select(data) {
-      console.log('expense data : ', data.data);
-
       return data.data.expense.map((expense, index) => {
         return {
           id: expense.id,
@@ -23,8 +21,6 @@ export const useGetAllExpenses = () => {
       });
     },
   });
-
-  console.log('query : ', query.error);
 
   return query;
 };

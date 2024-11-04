@@ -7,8 +7,6 @@ export const useGetAllHistories = (month?: string, year?: string) => {
     queryKey: [GET_ALL_HISTORIES_DATA],
     queryFn: () => historyServiceApi.getAllHistories(month, year),
     select(data) {
-      console.log('data : ', data);
-
       return data.data.map((ctx, index) => {
         return {
           no: index + 1,

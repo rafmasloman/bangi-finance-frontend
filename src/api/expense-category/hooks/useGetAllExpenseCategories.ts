@@ -7,8 +7,6 @@ export const useGetAllExpensesCategories = () => {
     queryKey: [GET_ALL_EXPENSE_CATEGORIES_DATA],
     queryFn: () => expenseCategoryServiceApi.getAllExpenseCategories(),
     select(data) {
-      console.log('dat a : ', data);
-
       return data.data.map((ctx, index) => {
         return {
           no: index + 1,

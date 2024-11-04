@@ -41,8 +41,6 @@ const NavbarDirector = () => {
   const navigate = useNavigate();
   const { historyId } = useParams();
 
-  console.log('historyId :', historyId);
-
   const handleLogoutButton = () => {
     cookieLibs.deleteCookie('token');
 

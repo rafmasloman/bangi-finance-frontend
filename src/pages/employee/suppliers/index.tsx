@@ -9,12 +9,12 @@ import {
 } from '@mantine/core';
 import { FaBoxOpen } from 'react-icons/fa6';
 import { useGetAllSuppliers } from '../../../api/supplier/hooks/useGetAllSuppliers';
-import SupplierPanel from '../../../features/director/supplier/components/SupplierPanel';
 import { useEffect, useState } from 'react';
 import CurrencyFormatter from '../../../shared/components/formatter/CurrencyFormatter';
 import SupplierCommunityPanel from '../../../features/director/supplier/components/SupplierCommunityPanel';
 import { useParams } from 'react-router-dom';
 import { useGetTotalPaymentSupplier } from '../../../api/supplier/hooks/useGetTotalPaymentSupplier';
+import SupplierEmployeePanel from '../../../features/employee/supplier/components/SupplierEmployePanel';
 
 const SupplierEmployeePage = () => {
   const { historyId } = useParams();
@@ -188,7 +188,7 @@ const SupplierEmployeePage = () => {
 
         <Tabs.Panel value="suppliers">
           {!suppliers.data?.suppliers ? null : (
-            <SupplierPanel suppliers={suppliers.data?.suppliers} />
+            <SupplierEmployeePanel suppliers={suppliers.data?.suppliers} />
           )}
         </Tabs.Panel>
 

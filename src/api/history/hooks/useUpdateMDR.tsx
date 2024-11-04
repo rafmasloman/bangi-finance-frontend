@@ -28,9 +28,7 @@ export const useUpdateMDR = () => {
       queryClient.invalidateQueries({ queryKey: [GET_ALL_HISTORIES_DATA] });
       queryClient.invalidateQueries({ queryKey: [GET_MDR_DATA] });
     },
-    onError(error) {
-      console.log('on error : ', error);
-
+    onError() {
       ShowNotification({
         message: 'Gagal mengubah MDR',
         title: 'MDR gagal diubah',

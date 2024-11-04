@@ -14,8 +14,6 @@ interface IExpenseCategoryFormProps {
 }
 
 const ExpenseCategoryForm = (props: IExpenseCategoryFormProps) => {
-  console.log('initial values : ', props.initialValues);
-
   const expenseCategoryForm = useForm({
     initialValues: {
       name: props.initialValues?.name || '',

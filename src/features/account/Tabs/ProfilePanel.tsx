@@ -10,8 +10,6 @@ const ProfilePanel = () => {
 
   const userDetail = useGetUserProfile(id);
 
-  console.log('user detail : ', userDetail.data);
-
   const handleSubmitAccount = (values: IUserProfileInitialValues) => {
     const payload = {
       firstname: values.firstname,
@@ -20,7 +18,7 @@ const ProfilePanel = () => {
       username: values.username,
     };
 
-    console.log('account data : ', payload);
+    console.log('payload : ', payload);
   };
 
   if (userDetail.isLoading) {

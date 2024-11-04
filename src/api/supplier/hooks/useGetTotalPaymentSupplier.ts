@@ -7,8 +7,6 @@ export const useGetTotalPaymentSupplier = (historyId?: string) => {
     queryKey: [GET_SUPPLIER_PAYMENT_TOTAL_DATA, historyId],
     queryFn: () => supplierService.getTotalPaidSupplier(historyId),
     select(data) {
-      console.log('payment data : ', data.data);
-
       return {
         paymentStatusAmount: data.data.paymentStatusAmount,
         totalPaid: data.data.totalPaid,

@@ -133,7 +133,7 @@ const AdminHistoryPage = () => {
   //     return <Text>Loading...</Text>;
   //   }
 
-  if (histories.isFetching) {
+  if (histories.isLoading) {
     return <Text>Loading History ... </Text>;
   }
 

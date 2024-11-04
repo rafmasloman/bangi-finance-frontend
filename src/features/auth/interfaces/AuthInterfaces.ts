@@ -1,4 +1,4 @@
 export interface ILoginInterfacePropsType {
-  email: string;
+  username: string;
   password: string;
 }
