@@ -51,7 +51,7 @@ const SupplierDirectorPage = () => {
       <Text className="text-xl font-semibold">Halaman Supplier</Text>
 
       <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing={{ base: 30 }}>
-        <Card
+        {/* <Card
           radius={25}
           shadow="xs"
           className="w-full h-fit py-5 relative bg-black_primary overflow-visible"
@@ -85,7 +85,7 @@ const SupplierDirectorPage = () => {
               </Text>
             </Stack>
           </Stack>
-        </Card>
+        </Card> */}
 
         <Card
           radius={25}
