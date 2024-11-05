@@ -17,9 +17,6 @@ export const SupplierPaymentInputSchema = z.object({
 
 export const tableHeadSuppliers = [
   {
-    label: '',
-  },
-  {
     label: 'No',
   },
   { label: 'Tanggal' },
