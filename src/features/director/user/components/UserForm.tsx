@@ -1,6 +1,6 @@
 import { Grid, Group, PasswordInput, TextInput } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
-import { UserFormSchema } from '../helpers/user.helper';
+import { createUserSchema, updateUserSchema } from '../helpers/user.helper';
 import BaseButton from '../../../../shared/components/button/BaseButton';
 
 interface IUserDetailInitialValues {
@@ -16,19 +16,25 @@ interface IUserFormProps {
   close?: () => void;
   handleSubmit: (data: any) => void;
   initialValues?: IUserDetailInitialValues;
+  loading?: boolean;
 }
 
 const UserForm = (props: IUserFormProps) => {
+  console.log('props : ', props.initialValues);
+
   const userForm = useForm({
     initialValues: {
       firstname: props.initialValues?.firstname || '',
       lastname: props.initialValues?.lastname || '',
       email: props.initialValues?.email || '',
-      password: '',
+      password: undefined,
       phoneNumber: props.initialValues?.phoneNumber || '',
       username: props.initialValues?.username || '',
+      role: props.initialValues?.role || 'EMPLOYEE',
     },
-    validate: zodResolver(UserFormSchema),
+    validate: zodResolver(
+      !props.initialValues ? createUserSchema : updateUserSchema,
+    ),
   });
 
   const handleSubmitForm = userForm.onSubmit((values) =>
@@ -43,6 +49,7 @@ const UserForm = (props: IUserFormProps) => {
             placeholder="Masukkan Nama Depan"
             label="Nama Depan"
             {...userForm.getInputProps('firstname')}
+            withAsterisk
           />
         </Grid.Col>
 
@@ -51,6 +58,7 @@ const UserForm = (props: IUserFormProps) => {
             placeholder="Masukkan Nama Belakang"
             label="Nama Belakang"
             {...userForm.getInputProps('lastname')}
+            withAsterisk
           />
         </Grid.Col>
 
@@ -59,6 +67,7 @@ const UserForm = (props: IUserFormProps) => {
             placeholder="Masukkan Email"
             label="Email"
             {...userForm.getInputProps('email')}
+            withAsterisk
           />
         </Grid.Col>
 
@@ -67,6 +76,7 @@ const UserForm = (props: IUserFormProps) => {
             placeholder="Masukkan Username"
             label="Username"
             {...userForm.getInputProps('username')}
+            withAsterisk
           />
         </Grid.Col>
 
@@ -76,17 +86,21 @@ const UserForm = (props: IUserFormProps) => {
             label="No Hp/Whatsapp"
             type="number"
             {...userForm.getInputProps('phoneNumber')}
+            withAsterisk
           />
         </Grid.Col>
 
         <Grid.Col span={{ base: 12, md: 6 }}>
-          {!props.initialValues ? (
-            <PasswordInput
-              placeholder="Masukkan Password"
-              label="Password"
-              {...userForm.getInputProps('password')}
-            />
-          ) : null}
+          <PasswordInput
+            placeholder={
+              !props.initialValues
+                ? 'Masukkan Password'
+                : 'Kosongkan jika tidak ingin ubah password'
+            }
+            label="Password"
+            {...userForm.getInputProps('password')}
+            withAsterisk={!props.initialValues ? true : false}
+          />
         </Grid.Col>
       </Grid>
 
@@ -94,8 +108,8 @@ const UserForm = (props: IUserFormProps) => {
         <BaseButton btnVariant="secondary" onClick={props.close}>
           Batal
         </BaseButton>
-        <BaseButton btnVariant="primary" type="submit">
-          Tambah
+        <BaseButton btnVariant="primary" type="submit" loading={props.loading}>
+          Input
         </BaseButton>
       </Group>
     </form>

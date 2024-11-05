@@ -48,9 +48,12 @@ class UserService {
     }
   }
 
-  async updateUser(id?: string, payload?: IUpdateUserRequestParams) {
+  async updateUser(params: { id: string; payload: IUpdateUserRequestParams }) {
     try {
-      const response = await http.put(`${USER_API_ROUTE}/${id}`, payload);
+      const response = await http.put(
+        `${USER_API_ROUTE}/${params.id}`,
+        params.payload,
+      );
 
       const data = await response.data;
 

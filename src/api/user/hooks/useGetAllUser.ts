@@ -16,6 +16,7 @@ export const useGetAllUsers = () => {
           email: ctx.email,
           phoneNumber: ctx.phoneNumber,
           username: ctx.username,
+          role: ctx.role,
         };
       });
     },

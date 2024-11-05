@@ -15,6 +15,7 @@ export interface IUpdateUserRequestParams {
   phoneNumber?: string;
   firstname?: string;
   lastname?: string;
+  role?: string;
 }
 
 export interface IUserDetailResponseData {

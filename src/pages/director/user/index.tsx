@@ -10,13 +10,14 @@ import { TbEdit } from 'react-icons/tb';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import ModalDelete from '../../../features/director/components/modal/ModalDelete';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UserForm from '../../../features/director/user/components/UserForm';
 import { useGetUserDetail } from '../../../api/user/hooks/useGetUserDetail';
 import { useCreatePostUserAccount } from '../../../api/user/hooks/usePostUser';
 import { useGetAllUsers } from '../../../api/user/hooks/useGetAllUser';
 import { useDeleteUserAccount } from '../../../api/user/hooks/useDeleteUser';
 import { IUserInputFormProps } from '../../../features/director/user/helpers/user.helper';
+import { useUpdateUserAccount } from '../../../api/user/hooks/useUpdateUser';
 
 const tableHead = [
   {
@@ -26,6 +27,7 @@ const tableHead = [
   { label: 'Email' },
   { label: 'Username' },
   { label: 'No Telp' },
+  { label: 'Role' },
   { label: 'Action' },
 ];
 
@@ -39,27 +41,48 @@ const UserAccountPage = () => {
     useDisclosure();
 
   const createUser = useCreatePostUserAccount();
+  const updateUser = useUpdateUserAccount();
   const userAccounts = useGetAllUsers();
   const userDetail = useGetUserDetail(userId ?? undefined);
   const deleteUser = useDeleteUserAccount();
 
   const handleSubmitForm = (values: IUserInputFormProps) => {
-    const payload = {
+    // const createUserPayload = {
+    //   firstname: values.firstname,
+    //   lastname: values.lastname,
+    //   email: values.email,
+    //   phoneNumber: values.phoneNumber.toString(),
+    //   password: values.password,
+    //   role: 'EMPLOYEE',
+    //   username: values.username,
+    // };
+
+    // const updateUserPayload = {
+    //   firstname: values.firstname,
+    //   lastname: values.lastname,
+    //   email: values.email,
+    //   phoneNumber: values.phoneNumber.toString(),
+    //   password: !values.password ? undefined : values.password,
+    //   role: 'EMPLOYEE',
+    //   username: values.username,
+    // };
+
+    const userPayload = {
       firstname: values.firstname,
       lastname: values.lastname,
       email: values.email,
       phoneNumber: values.phoneNumber.toString(),
       password: values.password,
-      role: 'EMPLOYEE',
+      role: values.role,
       username: values.username,
     };
+
     if (!userId) {
-      createUser.mutate(payload);
+      createUser.mutate(userPayload);
       close();
     } else if (!!userId) {
-      // updateIncome.mutate({ id: userId, body: values });
-      setUserId(null);
-      closeEdit();
+      updateUser.mutate({ id: userId, payload: userPayload });
+      console.log('payload update : ', userPayload);
     }
   };
 
@@ -87,6 +110,13 @@ const UserAccountPage = () => {
     }
   };
 
+  useEffect(() => {
+    if (updateUser.isSuccess) {
+      setUserId(null);
+      closeEdit();
+    }
+  }, [updateUser.isSuccess, closeEdit]);
+
   if (!userAccounts.data) {
     return <Text>Loading ....</Text>;
   }
@@ -100,7 +130,11 @@ const UserAccountPage = () => {
         size={'lg'}
         onClose={close}
       >
-        <UserForm handleSubmit={handleSubmitForm} close={close} />
+        <UserForm
+          handleSubmit={handleSubmitForm}
+          close={close}
+          loading={createUser.isPending}
+        />
       </ModalForm>
 
       <ModalForm
@@ -117,6 +151,7 @@ const UserAccountPage = () => {
             handleSubmit={handleSubmitForm}
             close={closeEdit}
             initialValues={userDetail.data}
+            loading={updateUser.isPending}
           />
         )}
       </ModalForm>
@@ -166,6 +201,12 @@ const UserAccountPage = () => {
                 {
                   key: 'phoneNumber',
                   render: (row) => <Text>{row.phoneNumber}</Text>,
+                },
+                {
+                  key: 'role',
+                  render: (row) => (
+                    <Text>{row.role === 'DIRECTOR' ? 'Boss' : 'Admin'}</Text>
+                  ),
                 },
                 {
                   key: 'action',
