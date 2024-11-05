@@ -10,7 +10,7 @@ import {
 import { FaBoxOpen } from 'react-icons/fa6';
 import { useGetAllSuppliers } from '../../../api/supplier/hooks/useGetAllSuppliers';
 import SupplierPanel from '../../../features/director/supplier/components/SupplierPanel';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import CurrencyFormatter from '../../../shared/components/formatter/CurrencyFormatter';
 import SupplierCommunityPanel from '../../../features/director/supplier/components/SupplierCommunityPanel';
 import { useParams } from 'react-router-dom';
@@ -18,29 +18,29 @@ import { useGetTotalPaymentSupplier } from '../../../api/supplier/hooks/useGetTo
 
 const SupplierDirectorPage = () => {
   const { historyId } = useParams();
-  const [totalPaidSupplier, setTotalPaidSupplier] = useState<number>(0);
-  const [totalUnpaidSupplier, setTotalUnpaidSupplier] = useState<number>(0);
+  // const [totalPaidSupplier, setTotalPaidSupplier] = useState<number>(0);
+  // const [totalUnpaidSupplier, setTotalUnpaidSupplier] = useState<number>(0);
 
   const suppliers = useGetAllSuppliers(historyId);
   const totalPaymentSupplier = useGetTotalPaymentSupplier(historyId);
 
-  useEffect(() => {
-    if (!totalPaymentSupplier.data?.totalPaid) {
-      setTotalPaidSupplier(0);
-    }
+  // useEffect(() => {
+  //   if (!totalPaymentSupplier.data?.totalPaid) {
+  //     setTotalPaidSupplier(0);
+  //   }
 
-    if (!totalPaymentSupplier.data?.totalUnpaid) {
-      setTotalUnpaidSupplier(0);
-    }
+  //   if (!totalPaymentSupplier.data?.totalUnpaid) {
+  //     setTotalUnpaidSupplier(0);
+  //   }
 
-    if (!totalPaymentSupplier.data) {
-      setTotalPaidSupplier(0);
-      setTotalUnpaidSupplier(0);
-    } else {
-      setTotalPaidSupplier(totalPaymentSupplier.data.totalPaid);
-      setTotalUnpaidSupplier(totalPaymentSupplier.data.totalUnpaid);
-    }
-  }, [totalPaymentSupplier.data]);
+  //   if (!totalPaymentSupplier.data) {
+  //     setTotalPaidSupplier(0);
+  //     setTotalUnpaidSupplier(0);
+  //   } else {
+  //     setTotalPaidSupplier(totalPaymentSupplier.data.totalPaid);
+  //     setTotalUnpaidSupplier(totalPaymentSupplier.data.totalUnpaid);
+  //   }
+  // }, [totalPaymentSupplier.data]);
 
   if (suppliers.isLoading) {
     return <Text>Loading...</Text>;
