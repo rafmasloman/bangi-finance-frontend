@@ -36,7 +36,7 @@ const EmployeeLayout = () => {
       }}
     >
       <AppShell.Navbar>
-        <NavbarEmployee />
+        <NavbarEmployee onClose={toggle} />
       </AppShell.Navbar>
 
       <AppShell.Header

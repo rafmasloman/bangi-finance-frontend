@@ -36,7 +36,7 @@ const DirectorLayout = () => {
       }}
     >
       <AppShell.Navbar>
-        <NavbarDirector />
+        <NavbarDirector onClose={toggle} />
       </AppShell.Navbar>
 
       <AppShell.Header

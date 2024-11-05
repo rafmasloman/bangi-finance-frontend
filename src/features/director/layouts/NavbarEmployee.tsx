@@ -23,8 +23,9 @@ import {
 import { LogoBangiLight } from '../../../assets/images';
 import { useDisclosure } from '@mantine/hooks';
 import cookieLibs from '../../../libs/js-cookie/cookie';
+import { INavbarProps } from './NavbarMain';
 
-const NavbarEmployee = () => {
+const NavbarEmployee = (props: INavbarProps) => {
   const [opened, { close }] = useDisclosure(false);
   const navigate = useNavigate();
   const { historyId } = useParams();
@@ -102,6 +103,7 @@ const NavbarEmployee = () => {
                 checkPathname('daily-report') ? 'text-black' : 'text-white'
               }`,
             }}
+            onClick={props.onClose}
           />
 
           <NavLink
@@ -121,6 +123,7 @@ const NavbarEmployee = () => {
                 checkPathname('expense') ? 'text-black' : 'text-white'
               }`,
             }}
+            onClick={props.onClose}
           />
 
           <NavLink
@@ -140,6 +143,7 @@ const NavbarEmployee = () => {
                 checkPathname('supplier') ? 'text-black' : 'text-white'
               }`,
             }}
+            onClick={props.onClose}
           />
         </Stack>
         <NavLink
@@ -152,6 +156,7 @@ const NavbarEmployee = () => {
             root: `text-white bg-black_primary hover:bg-primary hover:text-black hover:border-0 duration-500 border-solid border-b-[5px] border-2  border-neutral-500  rounded-lg`,
             body: `bg-red-5 w-fit h-fit`,
           }}
+          onClick={props.onClose}
         />
       </Stack>
     </ScrollArea>

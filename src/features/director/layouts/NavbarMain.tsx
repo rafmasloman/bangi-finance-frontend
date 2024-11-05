@@ -26,7 +26,11 @@ import { useDisclosure } from '@mantine/hooks';
 import cookieLibs from '../../../libs/js-cookie/cookie';
 import { IoSettingsOutline } from 'react-icons/io5';
 
-const NavbarMain = () => {
+export interface INavbarProps {
+  onClose?: () => void;
+}
+
+const NavbarMain = (props: INavbarProps) => {
   const { user } = useContext(AuthContext);
   const [opened, { open, close }] = useDisclosure(false);
   const navigate = useNavigate();
@@ -106,6 +110,7 @@ const NavbarMain = () => {
                   checkPathname('user') ? 'text-black' : 'text-white'
                 }`,
               }}
+              onClick={props.onClose}
             />
           )}
 
@@ -124,6 +129,7 @@ const NavbarMain = () => {
               label: `text-sm xl:text-base `,
               root: `text-white`,
             }}
+            onClick={props.onClose}
           />
         </Stack>
 
@@ -149,6 +155,7 @@ const NavbarMain = () => {
                   checkPathname('user-account') ? 'text-black' : 'text-white'
                 }`,
               }}
+              onClick={props.onClose}
             />
           )}
           <NavLink

@@ -44,7 +44,7 @@ const MainLayout = () => {
       }}
     >
       <AppShell.Navbar>
-        <NavbarMain />
+        <NavbarMain onClose={toggle} />
       </AppShell.Navbar>
 
       <AppShell.Header

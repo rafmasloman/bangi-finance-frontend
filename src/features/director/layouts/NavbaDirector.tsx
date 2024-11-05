@@ -35,8 +35,9 @@ import { LogoBangiLight } from '../../../assets/images';
 import { IoAnalyticsSharp } from 'react-icons/io5';
 import { useDisclosure } from '@mantine/hooks';
 import cookieLibs from '../../../libs/js-cookie/cookie';
+import { INavbarProps } from './NavbarMain';
 
-const NavbarDirector = () => {
+const NavbarDirector = (props: INavbarProps) => {
   const [opened, { close }] = useDisclosure(false);
   const navigate = useNavigate();
   const { historyId } = useParams();
@@ -143,6 +144,7 @@ const NavbarDirector = () => {
                   checkPathname('dashboard') ? 'text-black' : 'text-white'
                 }`,
               }}
+              onClick={props.onClose}
               to={`${BOOK_BASE_DIRECTOR_PAGE}/${historyId}/${DASHBOARD_PAGE}`}
               leftSection={
                 <LuLayoutDashboard className="text-lg xl:text-xl " />
@@ -165,6 +167,7 @@ const NavbarDirector = () => {
                   checkPathname('master-data') ? 'text-black' : 'text-white'
                 }`,
               }}
+              onClick={props.onClose}
               to={`${BOOK_BASE_DIRECTOR_PAGE}/${historyId}/${MASTER_DATA_PAGE}`}
               leftSection={
                 <HiOutlineInboxStack className="text-lg xl:text-xl" />
@@ -187,6 +190,7 @@ const NavbarDirector = () => {
                   checkPathname('summary') ? 'text-black' : 'text-white'
                 }`,
               }}
+              onClick={props.onClose}
               to={`${BOOK_BASE_DIRECTOR_PAGE}/${historyId}/${SUMMARY_PAGE}`}
               leftSection={<IoAnalyticsSharp className="text-lg xl:text-xl " />}
               label="Summary"
@@ -198,6 +202,7 @@ const NavbarDirector = () => {
             to={`${BOOK_BASE_DIRECTOR_PAGE}/${historyId}/${DAILY_REPORT_PAGE}`}
             leftSection={<TbReport className="text-lg xl:text-xl " />}
             label="Daily Report"
+            onClick={props.onClose}
             classNames={{
               label: `text-sm xl:text-base `,
 
@@ -271,6 +276,7 @@ const NavbarDirector = () => {
             to={`${BOOK_BASE_DIRECTOR_PAGE}/${historyId}/${EXPENSE_PAGE}`}
             leftSection={<TbCashRegister className="text-lg xl:text-xl" />}
             label="Pengeluaran"
+            onClick={props.onClose}
             classNames={{
               label: `text-sm xl:text-base `,
 
@@ -290,6 +296,7 @@ const NavbarDirector = () => {
             to={`${BOOK_BASE_DIRECTOR_PAGE}/${historyId}/${SUPPLIER_PAGE}`}
             leftSection={<TbTruckLoading className="text-lg xl:text-xl" />}
             label="Supplier"
+            onClick={props.onClose}
             classNames={{
               label: `text-sm xl:text-base `,
 
@@ -309,6 +316,7 @@ const NavbarDirector = () => {
           to={`${DIRECTOR_HISTORY_PAGE}`}
           leftSection={<RiHome3Line className="text-lg xl:text-xl " />}
           label="Kembali ke home"
+          onClick={props.onClose}
           classNames={{
             label: `text-sm xl:text-base font-normal`,
             root: `text-white bg-black_primary hover:bg-primary hover:text-black hover:border-0 duration-500 border-solid border-b-[5px] border-2  border-neutral-500  rounded-lg`,
