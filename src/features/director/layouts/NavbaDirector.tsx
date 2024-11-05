@@ -96,28 +96,6 @@ const NavbarDirector = (props: INavbarProps) => {
         <Group justify="center">
           <Image src={LogoBangiLight} className="w-[180px]" />
         </Group>
-        {/* <Stack
-          className="bg-white rounded-xl p-2.5"
-          align="center"
-          justify="center"
-        >
-          <Group>
-            <Avatar className="border border-neutral-300 " size={'md'} />
-            <Stack gap={0}>
-              <Text className="text-base font-semibold">{`${user?.firstname} ${user?.lastname}`}</Text>
-              <Text className="text-sm  text-gray-400 ">{`${
-                user?.role === 'DIRECTOR' ? 'Direktur' : 'Admin'
-              }`}</Text>
-            </Stack>
-          </Group>
-
-          <NavLink
-            label="Kembali ke Homepage"
-            classNames={{
-              label: `text-sm  `,
-            }}
-          />
-        </Stack> */}
         <Stack>
           <Text className="text-neutral-400 font-medium">Main Menu</Text>
           <NavLink
@@ -127,7 +105,7 @@ const NavbarDirector = (props: INavbarProps) => {
             label="Analytics"
             classNames={{
               label: `text-sm xl:text-base `,
-              root: `text-white`,
+              root: `text-white border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:bg-transparent`,
               chevron: `text-white`,
             }}
           >
@@ -137,9 +115,9 @@ const NavbarDirector = (props: INavbarProps) => {
                 label: `text-base `,
                 root: `${
                   checkPathname('dashboard')
-                    ? 'bg-primary font-semibold'
-                    : 'text-white'
-                } rounded-xl`,
+                    ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                    : 'text-white hover:bg-transparent'
+                } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
                 section: `${
                   checkPathname('dashboard') ? 'text-black' : 'text-white'
                 }`,
@@ -160,9 +138,9 @@ const NavbarDirector = (props: INavbarProps) => {
                 label: `text-base `,
                 root: `${
                   checkPathname('master-data')
-                    ? 'bg-primary font-semibold'
-                    : 'text-white'
-                } rounded-xl`,
+                    ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                    : 'text-white hover:bg-transparent'
+                } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
                 section: `${
                   checkPathname('master-data') ? 'text-black' : 'text-white'
                 }`,
@@ -183,9 +161,9 @@ const NavbarDirector = (props: INavbarProps) => {
                 label: `text-sm xl:text-base `,
                 root: `${
                   checkPathname('summary')
-                    ? 'bg-primary font-semibold'
-                    : 'text-white'
-                } rounded-xl`,
+                    ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                    : 'text-white hover:bg-transparent'
+                } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
                 section: `${
                   checkPathname('summary') ? 'text-black' : 'text-white'
                 }`,
@@ -208,68 +186,14 @@ const NavbarDirector = (props: INavbarProps) => {
 
               root: `${
                 checkPathname('daily-report')
-                  ? 'bg-primary text-black font-semibold'
-                  : 'text-white'
-              } rounded-xl`,
+                  ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                  : 'text-white hover:bg-transparent'
+              } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
               section: `${
                 checkPathname('daily-report') ? 'text-black' : 'text-white'
               }`,
             }}
           />
-
-          {/* <NavLink
-            leftSection={
-              <TbCirclesRelation className="text-lg xl:text-xl text-white" />
-            }
-            label="Community"
-            classNames={{
-              label: `text-sm xl:text-base `,
-              root: `text-white`,
-              chevron: `text-white`,
-            }}
-          >
-            <NavLink
-              component={Link}
-              classNames={{
-                label: `text-base `,
-                root: `${
-                  checkPathname('expenses-category')
-                    ? 'bg-primary font-semibold'
-                    : 'text-white'
-                } rounded-xl`,
-                section: `${
-                  checkPathname('expenses-category')
-                    ? 'text-black'
-                    : 'text-white'
-                }`,
-              }}
-              to={EXPENSE_CATEGORY_PAGE}
-              leftSection={<TbHomeDollar className="text-lg xl:text-xl " />}
-              label="Expenses"
-            />
-
-            <Space h={10} />
-
-            <NavLink
-              component={Link}
-              classNames={{
-                label: `text-base `,
-                root: `${
-                  checkPathname('suppliers-community')
-                    ? 'bg-primary font-semibold'
-                    : 'text-white'
-                } rounded-xl`,
-                section: `${
-                  checkPathname('suppliers-community')
-                    ? 'text-black'
-                    : 'text-white'
-                }`,
-              }}
-              to={SUPPLIER_COMMUNITY_PAGE}
-              leftSection={<FaPeopleCarry className="text-lg xl:text-xl" />}
-              label="Suppliers"
-            />
-          </NavLink> */}
 
           <NavLink
             component={Link}
@@ -279,12 +203,11 @@ const NavbarDirector = (props: INavbarProps) => {
             onClick={props.onClose}
             classNames={{
               label: `text-sm xl:text-base `,
-
               root: `${
                 checkPathname('expense')
-                  ? 'bg-primary text-black font-semibold'
-                  : 'text-white'
-              } rounded-xl`,
+                  ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                  : 'text-white hover:bg-transparent'
+              } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
               section: `${
                 checkPathname('expense') ? 'text-black' : 'text-white'
               }`,
@@ -300,11 +223,11 @@ const NavbarDirector = (props: INavbarProps) => {
             classNames={{
               label: `text-sm xl:text-base `,
 
-              root: ` ${
+              root: `${
                 checkPathname('supplier')
-                  ? 'bg-primary text-black font-semibold'
-                  : 'text-white'
-              } rounded-xl`,
+                  ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                  : 'text-white hover:bg-transparent'
+              } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
               section: `${
                 checkPathname('supplier') ? 'text-black' : 'text-white'
               }`,

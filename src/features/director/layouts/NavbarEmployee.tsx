@@ -96,9 +96,9 @@ const NavbarEmployee = (props: INavbarProps) => {
               label: `text-sm xl:text-base`,
               root: `${
                 checkPathname('daily-report')
-                  ? 'bg-primary text-black font-semibold'
-                  : 'text-white'
-              } rounded-xl`,
+                  ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                  : 'text-white hover:bg-transparent'
+              } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
               section: `${
                 checkPathname('daily-report') ? 'text-black' : 'text-white'
               }`,
@@ -113,12 +113,11 @@ const NavbarEmployee = (props: INavbarProps) => {
             label="Pengeluaran"
             classNames={{
               label: `text-sm xl:text-base `,
-
               root: `${
                 checkPathname('expense')
-                  ? 'bg-primary text-black font-semibold'
-                  : 'text-white'
-              } rounded-xl`,
+                  ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                  : 'text-white hover:bg-transparent'
+              } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
               section: `${
                 checkPathname('expense') ? 'text-black' : 'text-white'
               }`,
@@ -133,12 +132,11 @@ const NavbarEmployee = (props: INavbarProps) => {
             label="Supplier"
             classNames={{
               label: `text-sm xl:text-base `,
-
-              root: ` ${
+              root: `${
                 checkPathname('supplier')
-                  ? 'bg-primary text-black font-semibold'
-                  : 'text-white'
-              } rounded-xl`,
+                  ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                  : 'text-white hover:bg-transparent'
+              } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
               section: `${
                 checkPathname('supplier') ? 'text-black' : 'text-white'
               }`,

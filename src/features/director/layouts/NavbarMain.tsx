@@ -103,9 +103,9 @@ const NavbarMain = (props: INavbarProps) => {
 
                 root: `${
                   checkPathname('user')
-                    ? 'bg-primary text-black font-semibold'
-                    : 'text-white'
-                } rounded-xl`,
+                    ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                    : 'text-white hover:bg-transparent'
+                } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
                 section: `${
                   checkPathname('user') ? 'text-black' : 'text-white'
                 }`,
@@ -121,13 +121,26 @@ const NavbarMain = (props: INavbarProps) => {
                 ? ADMIN_HISTORY_PAGE
                 : DIRECTOR_HISTORY_PAGE
             }
-            leftSection={
-              <LuDatabaseBackup className="text-lg xl:text-xl text-white" />
-            }
+            leftSection={<LuDatabaseBackup className="text-lg xl:text-xl " />}
             label="History"
+            border-2
+            border-transparent
+            border-solid
+            hover:border-b-2
+            hover:border-b-primary
+            hover:border-solid
+            hover:rounded-none
+            hover:bg-transparent
             classNames={{
               label: `text-sm xl:text-base `,
-              root: `text-white`,
+              root: `${
+                checkPathname('histories')
+                  ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                  : 'text-white  hover:bg-transparent'
+              } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none `,
+              section: `${
+                checkPathname('histories') ? 'text-black' : 'text-white'
+              }`,
             }}
             onClick={props.onClose}
           />
@@ -147,12 +160,12 @@ const NavbarMain = (props: INavbarProps) => {
                 label: `text-sm xl:text-base `,
 
                 root: `${
-                  checkPathname('user-account')
-                    ? 'bg-primary text-black font-semibold'
-                    : 'text-white'
-                } rounded-xl`,
+                  checkPathname('account-setting')
+                    ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                    : 'text-white hover:bg-transparent'
+                } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
                 section: `${
-                  checkPathname('user-account') ? 'text-black' : 'text-white'
+                  checkPathname('account-setting') ? 'text-black' : 'text-white'
                 }`,
               }}
               onClick={props.onClose}
