@@ -19,10 +19,12 @@ import EmployeeLayout from '../shared/layouts/EmployeeLayout';
 import AdminHistoryPage from '../pages/employee/history';
 import EmployeeDailyReportPage from '../pages/employee/daily-report';
 import SupplierEmployeePage from '../pages/employee/suppliers';
+import { Text } from '@mantine/core';
 
 const RouterPage = () => {
   return (
     <Routes>
+      <Route path="/" element={<Text>Base Page</Text>} />
       <Route path="/login" element={<LoginPage />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/admin" element={<MainLayout />}>
