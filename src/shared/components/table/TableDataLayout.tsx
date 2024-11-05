@@ -14,6 +14,7 @@ export interface ITableColumn {
 // Props untuk ITableHeader
 export interface ITableHeaderProps {
   data: { label: string }[]; // Data yang berupa array dari objek dinamis
+  checkbox?: any;
 }
 
 // Props untuk ITableBody

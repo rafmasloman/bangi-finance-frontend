@@ -41,3 +41,15 @@ export const tableHeadSupplierCompany = [
   { label: 'Supplier Name' },
   { label: 'Action' },
 ];
+
+export const checkSelecteCheckbox = (
+  supplierLength: number,
+  selectedRows: string[],
+) => {
+  const isAllSelected =
+    supplierLength > 0 && selectedRows.length === supplierLength;
+  const isSomeSelected =
+    selectedRows.length > 0 && selectedRows.length < supplierLength;
+
+  return { isAllSelected, isSomeSelected };
+};

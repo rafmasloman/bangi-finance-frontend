@@ -30,6 +30,7 @@ import { AuthContext } from '../../../../context/AuthContext';
 import { useUpdateSupplierPaymentStatus } from '../../../../api/supplier/hooks/useUpdatePaymentStatus';
 import ModalForm from '../../../director/components/modal/ModalForm';
 import SupplierPaymentStatusForm from './SupplierPaymentStatusForm';
+import { checkSelecteCheckbox } from '../../../director/supplier/helpers/supplier.helper';
 
 interface ISupplierEmployeePanelProps {
   suppliers: {
@@ -72,6 +73,24 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
     supplierId ?? undefined,
     // openedEditForm || openedEditPaymentForm,
   );
+
+  const handleCheckAll = () => {
+    if (
+      checkSelecteCheckbox(props.suppliers.length, selectedRows).isAllSelected
+    ) {
+      setSelectedRows([]);
+    } else {
+      setSelectedRows(props.suppliers.map((supplier) => supplier.id));
+    }
+  };
+
+  const handleRowSelection = (id: any) => (event: any) => {
+    setSelectedRows(
+      event.currentTarget.checked
+        ? [...selectedRows, id]
+        : selectedRows.filter((selectedId) => selectedId !== id),
+    );
+  };
 
   const handleUpdatePaymentStatus = (values: {
     paymentStatus: 'PAID' | 'UNPAID';
@@ -226,7 +245,22 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
                 th: `text-base `,
               }}
             >
-              <TableDataHead data={tableHeadSuppliers} />
+              <TableDataHead
+                checkbox={
+                  <Checkbox
+                    checked={
+                      checkSelecteCheckbox(props.suppliers.length, selectedRows)
+                        .isAllSelected
+                    }
+                    indeterminate={
+                      checkSelecteCheckbox(props.suppliers.length, selectedRows)
+                        .isSomeSelected
+                    }
+                    onChange={handleCheckAll}
+                  />
+                }
+                data={tableHeadSuppliers}
+              />
 
               {!props.suppliers ? null : (
                 <TableDataBody
@@ -237,13 +271,7 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
                       render: (row) => (
                         <Checkbox
                           checked={selectedRows.includes(row.id)}
-                          onChange={(event) =>
-                            setSelectedRows(
-                              event.currentTarget.checked
-                                ? [...selectedRows, row.id]
-                                : selectedRows.filter((id) => id !== row.id),
-                            )
-                          }
+                          onChange={handleRowSelection(row.id)}
                         />
                       ),
                     },
