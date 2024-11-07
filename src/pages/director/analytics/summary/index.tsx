@@ -78,14 +78,14 @@ const DirectorSummaryPage = () => {
         </Group>
 
         <Grid gutter={50}>
-          <Grid.Col span={{ base: 12, md: 6, xl: 4 }}>
+          <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
             <MasterBalanceCard
               title="Total Pengeluaran"
               value={expenseSummary.data?.totalExpense}
             />
           </Grid.Col>
 
-          <Grid.Col span={{ base: 12, md: 6, xl: 8 }}>
+          <Grid.Col span={{ base: 12, md: 6, lg: 8 }}>
             <SimpleGrid cols={{ base: 1, lg: 2 }}>
               <SummaryExpenseCard
                 amount={expenseSummary.data?.rawMaterials}

@@ -16,10 +16,7 @@ const CostCard = (props: ICostCardProps) => {
       className=" h-fit py-5 overflow-visible "
       withBorder
     >
-      <Stack
-        gap={25}
-        className="w-[240px] md:w-[270px] lg:w-[300px] xl:w-full  "
-      >
+      <Stack gap={25} className="w-[240px] md:w-[300px] xl:w-[350px]  ">
         <Group gap={10} justify="space-between" wrap="nowrap">
           <Text className="text-xl font-semibold text-gray-400">
             {props.label}

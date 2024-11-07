@@ -48,7 +48,7 @@ const LoginPage = () => {
             <Text className="text-2xl md:text-3xl lg:text-4xl font-bold">
               Welcome to Bangi Finance
             </Text>
-            <Text className="text-neutral-400  text-sm md:text-lg">
+            <Text className="text-neutral-400  text-sm md:text-base">
               Masuk ke akun anda untuk dapat mengelola financial bangi cafe
               sunset
             </Text>

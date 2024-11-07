@@ -45,7 +45,7 @@ const DirectorMasterData = () => {
         >
           <Stack
             gap={20}
-            className="text-nowrap w-[230px] md:w-[180px] lg:w-[200px] xl:w-full"
+            className="text-nowrap w-[230px] md:w-[250px] lg:w-[200px] xl:w-full"
           >
             <Group justify="space-between">
               <Text className="text-xl font-semibold text-gray-400">Sales</Text>
@@ -73,7 +73,7 @@ const DirectorMasterData = () => {
         >
           <Stack
             gap={20}
-            className="text-nowrap w-[230px] md:w-[180px] lg:w-[200px] xl:w-full"
+            className="text-nowrap w-[230px] md:w-[250px] lg:w-[270px] xl:w-full"
           >
             <Group justify="space-between">
               <Text className="text-lg font-semibold text-gray-400">
@@ -108,7 +108,7 @@ const DirectorMasterData = () => {
         >
           <Stack
             justify="space-between"
-            className="text-nowrap w-[230px] md:w-[180px] lg:w-[200px] xl:w-full"
+            className="text-nowrap w-[230px] md:w-[250px] lg:w-[270px] xl:w-full"
             gap={20}
           >
             <Group justify="space-between">
@@ -147,7 +147,7 @@ const DirectorMasterData = () => {
           <Stack
             justify="space-between"
             gap={20}
-            className="text-nowrap w-[230px] md:w-[180px] lg:w-[200px] xl:w-full"
+            className="text-nowrap w-[230px] md:w-[250px] lg:w-[270px] xl:w-full"
           >
             <Group justify="space-between">
               <Text className="text-xl text-gray-400 font-semibold">
@@ -185,7 +185,7 @@ const DirectorMasterData = () => {
           <Stack
             justify="space-between"
             gap={20}
-            className="text-nowrap w-[230px] md:w-[180px] lg:w-[200px] xl:w-full"
+            className="text-nowrap w-[230px] md:w-[250px] lg:w-[270px] xl:w-full"
           >
             <Group justify="space-between">
               <Text className="text-xl text-gray-400 font-semibold">PPN</Text>
@@ -225,7 +225,7 @@ const DirectorMasterData = () => {
         </Stack>
 
         <Grid gutter={50}>
-          <Grid.Col span={{ base: 12, lg: 4 }}>
+          <Grid.Col span={{ base: 12, lg: 5, xl: 4 }}>
             <MasterBalanceCard
               title="Total Pengeluaran"
               value={totalExpenseByCategory.data?.totalExpense}
@@ -233,8 +233,8 @@ const DirectorMasterData = () => {
             />
           </Grid.Col>
 
-          <Grid.Col span={{ base: 12, lg: 8 }}>
-            <SimpleGrid cols={{ base: 1, md: 2 }}>
+          <Grid.Col span={{ base: 12, lg: 7, xl: 8 }}>
+            <SimpleGrid cols={{ base: 1, md: 2, lg: 1, xl: 2 }}>
               {totalExpenseByCategory.data?.expense.map((categoryAmount) => (
                 <MasterDataCard
                   amount={categoryAmount.amount}
