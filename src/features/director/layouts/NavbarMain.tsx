@@ -25,6 +25,8 @@ import { AuthContext } from '../../../context/AuthContext';
 import { useDisclosure } from '@mantine/hooks';
 import cookieLibs from '../../../libs/js-cookie/cookie';
 import { IoSettingsOutline } from 'react-icons/io5';
+import { useQueryClient } from '@tanstack/react-query';
+import { GET_USER_CREDENTIAL } from '../../../constants/query-key';
 
 export interface INavbarProps {
   onClose?: () => void;
@@ -32,11 +34,13 @@ export interface INavbarProps {
 
 const NavbarMain = (props: INavbarProps) => {
   const { user } = useContext(AuthContext);
+  const query = useQueryClient();
   const [opened, { open, close }] = useDisclosure(false);
   const navigate = useNavigate();
 
   const handleLogoutButton = () => {
     cookieLibs.deleteCookie('token');
+    query.invalidateQueries({ queryKey: [GET_USER_CREDENTIAL] });
 
     navigate('/login');
   };

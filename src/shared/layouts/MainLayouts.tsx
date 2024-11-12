@@ -11,13 +11,15 @@ import { Outlet } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
 import { LogoBangiLight } from '../../assets/images';
 import HeaderPageLayout from './HeaderPageLayout';
-import { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
 import NavbarMain from '../../features/director/layouts/NavbarMain';
+import { useGetUserDetail } from '../../api/user/hooks/useGetUserDetail';
+import { useCredentialUser } from '../../api/auth/hooks/useCredentialUser';
 
 const MainLayout = () => {
   const [opened, { toggle }] = useDisclosure();
-  const { user } = useContext(AuthContext);
+
+  const credential = useCredentialUser();
+  const userDetail = useGetUserDetail(credential.data?.id, true);
 
   return (
     <AppShell
@@ -75,9 +77,9 @@ const MainLayout = () => {
       <AppShell.Main>
         <HeaderPageLayout
           user={{
-            firstname: user?.firstname ?? '',
-            lastname: user?.lastname ?? '',
-            role: user?.role ?? '',
+            firstname: userDetail.data?.firstname ?? '',
+            lastname: userDetail.data?.lastname ?? '',
+            role: userDetail.data?.role ?? '',
           }}
         />
 

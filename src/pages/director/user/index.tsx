@@ -82,7 +82,6 @@ const UserAccountPage = () => {
       close();
     } else if (!!userId) {
       updateUser.mutate({ id: userId, payload: userPayload });
-      console.log('payload update : ', userPayload);
     }
   };
 

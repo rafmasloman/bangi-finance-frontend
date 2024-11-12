@@ -32,13 +32,6 @@ const RouterPage = () => {
           <Route path="histories" element={<AdminHistoryPage />} />
         </Route>
 
-        <Route path="/books/admin/:historyId" element={<EmployeeLayout />}>
-          <Route path="dashboard" element={<EmployeeDashboardPage />} />
-          <Route path="daily-report" element={<EmployeeDailyReportPage />} />
-          <Route path="expense" element={<ExpenseEmployeePage />} />
-          <Route path="supplier" element={<SupplierEmployeePage />} />
-        </Route>
-
         <Route element={<RoleProtectedRoute />}>
           <Route path="/director" element={<MainLayout />}>
             <Route path="user" element={<UserAccountPage />} />
@@ -58,6 +51,13 @@ const RouterPage = () => {
             <Route path="master-data" element={<DirectorMasterData />} />
             <Route path="summary" element={<DirectorSummaryPage />} />
           </Route>
+        </Route>
+
+        <Route path="/books/admin/:historyId" element={<EmployeeLayout />}>
+          <Route path="dashboard" element={<EmployeeDashboardPage />} />
+          <Route path="daily-report" element={<EmployeeDailyReportPage />} />
+          <Route path="expense" element={<ExpenseEmployeePage />} />
+          <Route path="supplier" element={<SupplierEmployeePage />} />
         </Route>
 
         {/* <Route element={<RoleProtectedRoute />}></Route> */}

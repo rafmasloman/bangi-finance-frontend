@@ -11,12 +11,14 @@ interface IQueryCredentialOption {
 
 export const useCredentialUser = (options?: IQueryCredentialOption) => {
   const token = cookieLibs.getCookie('token');
+
   const query = useQuery({
-    queryKey: [GET_USER_CREDENTIAL],
+    queryKey: [GET_USER_CREDENTIAL, token],
     queryFn: () => authServiceApi.credential(),
     select(data) {
       return data.data;
     },
+
     enabled: !!token,
   });
 

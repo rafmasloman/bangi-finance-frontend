@@ -25,9 +25,9 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (!!credential.data && !!token) {
-      if (credential.data.role === 'DIRECTOR') {
+      if (credential.data.role !== 'EMPLOYEE') {
         navigate(DIRECTOR_HISTORY_PAGE);
-      } else if (credential.data.role === 'EMPLOYEE') {
+      } else {
         navigate(ADMIN_HISTORY_PAGE);
       }
     }

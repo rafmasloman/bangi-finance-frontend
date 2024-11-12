@@ -20,8 +20,6 @@ interface IUserFormProps {
 }
 
 const UserForm = (props: IUserFormProps) => {
-  console.log('props : ', props.initialValues);
-
   const userForm = useForm({
     initialValues: {
       firstname: props.initialValues?.firstname || '',
