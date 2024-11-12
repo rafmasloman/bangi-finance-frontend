@@ -17,6 +17,8 @@ const ProfilePanel = () => {
       phoneNumber: values.phoneNumber,
       username: values.username,
     };
+
+    console.log('payload : ', payload);
   };
 
   if (userDetail.isLoading) {
