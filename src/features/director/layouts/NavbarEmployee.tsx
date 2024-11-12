@@ -17,6 +17,7 @@ import {
   ADMIN_HISTORY_PAGE,
   BOOK_BASE_ADMIN_PAGE,
   DAILY_REPORT_PAGE,
+  DASHBOARD_PAGE,
   EXPENSE_PAGE,
   SUPPLIER_PAGE,
 } from '../../../constants/pages-route';
@@ -24,6 +25,7 @@ import { LogoBangiLight } from '../../../assets/images';
 import { useDisclosure } from '@mantine/hooks';
 import cookieLibs from '../../../libs/js-cookie/cookie';
 import { INavbarProps } from './NavbarMain';
+import { LuLayoutDashboard } from 'react-icons/lu';
 
 const NavbarEmployee = (props: INavbarProps) => {
   const [opened, { close }] = useDisclosure(false);
@@ -86,6 +88,25 @@ const NavbarEmployee = (props: INavbarProps) => {
         </Group>
         <Stack>
           <Text className="text-neutral-400 font-medium">Main Menu</Text>
+
+          <NavLink
+            component={Link}
+            classNames={{
+              label: `text-base `,
+              root: `${
+                checkPathname('dashboard')
+                  ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
+                  : 'text-white hover:bg-transparent'
+              } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
+              section: `${
+                checkPathname('dashboard') ? 'text-black' : 'text-white'
+              }`,
+            }}
+            onClick={props.onClose}
+            to={`${BOOK_BASE_ADMIN_PAGE}/${historyId}/${DASHBOARD_PAGE}`}
+            leftSection={<LuLayoutDashboard className="text-lg xl:text-xl " />}
+            label="Dashboard"
+          />
 
           <NavLink
             component={Link}

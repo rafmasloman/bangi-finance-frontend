@@ -20,6 +20,7 @@ import AdminHistoryPage from '../pages/employee/history';
 import EmployeeDailyReportPage from '../pages/employee/daily-report';
 import SupplierEmployeePage from '../pages/employee/suppliers';
 import Homepage from '../pages/Homepage';
+import EmployeeDashboardPage from '../pages/employee/dashboard';
 
 const RouterPage = () => {
   return (
@@ -32,6 +33,7 @@ const RouterPage = () => {
         </Route>
 
         <Route path="/books/admin/:historyId" element={<EmployeeLayout />}>
+          <Route path="dashboard" element={<EmployeeDashboardPage />} />
           <Route path="daily-report" element={<EmployeeDailyReportPage />} />
           <Route path="expense" element={<ExpenseEmployeePage />} />
           <Route path="supplier" element={<SupplierEmployeePage />} />
