@@ -24,6 +24,10 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     },
   });
 
+  console.log('credit loading : ', credential.isLoading);
+  console.log('credit success : ', credential.isSuccess);
+  
+
   useEffect(() => {
     if (!token) {
       setUserCredential(undefined); // Set userCredential ke null jika token tidak ada

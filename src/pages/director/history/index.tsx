@@ -36,6 +36,8 @@ import { EmptyStateHistory } from '../../../assets/images';
 
 const DirectorHistoryPage = () => {
   const { user } = useContext(AuthContext);
+
+  
   const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
     useDisclosure(false);
 
