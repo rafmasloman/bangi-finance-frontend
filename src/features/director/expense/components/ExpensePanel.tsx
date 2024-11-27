@@ -21,7 +21,7 @@ import { useGetAllExpenses } from "../../../../api/expense/hooks/useGetAllExpens
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
 import CurrencyFormatter from "../../../../shared/components/formatter/CurrencyFormatter";
-import { ReactNode, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDeleteExpense } from "../../../../api/expense/hooks/useDeleteExpense";
 import { useGetDetailExpenses } from "../../../../api/expense/hooks/useGetDetailExpense";
 import ModalDelete from "../../../../features/director/components/modal/ModalDelete";
@@ -30,11 +30,7 @@ import { tableHeadExpense } from "../helpers/expense.helper";
 import { useParams } from "react-router-dom";
 import { useUpdateExpense } from "../../../../api/expense/hooks/useUpdateExpense";
 
-interface IExpensePanelPropsType {
-  control?: ReactNode;
-}
-
-const ExpensePanel = (props: IExpensePanelPropsType) => {
+const ExpensePanel = () => {
   const { user } = useContext(AuthContext);
   const { historyId } = useParams();
 

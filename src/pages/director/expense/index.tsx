@@ -1,7 +1,6 @@
-import { ComboboxItem, Select, Stack, Tabs } from "@mantine/core";
+import { Stack, Tabs } from "@mantine/core";
 import ExpensePanel from "../../../features/director/expense/components/ExpensePanel";
 import ExpenseCategoryPanel from "../../../features/director/expense/components/ExpenseCategoryPanel";
-import { useState } from "react";
 
 const ExpenseDirectorPage = () => {
   return (
