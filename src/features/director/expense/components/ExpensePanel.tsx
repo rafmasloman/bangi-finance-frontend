@@ -1,32 +1,47 @@
-import { ActionIcon, Group, Stack, Table, Text } from '@mantine/core';
-import TableDataHead from '../../../../shared/components/table/TableDataHead';
-import TableDataBody from '../../../../shared/components/table/TableDataBody';
-import TableDataLayout from '../../../../shared/components/table/TableDataLayout';
-import BaseButton from '../../../../shared/components/button/BaseButton';
-import { FaPlus } from 'react-icons/fa6';
-import { useDisclosure } from '@mantine/hooks';
-import ModalForm from '../../../../features/director/components/modal/ModalForm';
-import ExpenseForm from '../../../../features/director/expense/components/ExpenseForm';
-import { IExpenseRequestParams } from '../../../../api/expense/ExpenseInterface';
-import { useCreateExpense } from '../../../../api/expense/hooks/useCreateExpense';
-import { useGetAllExpenses } from '../../../../api/expense/hooks/useGetAllExpense';
-import { MdOutlineDeleteOutline } from 'react-icons/md';
-import { TbEdit } from 'react-icons/tb';
-import CurrencyFormatter from '../../../../shared/components/formatter/CurrencyFormatter';
-import { useContext, useEffect, useState } from 'react';
-import { useDeleteExpense } from '../../../../api/expense/hooks/useDeleteExpense';
-import { useGetDetailExpenses } from '../../../../api/expense/hooks/useGetDetailExpense';
-import ModalDelete from '../../../../features/director/components/modal/ModalDelete';
-import { AuthContext } from '../../../../context/AuthContext';
-import { tableHeadExpense } from '../helpers/expense.helper';
-import { useParams } from 'react-router-dom';
-import { useUpdateExpense } from '../../../../api/expense/hooks/useUpdateExpense';
+import {
+  ActionIcon,
+  ComboboxItem,
+  Group,
+  Select,
+  Stack,
+  Table,
+  Text,
+} from "@mantine/core";
+import TableDataHead from "../../../../shared/components/table/TableDataHead";
+import TableDataBody from "../../../../shared/components/table/TableDataBody";
+import TableDataLayout from "../../../../shared/components/table/TableDataLayout";
+import BaseButton from "../../../../shared/components/button/BaseButton";
+import { FaPlus } from "react-icons/fa6";
+import { useDisclosure } from "@mantine/hooks";
+import ModalForm from "../../../../features/director/components/modal/ModalForm";
+import ExpenseForm from "../../../../features/director/expense/components/ExpenseForm";
+import { IExpenseRequestParams } from "../../../../api/expense/ExpenseInterface";
+import { useCreateExpense } from "../../../../api/expense/hooks/useCreateExpense";
+import { useGetAllExpenses } from "../../../../api/expense/hooks/useGetAllExpense";
+import { MdOutlineDeleteOutline } from "react-icons/md";
+import { TbEdit } from "react-icons/tb";
+import CurrencyFormatter from "../../../../shared/components/formatter/CurrencyFormatter";
+import { ReactNode, useContext, useEffect, useState } from "react";
+import { useDeleteExpense } from "../../../../api/expense/hooks/useDeleteExpense";
+import { useGetDetailExpenses } from "../../../../api/expense/hooks/useGetDetailExpense";
+import ModalDelete from "../../../../features/director/components/modal/ModalDelete";
+import { AuthContext } from "../../../../context/AuthContext";
+import { tableHeadExpense } from "../helpers/expense.helper";
+import { useParams } from "react-router-dom";
+import { useUpdateExpense } from "../../../../api/expense/hooks/useUpdateExpense";
 
-const ExpensePanel = () => {
+interface IExpensePanelPropsType {
+  control?: ReactNode;
+}
+
+const ExpensePanel = (props: IExpensePanelPropsType) => {
   const { user } = useContext(AuthContext);
   const { historyId } = useParams();
 
   const [expenseId, setExpenseId] = useState<string | null>(null);
+  const [selectedExpCat, setSelectedExpCat] = useState<ComboboxItem | null>(
+    null
+  );
 
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -38,11 +53,23 @@ const ExpensePanel = () => {
   const createExpense = useCreateExpense();
   const updateExpense = useUpdateExpense();
   const deleteExpense = useDeleteExpense();
-  const expenses = useGetAllExpenses();
+  const expenses = useGetAllExpenses(selectedExpCat?.value);
   const expenseDetail = useGetDetailExpenses(
     expenseId ?? undefined,
-    openedEditForm,
+    openedEditForm
   );
+
+  console.log("cat : ", selectedExpCat?.value);
+
+  const expenseCategoriesData = [
+    "SALES",
+    "SERVICE_KARYAWAN",
+    "SERVICE_MANAJEMEN",
+    "PPN ",
+    "GAJI_KARYAWAN",
+    "PENGEMBALIAN_MODAL",
+    "OPERASIONAL",
+  ];
 
   const handleSubmitExpense = (values: IExpenseRequestParams) => {
     const data = {
@@ -266,6 +293,28 @@ const ExpensePanel = () => {
             <BaseButton leftSection={<FaPlus />} onClick={open}>
               Input Pengeluaran
             </BaseButton>
+
+            <Select
+              placeholder="Pilih Kategori Pengeluaran"
+              data={
+                !expenseCategoriesData
+                  ? [
+                      {
+                        label: "",
+                        value: "",
+                      },
+                    ]
+                  : expenseCategoriesData.map((expense) => {
+                      return {
+                        label: expense,
+                        value: expense,
+                      };
+                    })
+              }
+              value={selectedExpCat ? selectedExpCat.value : null}
+              onChange={(_value, option) => setSelectedExpCat(option)}
+              classNames={{}}
+            />
           </Group>
         </Group>
 
@@ -277,19 +326,19 @@ const ExpensePanel = () => {
               <TableDataBody
                 data={expenses.data}
                 columns={[
-                  { key: 'no', render: (row) => <Text>{row.no}</Text> },
+                  { key: "no", render: (row) => <Text>{row.no}</Text> },
                   {
-                    key: 'date',
+                    key: "date",
                     render: (row) => <Text>{row.date}</Text>,
                   },
                   {
-                    key: 'evidence',
+                    key: "evidence",
                     render: (row) => (
                       <Text className="text-nowrap">{row.evidence}</Text>
                     ),
                   },
                   {
-                    key: 'price',
+                    key: "price",
                     render: (row) => (
                       <CurrencyFormatter
                         currency="IDR"
@@ -299,19 +348,19 @@ const ExpensePanel = () => {
                     ),
                   },
                   {
-                    key: 'category',
+                    key: "category",
                     render: (row) => (
                       <Text className="text-nowrap">{row.expenseCategory}</Text>
                     ),
                   },
                   {
-                    key: 'user',
+                    key: "user",
                     render: (row) => (
                       <Text className="text-nowrap">{row.user.firstname}</Text>
                     ),
                   },
                   {
-                    key: 'note',
+                    key: "note",
                     render: (row) => (
                       <Text className="text-nowrap">{row.note}</Text>
                     ),
@@ -323,12 +372,12 @@ const ExpensePanel = () => {
                   //   ),
                   // },
                   {
-                    key: 'action',
+                    key: "action",
                     render: (row) => (
                       <Group gap={10} wrap="nowrap">
                         <ActionIcon
                           onClick={() => handleOpenModalEdit(row.id)}
-                          radius={'md'}
+                          radius={"md"}
                           size={27}
                           className="bg-indigo-500 text-lg"
                         >
@@ -337,7 +386,7 @@ const ExpensePanel = () => {
 
                         <ActionIcon
                           onClick={() => handleOpenModalDelete(row.id)}
-                          radius={'md'}
+                          radius={"md"}
                           size={27}
                           className="bg-rose-400  text-md"
                         >

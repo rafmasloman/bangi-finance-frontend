@@ -1,17 +1,17 @@
-import { EXPENSE_API_ROUTE } from '../../constants/api-route';
-import { http } from '../../libs/axios/http';
-import { IApiBaseResponse } from '../ApiInterface';
+import { EXPENSE_API_ROUTE } from "../../constants/api-route";
+import { http } from "../../libs/axios/http";
+import { IApiBaseResponse } from "../ApiInterface";
 import {
   IExpenseAmountCategoryResponseData,
   IExpenseRequestParams,
   IExpenseResponseData,
   IExpenseResponseDetailData,
   IExpenseSummaryResponseData,
-} from './ExpenseInterface';
+} from "./ExpenseInterface";
 
 class ExpenseService {
   async createExpense(
-    payload: IExpenseRequestParams,
+    payload: IExpenseRequestParams
   ): Promise<IApiBaseResponse<IExpenseResponseData>> {
     try {
       const response = await http.post(`${EXPENSE_API_ROUTE}`, payload);
@@ -26,10 +26,13 @@ class ExpenseService {
 
   async getAllExpenses(
     historyId?: string,
+    category?: string
   ): Promise<IApiBaseResponse<IExpenseResponseData>> {
     try {
       const response = await http.get(
-        `${EXPENSE_API_ROUTE}?historyId=${historyId}`,
+        `${EXPENSE_API_ROUTE}?historyId=${historyId}&category=${
+          !!category ? category : ""
+        }`
       );
 
       const data: IApiBaseResponse<IExpenseResponseData> = await response.data;
@@ -41,7 +44,7 @@ class ExpenseService {
   }
 
   async getDetailExpense(
-    id?: string,
+    id?: string
   ): Promise<IApiBaseResponse<IExpenseResponseDetailData>> {
     try {
       const response = await http.get(`${EXPENSE_API_ROUTE}/${id}`);
@@ -57,11 +60,11 @@ class ExpenseService {
 
   async getExpenseCategoryAmount(
     categoryName: string,
-    id?: string,
+    id?: string
   ): Promise<IApiBaseResponse<IExpenseAmountCategoryResponseData>> {
     try {
       const response = await http.get(
-        `${EXPENSE_API_ROUTE}/${id}/category-amount?categoryName=${categoryName}`,
+        `${EXPENSE_API_ROUTE}/${id}/category-amount?categoryName=${categoryName}`
       );
 
       const data: IApiBaseResponse<IExpenseAmountCategoryResponseData> =
@@ -74,7 +77,7 @@ class ExpenseService {
   }
 
   async getExpenseSummary(
-    id?: string,
+    id?: string
   ): Promise<IApiBaseResponse<IExpenseSummaryResponseData>> {
     try {
       const response = await http.get(`${EXPENSE_API_ROUTE}/${id}/summary`);
@@ -107,7 +110,7 @@ class ExpenseService {
     try {
       const response = await http.put(
         `${EXPENSE_API_ROUTE}/${params.id}`,
-        params.payload,
+        params.payload
       );
 
       const data: IApiBaseResponse<IExpenseResponseData> = await response.data;

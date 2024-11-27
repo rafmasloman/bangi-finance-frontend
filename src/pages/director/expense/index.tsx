@@ -1,12 +1,13 @@
-import { Stack, Tabs } from '@mantine/core';
-import ExpensePanel from '../../../features/director/expense/components/ExpensePanel';
-import ExpenseCategoryPanel from '../../../features/director/expense/components/ExpenseCategoryPanel';
+import { ComboboxItem, Select, Stack, Tabs } from "@mantine/core";
+import ExpensePanel from "../../../features/director/expense/components/ExpensePanel";
+import ExpenseCategoryPanel from "../../../features/director/expense/components/ExpenseCategoryPanel";
+import { useState } from "react";
 
 const ExpenseDirectorPage = () => {
   return (
     <Stack>
       <Tabs
-        defaultValue={'expenses'}
+        defaultValue={"expenses"}
         classNames={{
           panel: `mt-7`,
           tab: `w-[180px] data-[active=true]:bg-primary/[0.5] px-5 py-3 data-[active=true]:text-black_primary data-[active=true]:border data-[active=true]:border-neutral-300 data-[active=true]:border-solid font-semibold`,

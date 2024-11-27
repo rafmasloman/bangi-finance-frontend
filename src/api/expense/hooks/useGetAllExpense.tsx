@@ -4,11 +4,11 @@ import expenseServiceApi from '../ExpenseService';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
 
-export const useGetAllExpenses = () => {
+export const useGetAllExpenses = (category?: string) => {
   const { historyId } = useParams();
   const query = useQuery({
-    queryKey: [GET_ALL_EXPENSE_DATA, historyId],
-    queryFn: () => expenseServiceApi.getAllExpenses(historyId),
+    queryKey: [GET_ALL_EXPENSE_DATA, historyId, category],
+    queryFn: () => expenseServiceApi.getAllExpenses(historyId, category),
     select(data) {
       return data.data.expense.map((expense, index) => {
         return {
