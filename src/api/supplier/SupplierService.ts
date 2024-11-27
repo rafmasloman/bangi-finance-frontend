@@ -1,7 +1,7 @@
-import { AxiosResponse } from 'axios';
-import { SUPPLIER_API_ROUTE } from '../../constants/api-route';
-import { http } from '../../libs/axios/http';
-import { IApiBaseResponse } from '../ApiInterface';
+import { AxiosResponse } from "axios";
+import { SUPPLIER_API_ROUTE } from "../../constants/api-route";
+import { http } from "../../libs/axios/http";
+import { IApiBaseResponse } from "../ApiInterface";
 import {
   ISupplierRequestParams,
   ISupplierResponseData,
@@ -9,16 +9,16 @@ import {
   ISupplierTotalAmountByPaymentStatusResponse,
   ISupplierTotalPaymentResponseData,
   IUpdateSupplierRequestParams,
-} from './SupplierApiInterface';
+} from "./SupplierApiInterface";
 
 class SupplierService {
   async createSupplier(
-    params: ISupplierRequestParams,
+    params: ISupplierRequestParams
   ): Promise<IApiBaseResponse<ISupplierResponseData[]>> {
     try {
       const response: AxiosResponse = await http.post(
         SUPPLIER_API_ROUTE,
-        params,
+        params
       );
 
       const data: IApiBaseResponse<ISupplierResponseData[]> =
@@ -32,10 +32,11 @@ class SupplierService {
 
   async getAllSuppliers(
     historyId?: string,
+    supCompId?: string
   ): Promise<IApiBaseResponse<ISupplierResponseData>> {
     try {
       const suppliers = await http.get(
-        `${SUPPLIER_API_ROUTE}?historyId=${historyId}`,
+        `${SUPPLIER_API_ROUTE}?historyId=${historyId}&supplierCompanyId=${supCompId}`
       );
 
       const data: IApiBaseResponse<ISupplierResponseData> =
@@ -48,7 +49,7 @@ class SupplierService {
   }
 
   async getDetailSupplier(
-    id?: string,
+    id?: string
   ): Promise<IApiBaseResponse<ISupplierResponseDetailData>> {
     try {
       const supplier = await http.get(`${SUPPLIER_API_ROUTE}/${id}/detail`);
@@ -63,11 +64,11 @@ class SupplierService {
   }
 
   async getTotalPaidSupplier(
-    historyId?: string,
+    historyId?: string
   ): Promise<IApiBaseResponse<ISupplierTotalPaymentResponseData>> {
     try {
       const response = await http.get(
-        `${SUPPLIER_API_ROUTE}/${historyId}/total-payment`,
+        `${SUPPLIER_API_ROUTE}/${historyId}/total-payment`
       );
 
       const data: IApiBaseResponse<ISupplierTotalPaymentResponseData> =
@@ -81,11 +82,11 @@ class SupplierService {
 
   async getSupplierAmountByStatus(
     historyId?: string,
-    paymentStatus: string = 'UNPAID',
+    paymentStatus: string = "UNPAID"
   ): Promise<IApiBaseResponse<ISupplierTotalAmountByPaymentStatusResponse>> {
     try {
       const response = await http.get(
-        `${SUPPLIER_API_ROUTE}/stats/${historyId}/total-payment?paymentStatus=${paymentStatus}`,
+        `${SUPPLIER_API_ROUTE}/stats/${historyId}/total-payment?paymentStatus=${paymentStatus}`
       );
 
       const data: IApiBaseResponse<ISupplierTotalAmountByPaymentStatusResponse> =
@@ -104,7 +105,7 @@ class SupplierService {
     try {
       const response = await http.put(
         `${SUPPLIER_API_ROUTE}/${params.id}`,
-        params.data,
+        params.data
       );
 
       const data = await response.data;
@@ -117,12 +118,12 @@ class SupplierService {
 
   async updateSupplierPaymentStatus(params: {
     id?: string[];
-    paymentStatus: 'PAID' | 'UNPAID';
+    paymentStatus: "PAID" | "UNPAID";
   }) {
     try {
       const response = await http.put(
         `${SUPPLIER_API_ROUTE}/${params.id}/payment-status`,
-        { supplierId: params.id, paymentStatus: params.paymentStatus },
+        { supplierId: params.id, paymentStatus: params.paymentStatus }
       );
 
       const data = await response.data;

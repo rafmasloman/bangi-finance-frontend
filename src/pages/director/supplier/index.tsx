@@ -1,27 +1,35 @@
 import {
   ActionIcon,
   Card,
+  ComboboxItem,
   Group,
+  Select,
   SimpleGrid,
   Stack,
   Tabs,
   Text,
-} from '@mantine/core';
-import { FaBoxOpen } from 'react-icons/fa6';
-import { useGetAllSuppliers } from '../../../api/supplier/hooks/useGetAllSuppliers';
-import SupplierPanel from '../../../features/director/supplier/components/SupplierPanel';
+} from "@mantine/core";
+import { FaBoxOpen } from "react-icons/fa6";
+import { useGetAllSuppliers } from "../../../api/supplier/hooks/useGetAllSuppliers";
+import SupplierPanel from "../../../features/director/supplier/components/SupplierPanel";
 // import { useEffect, useState } from 'react';
-import CurrencyFormatter from '../../../shared/components/formatter/CurrencyFormatter';
-import SupplierCommunityPanel from '../../../features/director/supplier/components/SupplierCommunityPanel';
-import { useParams } from 'react-router-dom';
-import { useGetTotalPaymentSupplier } from '../../../api/supplier/hooks/useGetTotalPaymentSupplier';
+import CurrencyFormatter from "../../../shared/components/formatter/CurrencyFormatter";
+import SupplierCommunityPanel from "../../../features/director/supplier/components/SupplierCommunityPanel";
+import { useParams } from "react-router-dom";
+import { useGetTotalPaymentSupplier } from "../../../api/supplier/hooks/useGetTotalPaymentSupplier";
+import { useState } from "react";
+import { useGetAllSupplierCategoryBySupplier } from "../../../api/supplier-category/hooks/useGetSupplierCategoryBySupplier";
 
 const SupplierDirectorPage = () => {
   const { historyId } = useParams();
   // const [totalPaidSupplier, setTotalPaidSupplier] = useState<number>(0);
   // const [totalUnpaidSupplier, setTotalUnpaidSupplier] = useState<number>(0);
+  const [selectedSupCompany, setSelectedSupCompany] =
+    useState<ComboboxItem | null>(null);
 
-  const suppliers = useGetAllSuppliers(historyId);
+  const suppliers = useGetAllSuppliers(historyId, selectedSupCompany?.value);
+  const supplierCompanies = useGetAllSupplierCategoryBySupplier();
+
   const totalPaymentSupplier = useGetTotalPaymentSupplier(historyId);
 
   // useEffect(() => {
@@ -41,6 +49,8 @@ const SupplierDirectorPage = () => {
   //     setTotalUnpaidSupplier(totalPaymentSupplier.data.totalUnpaid);
   //   }
   // }, [totalPaymentSupplier.data]);
+
+  console.log("values : ", selectedSupCompany);
 
   if (suppliers.isLoading) {
     return <Text>Loading...</Text>;
@@ -101,7 +111,7 @@ const SupplierDirectorPage = () => {
                 <ActionIcon
                   variant="light"
                   size={40}
-                  radius={'xl'}
+                  radius={"xl"}
                   className="bg-white"
                 >
                   <FaBoxOpen className="text-2xl text-black_primary" />
@@ -121,7 +131,7 @@ const SupplierDirectorPage = () => {
                 {!totalPaymentSupplier.data?.paymentStatusAmount[0]
                   ? 0
                   : totalPaymentSupplier.data?.paymentStatusAmount[0]._count
-                      ._all}{' '}
+                      ._all}{" "}
                 Supplier telah dibayar
               </Text>
             </Stack>
@@ -142,7 +152,7 @@ const SupplierDirectorPage = () => {
                 <ActionIcon
                   variant="light"
                   size={40}
-                  radius={'xl'}
+                  radius={"xl"}
                   className="bg-white"
                 >
                   <FaBoxOpen className="text-2xl text-black_primary" />
@@ -162,7 +172,7 @@ const SupplierDirectorPage = () => {
                 {!totalPaymentSupplier.data?.paymentStatusAmount[1]
                   ? 0
                   : totalPaymentSupplier.data?.paymentStatusAmount[1]._count
-                      ._all}{' '}
+                      ._all}{" "}
                 Supplier belum membayar
               </Text>
             </Stack>
@@ -171,7 +181,7 @@ const SupplierDirectorPage = () => {
       </SimpleGrid>
 
       <Tabs
-        defaultValue={'suppliers'}
+        defaultValue={"suppliers"}
         classNames={{
           panel: `mt-7`,
           tab: `w-[180px] data-[active=true]:bg-primary/[0.5] px-5 py-3.5 data-[active=true]:text-black_primary data-[active=true]:border data-[active=true]:border-neutral-300 data-[active=true]:border-solid font-semibold`,
@@ -188,7 +198,32 @@ const SupplierDirectorPage = () => {
 
         <Tabs.Panel value="suppliers">
           {!suppliers.data?.suppliers ? null : (
-            <SupplierPanel suppliers={suppliers.data?.suppliers} />
+            <SupplierPanel
+              suppliers={suppliers.data?.suppliers}
+              controlInput={
+                <Select
+                  placeholder="Pilih Kategori Supplier"
+                  data={
+                    !supplierCompanies.data
+                      ? [
+                          {
+                            label: "",
+                            value: "",
+                          },
+                        ]
+                      : supplierCompanies.data?.map((supplier) => {
+                          return {
+                            label: supplier.name,
+                            value: supplier.id.toString(),
+                          };
+                        })
+                  }
+                  value={selectedSupCompany ? selectedSupCompany.value : null}
+                  onChange={(_value, option) => setSelectedSupCompany(option)}
+                  classNames={{}}
+                />
+              }
+            />
           )}
         </Tabs.Panel>
 

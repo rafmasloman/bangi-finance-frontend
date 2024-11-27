@@ -21,7 +21,7 @@ import { useUpdateSupplier } from '../../../../api/supplier/hooks/useUpdateSuppl
 import { useDeleteSupplier } from '../../../../api/supplier/hooks/useDeleteSupplier';
 import { useGetSupplierDetail } from '../../../../api/supplier/hooks/useGetSupplierDetail';
 import { useDisclosure } from '@mantine/hooks';
-import { useContext, useEffect, useState } from 'react';
+import { ReactNode, useContext, useEffect, useState } from 'react';
 import { ISupplierRequestParams } from '../../../../api/supplier/SupplierApiInterface';
 import {
   checkSelecteCheckbox,
@@ -54,6 +54,7 @@ interface ISupplierPanelProps {
       name: string;
     };
   }[];
+  controlInput: ReactNode
 }
 
 const SupplierPanel = (props: ISupplierPanelProps) => {
@@ -81,6 +82,8 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
     supplierId ?? undefined,
     openedEditForm,
   );
+
+  
 
   const handleCheckAll = () => {
     if (
@@ -267,6 +270,8 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
               <BaseButton leftSection={<FaPlus />} onClick={open}>
                 Input Supplier
               </BaseButton>
+
+              {props.controlInput}
             </Group>
           </Group>
           <Stack className="overflow-x-auto scrollbar-hide">

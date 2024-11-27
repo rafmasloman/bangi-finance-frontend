@@ -1,12 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import supplierService from '../SupplierService';
-import { GET_ALL_SUPPLIERS_DATA } from '../../../constants/query-key';
-import moment from 'moment';
+import { useQuery } from "@tanstack/react-query";
+import supplierService from "../SupplierService";
+import { GET_ALL_SUPPLIERS_DATA } from "../../../constants/query-key";
+import moment from "moment";
 
-export const useGetAllSuppliers = (historyId?: string) => {
+export const useGetAllSuppliers = (historyId?: string, supCompId?: string) => {
   const query = useQuery({
-    queryKey: [GET_ALL_SUPPLIERS_DATA, historyId],
-    queryFn: () => supplierService.getAllSuppliers(historyId),
+    queryKey: [GET_ALL_SUPPLIERS_DATA, historyId, supCompId],
+    queryFn: () => supplierService.getAllSuppliers(historyId, supCompId),
     select(data) {
       return {
         suppliers: data.data.supplier.map((ctx, index) => {
@@ -20,7 +20,7 @@ export const useGetAllSuppliers = (historyId?: string) => {
             quantity: ctx.quantity,
             totalAmount: ctx.totalAmount,
             paymentStatus: ctx.paymentStatus,
-            date: moment(ctx.date).format('DD MMMM YYYY'),
+            date: moment(ctx.date).format("DD MMMM YYYY"),
             supplierCompany: ctx.supplierCompany,
           };
         }),
