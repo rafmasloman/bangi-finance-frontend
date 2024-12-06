@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Button,
   ComboboxItem,
   Group,
   Select,
@@ -29,6 +30,10 @@ import { AuthContext } from "../../../../context/AuthContext";
 import { tableHeadExpense } from "../helpers/expense.helper";
 import { useParams } from "react-router-dom";
 import { useUpdateExpense } from "../../../../api/expense/hooks/useUpdateExpense";
+import moment from "moment";
+import { exportToExcel, formatRupiah } from "../../../../shared/utils/helpers";
+import { useGetDetailHistory } from "../../../../api/history/hooks/useGetHistoryDetail";
+import { HiFolderArrowDown } from "react-icons/hi2";
 
 const ExpensePanel = () => {
   const { user } = useContext(AuthContext);
@@ -54,6 +59,7 @@ const ExpensePanel = () => {
     expenseId ?? undefined,
     openedEditForm
   );
+  const historyDetail = useGetDetailHistory(historyId);
 
   console.log("cat : ", selectedExpCat?.value);
 
@@ -66,6 +72,30 @@ const ExpensePanel = () => {
     "PENGEMBALIAN_MODAL",
     "OPERASIONAL",
   ];
+
+  const exportExcel = () => {
+    const excelDataFileType = expenses.data?.map((exp) => {
+      console.log("expenses : ", exp);
+
+      return {
+        No: exp.no.toString(),
+        "Tanggal Input": moment(exp.date).format("DD MMMM YYYY"),
+        Keterangan: exp.evidence,
+        Kategori: exp.expenseCategory,
+        Jumlah: exp.price,
+        User: exp.user.firstname,
+        Catatan: exp.note,
+      };
+    });
+
+    const excelDatas = exportToExcel(excelDataFileType, "Pengeluaran", {
+      month: historyDetail.data?.month,
+      year: historyDetail.data?.year,
+      createdAt: moment(historyDetail.data?.date).format("YYYY-MM-DD"),
+    });
+
+    return excelDatas;
+  };
 
   const handleSubmitExpense = (values: IExpenseRequestParams) => {
     const data = {
@@ -286,6 +316,19 @@ const ExpensePanel = () => {
           <Text className="font-semibold text-xl">Data Pengeluaran</Text>
 
           <Group>
+            <Button
+              radius={"md"}
+              bg={"#33c481"}
+              leftSection={<HiFolderArrowDown color="white" size={20} />}
+              onClick={exportExcel}
+              classNames={{
+                root: `border border-[#107c41] shadow-[4px_4px_0] shadow-[#107c41] hover:translate-y-1.5 hover:translate-x-1.5 duration-500 hover:shadow-[0px_0px_0]  duration-300`,
+                label: `text-white`,
+              }}
+            >
+              Export to excel
+            </Button>
+
             <BaseButton leftSection={<FaPlus />} onClick={open}>
               Input Pengeluaran
             </BaseButton>
