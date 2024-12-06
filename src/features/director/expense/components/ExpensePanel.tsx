@@ -31,7 +31,7 @@ import { tableHeadExpense } from "../helpers/expense.helper";
 import { useParams } from "react-router-dom";
 import { useUpdateExpense } from "../../../../api/expense/hooks/useUpdateExpense";
 import moment from "moment";
-import { exportToExcel, formatRupiah } from "../../../../shared/utils/helpers";
+import { exportToExcel } from "../../../../shared/utils/helpers";
 import { useGetDetailHistory } from "../../../../api/history/hooks/useGetHistoryDetail";
 import { HiFolderArrowDown } from "react-icons/hi2";
 
