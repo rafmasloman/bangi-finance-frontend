@@ -9,17 +9,17 @@ import {
   Space,
   Stack,
   Text,
-} from '@mantine/core';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+} from "@mantine/core";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   TbCashRegister,
   TbDeviceAnalytics,
   TbReport,
   TbTruckLoading,
-} from 'react-icons/tb';
-import { RiHome3Line } from 'react-icons/ri';
-import { HiOutlineInboxStack } from 'react-icons/hi2';
-import { checkPathname } from '../../../shared/utils/navbar.utils';
+} from "react-icons/tb";
+import { RiHome3Line } from "react-icons/ri";
+import { HiOutlineInboxStack } from "react-icons/hi2";
+import { checkPathname } from "../../../shared/utils/navbar.utils";
 import {
   BOOK_BASE_DIRECTOR_PAGE,
   DAILY_REPORT_PAGE,
@@ -29,13 +29,13 @@ import {
   MASTER_DATA_PAGE,
   SUMMARY_PAGE,
   SUPPLIER_PAGE,
-} from '../../../constants/pages-route';
-import { LuLayoutDashboard } from 'react-icons/lu';
-import { LogoBangiLight } from '../../../assets/images';
-import { IoAnalyticsSharp } from 'react-icons/io5';
-import { useDisclosure } from '@mantine/hooks';
-import cookieLibs from '../../../libs/js-cookie/cookie';
-import { INavbarProps } from './NavbarMain';
+} from "../../../constants/pages-route";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { LogoBangiLight } from "../../../assets/images";
+import { IoAnalyticsSharp } from "react-icons/io5";
+import { useDisclosure } from "@mantine/hooks";
+import cookieLibs from "../../../libs/js-cookie/cookie";
+import { INavbarProps } from "./NavbarMain";
 
 const NavbarDirector = (props: INavbarProps) => {
   const [opened, { close }] = useDisclosure(false);
@@ -43,9 +43,9 @@ const NavbarDirector = (props: INavbarProps) => {
   const { historyId } = useParams();
 
   const handleLogoutButton = () => {
-    cookieLibs.deleteCookie('token');
+    cookieLibs.deleteCookie("token");
 
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -61,7 +61,7 @@ const NavbarDirector = (props: INavbarProps) => {
             </Text>
           </Stack>
         }
-        radius={'lg'}
+        radius={"lg"}
         shadow="sm"
         classNames={{
           title: `font-semibold text-xl`,
@@ -76,7 +76,7 @@ const NavbarDirector = (props: INavbarProps) => {
               root: `bg-white hover:bg-white border border-rose-500 shadow-[4px_4px_0] text-rose-500 hover:text-rose-600 shadow-rose-400   hover:translate-y-1.5 hover:translate-x-1.5 duration-500 hover:shadow-[0px_0px_0]  duration-300 `,
             }}
             onClick={close}
-            radius={'md'}
+            radius={"md"}
           >
             Batal
           </Button>
@@ -84,7 +84,7 @@ const NavbarDirector = (props: INavbarProps) => {
             classNames={{
               root: `bg-rose-500 hover:bg-rose-500 border border-rose-500 shadow-[4px_4px_0] text-white hover:text-white shadow-rose-300   hover:translate-y-1.5 hover:translate-x-1.5 duration-500 hover:shadow-[0px_0px_0]  duration-300 `,
             }}
-            radius={'md'}
+            radius={"md"}
             onClick={handleLogoutButton}
           >
             Keluar
@@ -114,12 +114,12 @@ const NavbarDirector = (props: INavbarProps) => {
               classNames={{
                 label: `text-base `,
                 root: `${
-                  checkPathname('dashboard')
-                    ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
-                    : 'text-white hover:bg-transparent'
+                  checkPathname("dashboard")
+                    ? "bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary"
+                    : "text-white hover:bg-transparent"
                 } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
                 section: `${
-                  checkPathname('dashboard') ? 'text-black' : 'text-white'
+                  checkPathname("dashboard") ? "text-black" : "text-white"
                 }`,
               }}
               onClick={props.onClose}
@@ -137,12 +137,12 @@ const NavbarDirector = (props: INavbarProps) => {
               classNames={{
                 label: `text-base `,
                 root: `${
-                  checkPathname('master-data')
-                    ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
-                    : 'text-white hover:bg-transparent'
+                  checkPathname("master-data")
+                    ? "bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary"
+                    : "text-white hover:bg-transparent"
                 } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
                 section: `${
-                  checkPathname('master-data') ? 'text-black' : 'text-white'
+                  checkPathname("master-data") ? "text-black" : "text-white"
                 }`,
               }}
               onClick={props.onClose}
@@ -160,12 +160,12 @@ const NavbarDirector = (props: INavbarProps) => {
               classNames={{
                 label: `text-sm xl:text-base `,
                 root: `${
-                  checkPathname('summary')
-                    ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
-                    : 'text-white hover:bg-transparent'
+                  checkPathname("summary")
+                    ? "bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary"
+                    : "text-white hover:bg-transparent"
                 } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
                 section: `${
-                  checkPathname('summary') ? 'text-black' : 'text-white'
+                  checkPathname("summary") ? "text-black" : "text-white"
                 }`,
               }}
               onClick={props.onClose}
@@ -185,12 +185,12 @@ const NavbarDirector = (props: INavbarProps) => {
               label: `text-sm xl:text-base `,
 
               root: `${
-                checkPathname('daily-report')
-                  ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
-                  : 'text-white hover:bg-transparent'
+                checkPathname("daily-report")
+                  ? "bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary"
+                  : "text-white hover:bg-transparent"
               } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
               section: `${
-                checkPathname('daily-report') ? 'text-black' : 'text-white'
+                checkPathname("daily-report") ? "text-black" : "text-white"
               }`,
             }}
           />
@@ -204,12 +204,12 @@ const NavbarDirector = (props: INavbarProps) => {
             classNames={{
               label: `text-sm xl:text-base `,
               root: `${
-                checkPathname('expense')
-                  ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
-                  : 'text-white hover:bg-transparent'
+                checkPathname("expense")
+                  ? "bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary"
+                  : "text-white hover:bg-transparent"
               } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
               section: `${
-                checkPathname('expense') ? 'text-black' : 'text-white'
+                checkPathname("expense") ? "text-black" : "text-white"
               }`,
             }}
           />
@@ -224,12 +224,12 @@ const NavbarDirector = (props: INavbarProps) => {
               label: `text-sm xl:text-base `,
 
               root: `${
-                checkPathname('supplier')
-                  ? 'bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary'
-                  : 'text-white hover:bg-transparent'
+                checkPathname("supplier")
+                  ? "bg-primary hover:rounded-xl text-black font-semibold hover:bg-primary"
+                  : "text-white hover:bg-transparent"
               } rounded-xl border-2 border-transparent border-solid hover:border-b-2 hover:border-b-primary  hover:border-solid hover:rounded-none`,
               section: `${
-                checkPathname('supplier') ? 'text-black' : 'text-white'
+                checkPathname("supplier") ? "text-black" : "text-white"
               }`,
             }}
           />

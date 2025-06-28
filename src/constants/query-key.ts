@@ -42,3 +42,4 @@ export const GET_ALL_HISTORIES_DATA = "get-all-histories-query-id-key";
 export const GET_MDR_DATA = "get-mdr-query-id-key";
 export const GET_DETAIL_HISTORY_DATA = "get-history-detail-query-id-key";
 export const GET_REMAINING_HISTORY_DATA = "get-remaining-history-query-id-key";
+export const EXPORT_HISTORIES_DATA = "export-history-detail-query-id-key";

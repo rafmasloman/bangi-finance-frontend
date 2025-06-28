@@ -32,11 +32,13 @@ class SupplierService {
 
   async getAllSuppliers(
     historyId?: string,
-    supCompId?: string
+    supCompId?: string,
+    dueDate?: string,
+    paidStatus?: string
   ): Promise<IApiBaseResponse<ISupplierResponseData>> {
     try {
       const suppliers = await http.get(
-        `${SUPPLIER_API_ROUTE}?historyId=${historyId}&supplierCompanyId=${supCompId}`
+        `${SUPPLIER_API_ROUTE}?historyId=${historyId}&supplierCompanyId=${supCompId}&dueDate=${dueDate}&paid=${paidStatus}`
       );
 
       const data: IApiBaseResponse<ISupplierResponseData> =

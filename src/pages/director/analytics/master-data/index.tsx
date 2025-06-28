@@ -1,37 +1,77 @@
 import {
   ActionIcon,
+  Button,
   Card,
   Grid,
   Group,
   SimpleGrid,
   Stack,
   Text,
-} from '@mantine/core';
-import MasterDataCard from '../../../../features/director/analytics/master-data/components/MasterDataCard';
-import MasterBalanceCard from '../../../../features/director/analytics/master-data/components/MasterBalanceCard';
-import { FaPeopleGroup } from 'react-icons/fa6';
-import { IoFileTrayFull } from 'react-icons/io5';
-import { HiReceiptTax } from 'react-icons/hi';
-import { useGetExpenseCategoryAmount } from '../../../../api/expense/hooks/useGetExpenseCategoryAmount';
-import { useParams } from 'react-router-dom';
-import { useGetDetailHistory } from '../../../../api/history/hooks/useGetHistoryDetail';
-import CurrencyFormatter from '../../../../shared/components/formatter/CurrencyFormatter';
-import { PiAlignBottomBold } from 'react-icons/pi';
+} from "@mantine/core";
+import MasterDataCard from "../../../../features/director/analytics/master-data/components/MasterDataCard";
+import MasterBalanceCard from "../../../../features/director/analytics/master-data/components/MasterBalanceCard";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { IoFileTrayFull } from "react-icons/io5";
+import { HiReceiptTax } from "react-icons/hi";
+import { useGetExpenseCategoryAmount } from "../../../../api/expense/hooks/useGetExpenseCategoryAmount";
+import { useParams } from "react-router-dom";
+import { useGetDetailHistory } from "../../../../api/history/hooks/useGetHistoryDetail";
+import CurrencyFormatter from "../../../../shared/components/formatter/CurrencyFormatter";
+import { PiAlignBottomBold } from "react-icons/pi";
+import { HiFolderArrowDown } from "react-icons/hi2";
+import historyServiceApi from "../../../../api/history/HistoryService";
 
 const DirectorMasterData = () => {
   const { historyId } = useParams();
   const totalExpenseByCategory = useGetExpenseCategoryAmount(
-    'SALES,PPN',
-    historyId,
+    "SALES,PPN",
+    historyId
   );
 
   const historyDetail = useGetDetailHistory(historyId, !!historyId);
 
+  const exportExcel = async () => {
+    const blob = await historyServiceApi.exportHistoryExcelData({
+      historyId: historyId ?? "",
+      type: "all",
+    });
+
+    const filename = `${historyDetail.data?.title}_${historyDetail.data?.year}`;
+
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${filename
+      .toLowerCase()
+      .replace(/\s+/g, "_")}_exported_data`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  };
+
   return (
     <Stack gap={30}>
-      <Text className="text-2xl font-semibold">
-        {historyDetail.data?.title}
-      </Text>
+      <Group justify="space-between" className="mt-7">
+        <Text className="text-2xl font-semibold">
+          {historyDetail.data?.title}
+        </Text>
+
+        <Button
+          radius={"md"}
+          rightSection={<HiFolderArrowDown color="white" size={20} />}
+          onClick={exportExcel}
+          classNames={{
+            root: `rounded-xl bg-green-600 h-12 border-gray-400 hover:border-gray-100 border-1  w-fit hover:bg-green-500 duration-300`,
+            label: `text-white font-bold`,
+            section: `p-1.5`,
+            inner: `px-4`,
+          }}
+        >
+          Export Semua Hasil
+        </Button>
+      </Group>
+
       <Group
         wrap="nowrap"
         className="w-full overflow-scroll no-scrollbar scrollbar-hide"
@@ -82,7 +122,7 @@ const DirectorMasterData = () => {
               <ActionIcon
                 variant="light"
                 size={40}
-                radius={'xl'}
+                radius={"xl"}
                 className="bg-[#FFA7B7]/[0.3]"
               >
                 <FaPeopleGroup className="text-2xl text-[#FFA7B7]" />
@@ -95,7 +135,7 @@ const DirectorMasterData = () => {
               value={historyDetail.data?.remainingEmployeeService}
             />
             <Text className="text-base text-gray-400 font-medium ">
-              Sisa Service Karyawan Bulan Lalu{' '}
+              Sisa Service Karyawan Bulan Lalu{" "}
             </Text>
           </Stack>
         </Card>
@@ -119,7 +159,7 @@ const DirectorMasterData = () => {
               <ActionIcon
                 variant="light"
                 size={40}
-                radius={'xl'}
+                radius={"xl"}
                 className="bg-[#A2FFB5]/[0.5]"
               >
                 <IoFileTrayFull className="text-xl text-[#7fc58d]" />
@@ -133,7 +173,7 @@ const DirectorMasterData = () => {
             />
 
             <Text className="text-base text-gray-400 font-medium ">
-              Sisa Service Manajemen Bulan Lalu{' '}
+              Sisa Service Manajemen Bulan Lalu{" "}
             </Text>
           </Stack>
         </Card>
@@ -157,7 +197,7 @@ const DirectorMasterData = () => {
               <ActionIcon
                 variant="light"
                 size={40}
-                radius={'xl'}
+                radius={"xl"}
                 className="bg-indigo-200/[0.5]"
               >
                 <PiAlignBottomBold className="text-indigo-600 text-2xl" />
@@ -171,7 +211,7 @@ const DirectorMasterData = () => {
             />
 
             <Text className="text-base text-gray-400 font-medium ">
-              Sisa Bahan Baku Bulan Lalu{' '}
+              Sisa Bahan Baku Bulan Lalu{" "}
             </Text>
           </Stack>
         </Card>
@@ -193,7 +233,7 @@ const DirectorMasterData = () => {
               <ActionIcon
                 variant="light"
                 size={40}
-                radius={'xl'}
+                radius={"xl"}
                 className="bg-[#A2FFB5]/[0.5]"
               >
                 <HiReceiptTax className="text-green-600 text-2xl" />
@@ -207,7 +247,7 @@ const DirectorMasterData = () => {
             />
 
             <Text className="text-base text-gray-400 font-medium ">
-              Sisa PPN Bulan Lalu{' '}
+              Sisa PPN Bulan Lalu{" "}
             </Text>
           </Stack>
         </Card>

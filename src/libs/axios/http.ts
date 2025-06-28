@@ -1,16 +1,16 @@
-import axios from 'axios';
-import cookieLibs from '../js-cookie/cookie';
+import axios from "axios";
+import cookieLibs from "../js-cookie/cookie";
 
 export const http = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL_DEV,
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
 http.interceptors.request.use(
   (config) => {
-    const token = cookieLibs.getCookie('token');
+    const token = cookieLibs.getCookie("token");
 
     if (!config.headers.Authorization) {
       if (token) {
@@ -21,7 +21,7 @@ http.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  },
+  }
 );
 
 http.interceptors.response.use(
@@ -30,5 +30,5 @@ http.interceptors.response.use(
   },
   (error) => {
     return Promise.reject(error);
-  },
+  }
 );
