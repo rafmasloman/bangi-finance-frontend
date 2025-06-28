@@ -1,39 +1,93 @@
-import { PaymentStatus } from '../ApiInterface';
+import { PaymentStatus } from "../ApiInterface";
+
+// export interface ISupplierRequestParams {
+//   discount: number;
+//   evidence: string;
+//   paymentStatus: string;
+//   price: number;
+//   quantity: number;
+//   ppn: number;
+//   supplierCompanyId: number;
+//   date: string;
+//   historyId?: string;
+//   userId?: string;
+// }
 
 export interface ISupplierRequestParams {
-  discount: number;
-  evidence: string;
   paymentStatus: string;
-  price: number;
-  quantity: number;
-  ppn: number;
+  nomorFaktur: string;
+  jatuhTempo: string;
+  totalAmount: number;
   supplierCompanyId: number;
   date: string;
   historyId?: string;
   userId?: string;
 }
 
+// export interface IUpdateSupplierRequestParams {
+//   discount: number;
+//   evidence: string;
+//   price: number;
+//   quantity: number;
+//   ppn: number;
+//   supplierCompanyId: number;
+//   date: string;
+//   historyId?: string;
+//   userId?: string;
+// }
+
 export interface IUpdateSupplierRequestParams {
-  discount: number;
-  evidence: string;
-  price: number;
-  quantity: number;
-  ppn: number;
+  nomorFaktur: string;
+  jatuhTempo: string;
+  totalAmount: number;
   supplierCompanyId: number;
   date: string;
   historyId?: string;
   userId?: string;
 }
+
+// export interface ISupplierResponseData {
+//   supplier: {
+//     id: string;
+//     discount: number;
+//     evidence: string;
+//     paymentStatus: PaymentStatus;
+//     price: number;
+//     quantity: number;
+//     ppn: number;
+//     date: string;
+//     totalAmount: number;
+//     supplierCompany: {
+//       id: number;
+//       name: string;
+//     };
+//   }[];
+//   totalSupplier: number;
+// }
+
+// export interface ISupplierResponseDetailData {
+//   id: string;
+//   discount: number;
+//   evidence: string;
+//   paymentStatus: string;
+//   price: number;
+//   quantity: number;
+//   ppn: number;
+//   date: string;
+//   supplierCompany: {
+//     id: number;
+//     name: string;
+//   };
+// }
+
+// supplier response data v2
 
 export interface ISupplierResponseData {
   supplier: {
     id: string;
-    discount: number;
-    evidence: string;
+    nomorFaktur: string;
     paymentStatus: PaymentStatus;
-    price: number;
-    quantity: number;
-    ppn: number;
+    jatuhTempo: string;
     date: string;
     totalAmount: number;
     supplierCompany: {
@@ -46,12 +100,10 @@ export interface ISupplierResponseData {
 
 export interface ISupplierResponseDetailData {
   id: string;
-  discount: number;
-  evidence: string;
+  totalAmount: number;
+  nomorFaktur: string;
+  jatuhTempo: string;
   paymentStatus: string;
-  price: number;
-  quantity: number;
-  ppn: number;
   date: string;
   supplierCompany: {
     id: number;
