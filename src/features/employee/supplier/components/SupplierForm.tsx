@@ -1,14 +1,14 @@
-import { Grid, Group, NumberInput, Select, Text } from '@mantine/core';
-import dayjs from 'dayjs';
-import { DatePickerInput } from '@mantine/dates';
-import BaseButton from '../../../../shared/components/button/BaseButton';
-import BaseTextInput from '../../../../shared/components/input/BaseTextInput';
-import { HiPlus } from 'react-icons/hi';
-import { useGetAllSupplierCategory } from '../../../../api/supplier-category/hooks/useGetAllSupplierCategory';
-import { useForm, zodResolver } from '@mantine/form';
-import { SupplierInputSchema } from '../helpers/supplier.helper';
-import { ISupplierResponseDetailData } from '../../../../api/supplier/SupplierApiInterface';
-import BaseCurrencyInput from '../../../../shared/components/input/BaseCurrencyInput';
+import { Grid, Group, NumberInput, Select, Text } from "@mantine/core";
+import dayjs from "dayjs";
+import { DatePickerInput } from "@mantine/dates";
+import BaseButton from "../../../../shared/components/button/BaseButton";
+import BaseTextInput from "../../../../shared/components/input/BaseTextInput";
+import { HiPlus } from "react-icons/hi";
+import { useGetAllSupplierCategory } from "../../../../api/supplier-category/hooks/useGetAllSupplierCategory";
+import { useForm, zodResolver } from "@mantine/form";
+import { SupplierInputSchema } from "../helpers/supplier.helper";
+import { ISupplierResponseDetailData } from "../../../../api/supplier/SupplierApiInterface";
+import BaseCurrencyInput from "../../../../shared/components/input/BaseCurrencyInput";
 
 interface ISupplierFormProps {
   close?: () => void;
@@ -20,17 +20,31 @@ interface ISupplierFormProps {
 const SupplierForm = (props: ISupplierFormProps) => {
   const supplierCategories = useGetAllSupplierCategory();
 
+  // const supplierForm = useForm({
+  //   initialValues: {
+  //     date: dayjs(props.initialValues?.date).toDate() || undefined,
+  //     supplierCompanyId:
+  //       props.initialValues?.supplierCompany.id.toString() || undefined,
+  //     evidence: props.initialValues?.evidence || "",
+  //     quantity: props.initialValues?.quantity || undefined,
+  //     price: props.initialValues?.price || undefined,
+  //     discount: props.initialValues?.discount || undefined,
+  //     ppn: props.initialValues?.ppn || undefined,
+  //     status: props.initialValues?.paymentStatus || "",
+  //   },
+  //   validate: zodResolver(SupplierInputSchemaV2),
+  // });
+
+  // Supplier Form v2
   const supplierForm = useForm({
     initialValues: {
       date: dayjs(props.initialValues?.date).toDate() || undefined,
       supplierCompanyId:
         props.initialValues?.supplierCompany.id.toString() || undefined,
-      evidence: props.initialValues?.evidence || '',
-      quantity: props.initialValues?.quantity || 0,
-      price: props.initialValues?.price || 0,
-      discount: props.initialValues?.discount || 0,
-      ppn: props.initialValues?.ppn || 0,
-      status: props.initialValues?.paymentStatus || '',
+      nomorFaktur: props.initialValues?.nomorFaktur || "",
+      jatuhTempo: dayjs(props.initialValues?.jatuhTempo).toDate() || undefined,
+      totalAmount: props.initialValues?.totalAmount || undefined,
+      status: props.initialValues?.paymentStatus || "",
     },
     validate: zodResolver(SupplierInputSchema),
   });
@@ -54,7 +68,7 @@ const SupplierForm = (props: ISupplierFormProps) => {
                 value: supplier.id.toString(),
               };
             })}
-            {...supplierForm.getInputProps('supplierCompanyId')}
+            {...supplierForm.getInputProps("supplierCompanyId")}
           />
         </Grid.Col>
 
@@ -62,7 +76,7 @@ const SupplierForm = (props: ISupplierFormProps) => {
           <NumberInput
             placeholder="Masukkan Jumlah"
             label="Jumlah"
-            {...supplierForm.getInputProps('quantity')}
+            {...supplierForm.getInputProps("quantity")}
           />
         </Grid.Col>
 
@@ -70,8 +84,8 @@ const SupplierForm = (props: ISupplierFormProps) => {
           <DatePickerInput
             placeholder="Masukkan Tanggal"
             label="Tanggal"
-            valueFormat={'DD MMMM YY'}
-            {...supplierForm.getInputProps('date')}
+            valueFormat={"DD MMMM YY"}
+            {...supplierForm.getInputProps("date")}
           />
         </Grid.Col>
 
@@ -79,7 +93,7 @@ const SupplierForm = (props: ISupplierFormProps) => {
           <BaseTextInput
             placeholder="Masukkan Keterangan"
             label="Keterangan"
-            {...supplierForm.getInputProps('evidence')}
+            {...supplierForm.getInputProps("evidence")}
           />
         </Grid.Col>
 
@@ -87,7 +101,7 @@ const SupplierForm = (props: ISupplierFormProps) => {
           <BaseCurrencyInput
             placeholder="Masukkan Harga"
             label="Harga"
-            {...supplierForm.getInputProps('price')}
+            {...supplierForm.getInputProps("price")}
           />
         </Grid.Col>
 
@@ -95,7 +109,7 @@ const SupplierForm = (props: ISupplierFormProps) => {
           <NumberInput
             placeholder="Masukkan Discount"
             label="Discount"
-            {...supplierForm.getInputProps('discount')}
+            {...supplierForm.getInputProps("discount")}
             max={100}
           />
         </Grid.Col>
@@ -104,7 +118,7 @@ const SupplierForm = (props: ISupplierFormProps) => {
           <BaseCurrencyInput
             placeholder="Masukan PPN"
             label="PPN"
-            {...supplierForm.getInputProps('ppn')}
+            {...supplierForm.getInputProps("ppn")}
           />
         </Grid.Col>
       </Grid>
