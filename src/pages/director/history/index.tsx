@@ -33,6 +33,7 @@ import { Link } from "react-router-dom";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useUpdateHistory } from "../../../api/history/hooks/useUpdateHistory";
 import { EmptyStateHistory } from "../../../assets/images";
+import moment from "moment";
 
 const DirectorHistoryPage = () => {
   const { user } = useContext(AuthContext);
