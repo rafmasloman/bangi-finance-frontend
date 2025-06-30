@@ -8,36 +8,36 @@ import {
   SimpleGrid,
   Stack,
   Text,
-} from '@mantine/core';
-import BaseButton from '../../../shared/components/button/BaseButton';
-import { FaCircleInfo, FaPlus } from 'react-icons/fa6';
-import { useDisclosure } from '@mantine/hooks';
-import ModalForm from '../../../features/director/components/modal/ModalForm';
-import { MdOutlineDeleteOutline } from 'react-icons/md';
-import { TbEdit } from 'react-icons/tb';
-import { useContext, useEffect, useState } from 'react';
-import ModalDelete from '../../../features/director/components/modal/ModalDelete';
-import { AuthContext } from '../../../context/AuthContext';
-import HistoryForm from '../../../features/director/history/components/HistoryForm';
-import { useGetAllHistories } from '../../../api/history/hooks/useGetAllHistories';
-import { useCreateHistory } from '../../../api/history/hooks/useCreateHistory';
-import { IHistoryRequestPayload } from '../../../api/history/HistoryInterface';
+} from "@mantine/core";
+import BaseButton from "../../../shared/components/button/BaseButton";
+import { FaCircleInfo, FaPlus } from "react-icons/fa6";
+import { useDisclosure } from "@mantine/hooks";
+import ModalForm from "../../../features/director/components/modal/ModalForm";
+import { MdOutlineDeleteOutline } from "react-icons/md";
+import { TbEdit } from "react-icons/tb";
+import { useContext, useEffect, useState } from "react";
+import ModalDelete from "../../../features/director/components/modal/ModalDelete";
+import { AuthContext } from "../../../context/AuthContext";
+import HistoryForm from "../../../features/director/history/components/HistoryForm";
+import { useGetAllHistories } from "../../../api/history/hooks/useGetAllHistories";
+import { useCreateHistory } from "../../../api/history/hooks/useCreateHistory";
+import { IHistoryRequestPayload } from "../../../api/history/HistoryInterface";
 import {
   convertMonthInput,
   convertYearInput,
-} from '../../../features/director/history/helpers/history.helper';
-import { useGetDetailHistory } from '../../../api/history/hooks/useGetHistoryDetail';
-import { useDeleteHistory } from '../../../api/history/hooks/useDeleteHistory';
-import { FcOpenedFolder, FcRight } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
-import { BiDotsHorizontalRounded } from 'react-icons/bi';
-import { useUpdateHistory } from '../../../api/history/hooks/useUpdateHistory';
-import { EmptyStateHistory } from '../../../assets/images';
+} from "../../../features/director/history/helpers/history.helper";
+import { useGetDetailHistory } from "../../../api/history/hooks/useGetHistoryDetail";
+import { useDeleteHistory } from "../../../api/history/hooks/useDeleteHistory";
+import { FcOpenedFolder, FcRight } from "react-icons/fc";
+import { Link } from "react-router-dom";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { useUpdateHistory } from "../../../api/history/hooks/useUpdateHistory";
+import { EmptyStateHistory } from "../../../assets/images";
+import moment from "moment";
 
 const DirectorHistoryPage = () => {
   const { user } = useContext(AuthContext);
 
-  
   const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
     useDisclosure(false);
 
@@ -59,7 +59,7 @@ const DirectorHistoryPage = () => {
   const histories = useGetAllHistories();
   const historyDetail = useGetDetailHistory(
     historyId ?? undefined,
-    openedEditForm,
+    openedEditForm
   );
 
   // const handleFilterDate = (value: any) => {
@@ -369,8 +369,8 @@ const DirectorHistoryPage = () => {
                     <Text className="text-xl font-semibold">
                       {history.title}
                     </Text>
-                    <Text className="text-sm text-gray-400 font-medium">
-                      Dibuat pada 02 Desember 2003
+                    <Text className="text-sm text-neutral-400 font-medium">
+                      Dibuat pada {moment(history.date).format("YYYY-MM-DD")}
                     </Text>
                   </Stack>
 

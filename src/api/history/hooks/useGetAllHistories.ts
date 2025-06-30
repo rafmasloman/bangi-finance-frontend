@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import historyServiceApi from '../HistoryService';
-import { GET_ALL_HISTORIES_DATA } from '../../../constants/query-key';
+import { useQuery } from "@tanstack/react-query";
+import historyServiceApi from "../HistoryService";
+import { GET_ALL_HISTORIES_DATA } from "../../../constants/query-key";
 
 export const useGetAllHistories = (month?: string, year?: string) => {
   const query = useQuery({
@@ -17,6 +17,7 @@ export const useGetAllHistories = (month?: string, year?: string) => {
           remainingRawMaterials: ctx.remainingRawMaterials,
           remainingSales: ctx.remainingSales,
           remainingTax: ctx.remainingTax,
+          date: ctx.date,
         };
       });
     },
