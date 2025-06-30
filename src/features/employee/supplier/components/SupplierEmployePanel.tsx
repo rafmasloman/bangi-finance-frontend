@@ -6,41 +6,62 @@ import {
   Table,
   Text,
   UnstyledButton,
-} from '@mantine/core';
-import { FaPlus } from 'react-icons/fa';
-import TableDataLayout from '../../../../shared/components/table/TableDataLayout';
-import BaseButton from '../../../../shared/components/button/BaseButton';
-import TableDataHead from '../../../../shared/components/table/TableDataHead';
-import TableDataBody from '../../../../shared/components/table/TableDataBody';
-import PaymentStatusBadge from './PaymentStatusBadge';
-import { TbEdit } from 'react-icons/tb';
-import CurrencyFormatter from '../../../../shared/components/formatter/CurrencyFormatter';
-import { useCreateSupplier } from '../../../../api/supplier/hooks/useCreateSupplier';
-import { useUpdateSupplier } from '../../../../api/supplier/hooks/useUpdateSupplier';
-import { useGetSupplierDetail } from '../../../../api/supplier/hooks/useGetSupplierDetail';
-import { useDisclosure } from '@mantine/hooks';
-import { useContext, useEffect, useState } from 'react';
-import { ISupplierRequestParams } from '../../../../api/supplier/SupplierApiInterface';
-import { tableHeadSuppliers } from '../helpers/supplier.helper';
-import moment from 'moment';
-import SupplierForm from './SupplierForm';
-import { PaymentStatus } from '../../../../api/ApiInterface';
-import { useParams } from 'react-router-dom';
-import { AuthContext } from '../../../../context/AuthContext';
-import { useUpdateSupplierPaymentStatus } from '../../../../api/supplier/hooks/useUpdatePaymentStatus';
-import ModalForm from '../../../director/components/modal/ModalForm';
-import SupplierPaymentStatusForm from './SupplierPaymentStatusForm';
-import { checkSelecteCheckbox } from '../../../director/supplier/helpers/supplier.helper';
+} from "@mantine/core";
+import { FaPlus } from "react-icons/fa";
+import TableDataLayout from "../../../../shared/components/table/TableDataLayout";
+import BaseButton from "../../../../shared/components/button/BaseButton";
+import TableDataHead from "../../../../shared/components/table/TableDataHead";
+import TableDataBody from "../../../../shared/components/table/TableDataBody";
+import PaymentStatusBadge from "./PaymentStatusBadge";
+import { TbEdit } from "react-icons/tb";
+import CurrencyFormatter from "../../../../shared/components/formatter/CurrencyFormatter";
+import { useCreateSupplier } from "../../../../api/supplier/hooks/useCreateSupplier";
+import { useUpdateSupplier } from "../../../../api/supplier/hooks/useUpdateSupplier";
+import { useGetSupplierDetail } from "../../../../api/supplier/hooks/useGetSupplierDetail";
+import { useDisclosure } from "@mantine/hooks";
+import { useContext, useEffect, useState } from "react";
+import { ISupplierRequestParams } from "../../../../api/supplier/SupplierApiInterface";
+import { tableHeadSuppliers } from "../helpers/supplier.helper";
+import moment from "moment";
+import SupplierForm from "./SupplierForm";
+import { PaymentStatus } from "../../../../api/ApiInterface";
+import { useParams } from "react-router-dom";
+import { AuthContext } from "../../../../context/AuthContext";
+import { useUpdateSupplierPaymentStatus } from "../../../../api/supplier/hooks/useUpdatePaymentStatus";
+import ModalForm from "../../../director/components/modal/ModalForm";
+import SupplierPaymentStatusForm from "./SupplierPaymentStatusForm";
+import { checkSelecteCheckbox } from "../../../director/supplier/helpers/supplier.helper";
+
+// interface ISupplierEmployeePanelProps {
+//   suppliers: {
+//     no: number;
+//     id: string;
+//     discount: number;
+//     evidence: string;
+//     ppn: number;
+//     price: number;
+//     quantity: number;
+//     totalAmount: number;
+//     paymentStatus: PaymentStatus;
+//     date: string;
+//     supplierCompany: {
+//       id: number;
+//       name: string;
+//     };
+//   }[];
+// }
 
 interface ISupplierEmployeePanelProps {
   suppliers: {
     no: number;
     id: string;
-    discount: number;
-    evidence: string;
-    ppn: number;
-    price: number;
-    quantity: number;
+    // discount: number;
+    // evidence: string;
+    // ppn: number;
+    // price: number;
+    // quantity: number;
+    nomorFaktur: string;
+    jatuhTempo: string;
     totalAmount: number;
     paymentStatus: PaymentStatus;
     date: string;
@@ -70,7 +91,7 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
   const updateSupplier = useUpdateSupplier();
   const updatePaymentStatus = useUpdateSupplierPaymentStatus();
   const supplierDetail = useGetSupplierDetail(
-    supplierId ?? undefined,
+    supplierId ?? undefined
     // openedEditForm || openedEditPaymentForm,
   );
 
@@ -88,12 +109,12 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
     setSelectedRows(
       event.currentTarget.checked
         ? [...selectedRows, id]
-        : selectedRows.filter((selectedId) => selectedId !== id),
+        : selectedRows.filter((selectedId) => selectedId !== id)
     );
   };
 
   const handleUpdatePaymentStatus = (values: {
-    paymentStatus: 'PAID' | 'UNPAID';
+    paymentStatus: "PAID" | "UNPAID";
   }) => {
     const data = {
       id: selectedRows,
@@ -107,13 +128,23 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
   };
 
   const handleSubmitSupplier = (values: ISupplierRequestParams) => {
+    // const data = {
+    //   discount: values.discount,
+    //   supplierCompanyId: Number(values.supplierCompanyId),
+    //   evidence: values.evidence,
+    //   ppn: values.ppn,
+    //   price: values.price,
+    //   quantity: values.quantity,
+    //   date: moment(values.date).format(),
+    //   historyId,
+    //   userId: user?.id,
+    // };
+
     const data = {
-      discount: values.discount,
+      nomorFaktur: values.nomorFaktur,
+      jatuhTempo: moment(values.jatuhTempo).format(),
+      totalAmount: values.totalAmount,
       supplierCompanyId: Number(values.supplierCompanyId),
-      evidence: values.evidence,
-      ppn: values.ppn,
-      price: values.price,
-      quantity: values.quantity,
       date: moment(values.date).format(),
       historyId,
       userId: user?.id,
@@ -129,7 +160,7 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
     } else {
       createSupplier.mutate({
         ...data,
-        paymentStatus: 'UNPAID',
+        paymentStatus: "UNPAID",
       });
       close();
     }
@@ -267,7 +298,7 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
                   data={props.suppliers}
                   columns={[
                     {
-                      key: 'checkbox',
+                      key: "checkbox",
                       render: (row) => (
                         <Checkbox
                           checked={selectedRows.includes(row.id)}
@@ -276,27 +307,27 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
                       ),
                     },
 
-                    { key: 'no', render: (row) => <Text>{row.no}</Text> },
+                    { key: "no", render: (row) => <Text>{row.no}</Text> },
                     {
-                      key: 'date',
+                      key: "date",
                       render: (row) => <Text>{row.date}</Text>,
                     },
                     {
-                      key: 'supplier',
+                      key: "supplier",
                       render: (row) => <Text>{row.supplierCompany.name}</Text>,
                     },
                     {
-                      key: 'evidence',
+                      key: "evidence",
                       render: (row) => (
                         <Text className="text-nowrap">{row.evidence}</Text>
                       ),
                     },
                     {
-                      key: 'quantity',
+                      key: "quantity",
                       render: (row) => <Text>{row.quantity}</Text>,
                     },
                     {
-                      key: 'price',
+                      key: "price",
                       render: (row) => (
                         <CurrencyFormatter
                           currency="IDR"
@@ -306,17 +337,17 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
                       ),
                     },
                     {
-                      key: 'discount',
+                      key: "discount",
                       render: (row) => <Text>{row.discount}%</Text>,
                     },
                     {
-                      key: 'ppn',
+                      key: "ppn",
                       render: (row) => (
                         <CurrencyFormatter currency="IDR" value={row.ppn} />
                       ),
                     },
                     {
-                      key: 'service',
+                      key: "service",
                       render: (row) => (
                         <CurrencyFormatter
                           currency="IDR"
@@ -325,7 +356,7 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
                       ),
                     },
                     {
-                      key: 'status',
+                      key: "status",
                       render: (row) => (
                         <UnstyledButton
                           onClick={() => handleOpenModalPaymentStatus(row.id)}
@@ -333,7 +364,7 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
                           <PaymentStatusBadge
                             size="lg"
                             fullWidth
-                            isPay={row.paymentStatus === 'PAID'}
+                            isPay={row.paymentStatus === "PAID"}
                           >
                             {row.paymentStatus}
                           </PaymentStatusBadge>
@@ -341,12 +372,12 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
                       ),
                     },
                     {
-                      key: 'action',
+                      key: "action",
                       render: (row) => (
                         <Group gap={10} wrap="nowrap">
                           <ActionIcon
                             onClick={() => handleOpenModalEdit(row.id)}
-                            radius={'md'}
+                            radius={"md"}
                             size={27}
                             className="bg-indigo-500 text-lg"
                           >

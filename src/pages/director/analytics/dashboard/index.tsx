@@ -33,7 +33,6 @@ import { useGetRemainingData } from "../../../../api/history/hooks/useGetRemaini
 import { useGetSupplierAmountByPaymentStatus } from "../../../../api/supplier/hooks/useGetSupplierAmountByStatus";
 import { useState } from "react";
 import { useGetDetailHistory } from "../../../../api/history/hooks/useGetHistoryDetail";
-import { HiFolderArrowDown } from "react-icons/hi2";
 
 const DirectorDashboardPage = () => {
   const { historyId } = useParams();
