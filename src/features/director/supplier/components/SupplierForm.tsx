@@ -1,14 +1,14 @@
-import { Grid, Group, NumberInput, Select, Text } from '@mantine/core';
-import dayjs from 'dayjs';
-import { DatePickerInput } from '@mantine/dates';
-import BaseButton from '../../../../shared/components/button/BaseButton';
-import BaseTextInput from '../../../../shared/components/input/BaseTextInput';
-import { HiPlus } from 'react-icons/hi';
-import { useGetAllSupplierCategory } from '../../../../api/supplier-category/hooks/useGetAllSupplierCategory';
-import { useForm, zodResolver } from '@mantine/form';
-import { SupplierInputSchema } from '../helpers/supplier.helper';
-import { ISupplierResponseDetailData } from '../../../../api/supplier/SupplierApiInterface';
-import BaseCurrencyInput from '../../../../shared/components/input/BaseCurrencyInput';
+import { Grid, Group, Select, Text } from "@mantine/core";
+import dayjs from "dayjs";
+import { DatePickerInput } from "@mantine/dates";
+import BaseButton from "../../../../shared/components/button/BaseButton";
+import BaseTextInput from "../../../../shared/components/input/BaseTextInput";
+import { HiPlus } from "react-icons/hi";
+import { useGetAllSupplierCategory } from "../../../../api/supplier-category/hooks/useGetAllSupplierCategory";
+import { useForm, zodResolver } from "@mantine/form";
+import { ISupplierResponseDetailData } from "../../../../api/supplier/SupplierApiInterface";
+import BaseCurrencyInput from "../../../../shared/components/input/BaseCurrencyInput";
+import { SupplierInputSchema } from "../helpers/supplier.helper";
 
 interface ISupplierFormProps {
   close?: () => void;
@@ -20,17 +20,31 @@ interface ISupplierFormProps {
 const SupplierForm = (props: ISupplierFormProps) => {
   const supplierCategories = useGetAllSupplierCategory();
 
+  // const supplierForm = useForm({
+  //   initialValues: {
+  //     date: dayjs(props.initialValues?.date).toDate() || undefined,
+  //     supplierCompanyId:
+  //       props.initialValues?.supplierCompany.id.toString() || undefined,
+  //     evidence: props.initialValues?.evidence || "",
+  //     quantity: props.initialValues?.quantity || undefined,
+  //     price: props.initialValues?.price || undefined,
+  //     discount: props.initialValues?.discount || undefined,
+  //     ppn: props.initialValues?.ppn || undefined,
+  //     status: props.initialValues?.paymentStatus || "",
+  //   },
+  //   validate: zodResolver(SupplierInputSchemaV2),
+  // });
+
+  // Supplier Form v2
   const supplierForm = useForm({
     initialValues: {
       date: dayjs(props.initialValues?.date).toDate() || undefined,
       supplierCompanyId:
         props.initialValues?.supplierCompany.id.toString() || undefined,
-      evidence: props.initialValues?.evidence || '',
-      quantity: props.initialValues?.quantity || undefined,
-      price: props.initialValues?.price || undefined,
-      discount: props.initialValues?.discount || undefined,
-      ppn: props.initialValues?.ppn || undefined,
-      status: props.initialValues?.paymentStatus || '',
+      nomorFaktur: props.initialValues?.nomorFaktur || "",
+      jatuhTempo: dayjs(props.initialValues?.jatuhTempo).toDate() || undefined,
+      totalAmount: props.initialValues?.totalAmount || undefined,
+      status: props.initialValues?.paymentStatus || "",
     },
     validate: zodResolver(SupplierInputSchema),
   });
@@ -54,36 +68,61 @@ const SupplierForm = (props: ISupplierFormProps) => {
                 value: supplier.id.toString(),
               };
             })}
-            {...supplierForm.getInputProps('supplierCompanyId')}
+            {...supplierForm.getInputProps("supplierCompanyId")}
           />
         </Grid.Col>
 
-        <Grid.Col span={{ base: 12, md: 6 }}>
+        {/* <Grid.Col span={{ base: 12, md: 6 }}>
           <NumberInput
             placeholder="Masukkan Jumlah"
             label="Jumlah"
-            {...supplierForm.getInputProps('quantity')}
+            {...supplierForm.getInputProps("quantity")}
           />
-        </Grid.Col>
+        </Grid.Col> */}
 
         <Grid.Col span={{ base: 12, md: 6 }}>
           <DatePickerInput
             placeholder="Masukkan Tanggal"
             label="Tanggal"
-            valueFormat={'DD MMMM YY'}
-            {...supplierForm.getInputProps('date')}
-          />
-        </Grid.Col>
-
-        <Grid.Col span={{ base: 12 }}>
-          <BaseTextInput
-            placeholder="Masukkan Keterangan"
-            label="Keterangan"
-            {...supplierForm.getInputProps('evidence')}
+            valueFormat={"DD MMMM YY"}
+            {...supplierForm.getInputProps("date")}
           />
         </Grid.Col>
 
         <Grid.Col span={{ base: 12, md: 6 }}>
+          <DatePickerInput
+            placeholder="Masukkan Tanggal Jatuh Tempo"
+            label="Tanggal Jatuh Tempo"
+            valueFormat={"DD MMMM YY"}
+            {...supplierForm.getInputProps("jatuhTempo")}
+          />
+        </Grid.Col>
+
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <BaseTextInput
+            placeholder="Masukkan Nomor Faktur"
+            label="Nomor Faktur"
+            {...supplierForm.getInputProps("nomorFaktur")}
+          />
+        </Grid.Col>
+
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <BaseCurrencyInput
+            placeholder="Masukkan Total Harga"
+            label="Total"
+            {...supplierForm.getInputProps("totalAmount")}
+          />
+        </Grid.Col>
+
+        {/* <Grid.Col span={{ base: 12 }}>
+          <BaseTextInput
+            placeholder="Masukkan Keterangan"
+            label="Keterangan"
+            {...supplierForm.getInputProps("evidence")}
+          />
+        </Grid.Col> */}
+
+        {/* <Grid.Col span={{ base: 12, md: 6 }}>
           <BaseCurrencyInput
             placeholder="Masukkan Harga"
             label="Harga"
@@ -98,15 +137,15 @@ const SupplierForm = (props: ISupplierFormProps) => {
             {...supplierForm.getInputProps('discount')}
             max={100}
           />
-        </Grid.Col>
+        </Grid.Col> */}
 
-        <Grid.Col>
+        {/* <Grid.Col>
           <BaseCurrencyInput
             placeholder="Masukan PPN"
             label="PPN"
-            {...supplierForm.getInputProps('ppn')}
+            {...supplierForm.getInputProps("ppn")}
           />
-        </Grid.Col>
+        </Grid.Col> */}
       </Grid>
 
       <Group className="mt-5" justify="end">

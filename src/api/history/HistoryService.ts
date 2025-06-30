@@ -1,16 +1,16 @@
-import { HISTORY_API_ROUTE } from '../../constants/api-route';
-import { http } from '../../libs/axios/http';
-import { IApiBaseResponse } from '../ApiInterface';
+import { HISTORY_API_ROUTE } from "../../constants/api-route";
+import { http } from "../../libs/axios/http";
+import { IApiBaseResponse } from "../ApiInterface";
 import {
   IHistoryRemainingResponseData,
   IHistoryRequestPayload,
   IHistoryResponseData,
   IMDRResponseData,
-} from './HistoryInterface';
+} from "./HistoryInterface";
 
 class HistoryService {
   async createHistory(
-    payload: IHistoryRequestPayload,
+    payload: IHistoryRequestPayload
   ): Promise<IApiBaseResponse<IHistoryResponseData>> {
     try {
       const response = await http.post(`${HISTORY_API_ROUTE}`, payload);
@@ -25,11 +25,11 @@ class HistoryService {
 
   async getAllHistories(
     month?: string,
-    year?: string,
+    year?: string
   ): Promise<IApiBaseResponse<IHistoryResponseData[]>> {
     try {
       const response = await http.get(
-        `${HISTORY_API_ROUTE}?month=${month ?? ''}&year=${year ?? ''}`,
+        `${HISTORY_API_ROUTE}?month=${month ?? ""}&year=${year ?? ""}`
       );
 
       const data: IApiBaseResponse<IHistoryResponseData[]> =
@@ -54,7 +54,7 @@ class HistoryService {
   }
 
   async getHistoryDetail(
-    id?: string,
+    id?: string
   ): Promise<IApiBaseResponse<IHistoryResponseData>> {
     try {
       const response = await http.get(`${HISTORY_API_ROUTE}/${id}`);
@@ -68,7 +68,7 @@ class HistoryService {
   }
 
   async getRemaingDataHistory(
-    id?: string,
+    id?: string
   ): Promise<IApiBaseResponse<IHistoryRemainingResponseData>> {
     try {
       const response = await http.get(`${HISTORY_API_ROUTE}/${id}/stats`);
@@ -101,7 +101,7 @@ class HistoryService {
     try {
       const response = await http.put(
         `${HISTORY_API_ROUTE}/${params.id}`,
-        params.payload,
+        params.payload
       );
 
       const data = await response.data;
@@ -121,6 +121,23 @@ class HistoryService {
       const data = await response.data;
 
       return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async exportHistoryExcelData(params: { historyId: string; type: string }) {
+    try {
+      const response = await http.get(
+        `${HISTORY_API_ROUTE}/${params.historyId}/export-excel?type=${params.type}`,
+        { responseType: "blob" }
+      );
+
+      const blob = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+
+      return blob;
     } catch (error) {
       throw error;
     }

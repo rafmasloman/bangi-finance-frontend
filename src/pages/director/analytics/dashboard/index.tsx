@@ -8,31 +8,31 @@ import {
   Switch,
   Table,
   Text,
-} from '@mantine/core';
-import { FaChartLine } from 'react-icons/fa';
-import { FaMoneyCheckDollar } from 'react-icons/fa6';
-import { HiReceiptTax } from 'react-icons/hi';
-import { MdManageAccounts } from 'react-icons/md';
-import { PiMathOperationsDuotone } from 'react-icons/pi';
-import { tableHead } from '../../../../features/director/dashboard/utils/serviceData';
-import TableDataLayout from '../../../../shared/components/table/TableDataLayout';
-import TableDataHead from '../../../../shared/components/table/TableDataHead';
-import TableDataBody from '../../../../shared/components/table/TableDataBody';
-import AnalyticsCard from '../../../../features/director/dashboard/components/AnalyticsCard';
-import { useGetIncomeAnalytics } from '../../../../api/income/hooks/useGetIncomeAnalytics';
-import CurrencyFormatter from '../../../../shared/components/formatter/CurrencyFormatter';
-import BalanceCard from '../../../../features/director/dashboard/components/BalanceCard';
-import { useGetMDR } from '../../../../api/history/hooks/useGetMDR';
-import { RiDiscountPercentFill } from 'react-icons/ri';
-import { useDisclosure } from '@mantine/hooks';
-import { useUpdateMDR } from '../../../../api/history/hooks/useUpdateMDR';
-import { useParams } from 'react-router-dom';
-import ModalForm from '../../../../features/director/components/modal/ModalForm';
-import MDRForm from '../../../../features/director/dashboard/components/MDRForm';
-import { useGetRemainingData } from '../../../../api/history/hooks/useGetRemainingDataHistory';
-import { useGetSupplierAmountByPaymentStatus } from '../../../../api/supplier/hooks/useGetSupplierAmountByStatus';
-import { useState } from 'react';
-import { useGetDetailHistory } from '../../../../api/history/hooks/useGetHistoryDetail';
+} from "@mantine/core";
+import { FaChartLine } from "react-icons/fa";
+import { FaMoneyCheckDollar } from "react-icons/fa6";
+import { HiReceiptTax } from "react-icons/hi";
+import { MdManageAccounts } from "react-icons/md";
+import { PiMathOperationsDuotone } from "react-icons/pi";
+import { tableHead } from "../../../../features/director/dashboard/utils/serviceData";
+import TableDataLayout from "../../../../shared/components/table/TableDataLayout";
+import TableDataHead from "../../../../shared/components/table/TableDataHead";
+import TableDataBody from "../../../../shared/components/table/TableDataBody";
+import AnalyticsCard from "../../../../features/director/dashboard/components/AnalyticsCard";
+import { useGetIncomeAnalytics } from "../../../../api/income/hooks/useGetIncomeAnalytics";
+import CurrencyFormatter from "../../../../shared/components/formatter/CurrencyFormatter";
+import BalanceCard from "../../../../features/director/dashboard/components/BalanceCard";
+import { useGetMDR } from "../../../../api/history/hooks/useGetMDR";
+import { RiDiscountPercentFill } from "react-icons/ri";
+import { useDisclosure } from "@mantine/hooks";
+import { useUpdateMDR } from "../../../../api/history/hooks/useUpdateMDR";
+import { useParams } from "react-router-dom";
+import ModalForm from "../../../../features/director/components/modal/ModalForm";
+import MDRForm from "../../../../features/director/dashboard/components/MDRForm";
+import { useGetRemainingData } from "../../../../api/history/hooks/useGetRemainingDataHistory";
+import { useGetSupplierAmountByPaymentStatus } from "../../../../api/supplier/hooks/useGetSupplierAmountByStatus";
+import { useState } from "react";
+import { useGetDetailHistory } from "../../../../api/history/hooks/useGetHistoryDetail";
 
 const DirectorDashboardPage = () => {
   const { historyId } = useParams();
@@ -43,7 +43,7 @@ const DirectorDashboardPage = () => {
   const updateMDR = useUpdateMDR();
   const remainingData = useGetRemainingData();
   const suppliers = useGetSupplierAmountByPaymentStatus(
-    isPaid ? 'PAID' : 'UNPAID',
+    isPaid ? "PAID" : "UNPAID"
   );
   const historyDetail = useGetDetailHistory(historyId, true);
 
@@ -59,9 +59,12 @@ const DirectorDashboardPage = () => {
     return <Text>Loading...</Text>;
   }
 
-
   return (
     <Stack className="h-fit" gap={30}>
+      {/* <Group justify="end">
+        
+      </Group> */}
+
       <Group
         wrap="nowrap"
         className="overflow-y-visible pb-8 overflow-x-auto scrollbar-hide"
@@ -78,7 +81,7 @@ const DirectorDashboardPage = () => {
           icon={
             <ActionIcon
               variant="light"
-              radius={'xl'}
+              radius={"xl"}
               className={`bg-[#EBD9B4]/[0.7] xl:size-10`}
             >
               <FaChartLine className="text-xs xl:text-xl text-[#9DBC98]" />
@@ -87,7 +90,7 @@ const DirectorDashboardPage = () => {
         >
           <Group align="start" gap={5}>
             <Text className="text-xs xl:text-base text-gray-400 font-medium">
-              Sisa :{' '}
+              Sisa :{" "}
             </Text>
             <CurrencyFormatter
               currency="IDR"
@@ -104,7 +107,7 @@ const DirectorDashboardPage = () => {
           icon={
             <ActionIcon
               variant="light"
-              radius={'xl'}
+              radius={"xl"}
               className={`bg-[#9DBC98]/[0.4] xl:size-10 `}
             >
               <PiMathOperationsDuotone className="text-base xl:text-2xl text-[#638889]" />
@@ -125,7 +128,7 @@ const DirectorDashboardPage = () => {
           icon={
             <ActionIcon
               variant="light"
-              radius={'xl'}
+              radius={"xl"}
               className={`bg-[#F9EFDB]/[0.7] xl:size-10`}
             >
               <FaMoneyCheckDollar className="text-base xl:text-xl text-[#9DBC98]" />
@@ -171,7 +174,7 @@ const DirectorDashboardPage = () => {
 
               <ActionIcon
                 variant="light"
-                radius={'xl'}
+                radius={"xl"}
                 className="bg-[#FFA7B7]/[0.3]"
               >
                 <MdManageAccounts className="text-xl text-[#FFA7B7]" />
@@ -284,7 +287,7 @@ const DirectorDashboardPage = () => {
 
               <ActionIcon
                 variant="light"
-                radius={'xl'}
+                radius={"xl"}
                 className="bg-[#BCAEFF]/[0.3]"
               >
                 <HiReceiptTax className="text-xl text-[#BCAEFF]" />
@@ -333,7 +336,7 @@ const DirectorDashboardPage = () => {
 
               <ActionIcon
                 variant="light"
-                radius={'xl'}
+                radius={"xl"}
                 className="bg-green-700/[0.2]"
               >
                 <RiDiscountPercentFill className="text-xl text-green-500/[0.5]" />
@@ -355,15 +358,15 @@ const DirectorDashboardPage = () => {
                 >
                   <Stack gap={0}>
                     <Text className="font-medium text-gray-400">
-                      Jumlah MDR :{' '}
+                      Jumlah MDR :{" "}
                     </Text>
                     <Text className="font-semibold text-green-500">
-                      {' '}
+                      {" "}
                       {mdr.data?.mdr} %
                     </Text>
                   </Stack>
                   <Button
-                    radius={'md'}
+                    radius={"md"}
                     classNames={{ root: `w-fit px-3 py-1 h-fit` }}
                     variant="outline"
                     color="green"
@@ -382,11 +385,11 @@ const DirectorDashboardPage = () => {
         <Group justify="space-between" className="w-full h-fit py-3.5">
           <Group gap={10}>
             <Text className="font-semibold text-base md:text-lg">
-              Total Supplier {`${isPaid ? 'Paid' : 'Unpaid'}`} :
+              Total Supplier {`${isPaid ? "Paid" : "Unpaid"}`} :
             </Text>
             <CurrencyFormatter
               className={`${
-                isPaid ? 'text-green-500' : 'text-rose-500'
+                isPaid ? "text-green-500" : "text-rose-500"
               } font-medium text-base  md:text-lg`}
               currency="IDR"
               value={suppliers.data?.totalPayment}
@@ -398,15 +401,15 @@ const DirectorDashboardPage = () => {
             onChange={(event) => setIsPaid(event.currentTarget.checked)}
             classNames={{
               track: `${
-                isPaid ? 'bg-green-400' : 'bg-rose-400'
+                isPaid ? "bg-green-400" : "bg-rose-400"
               } px-3 py-4 border-0 `,
               trackLabel: `text-white text-sm font-normal`,
               input: ``,
-              thumb: `${isPaid ? '' : 'ml-1.5'}`,
+              thumb: `${isPaid ? "" : "ml-1.5"}`,
             }}
             size="md"
-            onLabel={'PAID'}
-            offLabel={'UNPAID'}
+            onLabel={"PAID"}
+            offLabel={"UNPAID"}
           />
         </Group>
         <Stack className="overflow-x-auto scrollbar-hide" gap={30}>
@@ -420,19 +423,19 @@ const DirectorDashboardPage = () => {
                 data={suppliers.data.payment}
                 columns={[
                   {
-                    key: 'no',
+                    key: "no",
                     render: (row) => (
                       <Text className="text-base">{row.no}</Text>
                     ),
                   },
                   {
-                    key: 'name',
+                    key: "name",
                     render: (row) => (
                       <Text className="text-base">{row.name}</Text>
                     ),
                   },
                   {
-                    key: 'total-amount',
+                    key: "total-amount",
                     render: (row) => (
                       <CurrencyFormatter
                         className="text-base"

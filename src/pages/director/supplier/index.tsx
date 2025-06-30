@@ -27,7 +27,18 @@ const SupplierDirectorPage = () => {
   const [selectedSupCompany, setSelectedSupCompany] =
     useState<ComboboxItem | null>(null);
 
-  const suppliers = useGetAllSuppliers(historyId, selectedSupCompany?.value);
+  const [filterJatuhTempo, setFilterJatuhTempo] = useState<ComboboxItem | null>(
+    null
+  );
+
+  const [filterPaid, setFilterPaid] = useState<ComboboxItem | null>(null);
+
+  const suppliers = useGetAllSuppliers(
+    historyId,
+    selectedSupCompany?.value,
+    filterJatuhTempo?.value,
+    filterPaid?.value
+  );
   const supplierCompanies = useGetAllSupplierCategoryBySupplier();
 
   const totalPaymentSupplier = useGetTotalPaymentSupplier(historyId);
@@ -49,8 +60,6 @@ const SupplierDirectorPage = () => {
   //     setTotalUnpaidSupplier(totalPaymentSupplier.data.totalUnpaid);
   //   }
   // }, [totalPaymentSupplier.data]);
-
-  console.log("values : ", selectedSupCompany);
 
   if (suppliers.isLoading) {
     return <Text>Loading...</Text>;
@@ -201,27 +210,77 @@ const SupplierDirectorPage = () => {
             <SupplierPanel
               suppliers={suppliers.data?.suppliers}
               controlInput={
-                <Select
-                  placeholder="Pilih Kategori Supplier"
-                  data={
-                    !supplierCompanies.data
-                      ? [
-                          {
-                            label: "",
-                            value: "",
-                          },
-                        ]
-                      : supplierCompanies.data?.map((supplier) => {
-                          return {
-                            label: supplier.name,
-                            value: supplier.id.toString(),
-                          };
-                        })
-                  }
-                  value={selectedSupCompany ? selectedSupCompany.value : null}
-                  onChange={(_value, option) => setSelectedSupCompany(option)}
-                  classNames={{}}
-                />
+                <>
+                  <Select
+                    placeholder="Pilih Kategori Supplier"
+                    data={
+                      !supplierCompanies.data
+                        ? [
+                            {
+                              label: "",
+                              value: "",
+                            },
+                          ]
+                        : supplierCompanies.data?.map((supplier) => {
+                            return {
+                              label: supplier.name,
+                              value: supplier.id.toString(),
+                            };
+                          })
+                    }
+                    value={selectedSupCompany ? selectedSupCompany.value : null}
+                    onChange={(_value, option) => setSelectedSupCompany(option)}
+                    classNames={{
+                      input: `w-fit`,
+                    }}
+                  />
+
+                  <Select
+                    placeholder="Filter By Jatuh Tempo"
+                    data={[
+                      {
+                        label: "Sudah Jatuh Tempo",
+                        value: "overdue",
+                      },
+                      {
+                        label: "Dalam 3 Hari",
+                        value: "next_3_days",
+                      },
+                      {
+                        label: "Dalam 7 Hari",
+                        value: "next_7_days",
+                      },
+                      {
+                        label: "Lebih dari 7 Hari",
+                        value: "upcoming",
+                      },
+                    ]}
+                    value={filterJatuhTempo ? filterJatuhTempo.value : null}
+                    onChange={(_value, option) => setFilterJatuhTempo(option)}
+                    classNames={{
+                      input: `w-fit`,
+                    }}
+                  />
+
+                  <Select
+                    placeholder="Filter By Status Pembayaran"
+                    data={[
+                      {
+                        label: "Sudah Bayar",
+                        value: "paid",
+                      },
+                      {
+                        label: "Belum Bayar",
+                        value: "unpaid",
+                      },
+                    ]}
+                    value={filterPaid ? filterPaid.value : null}
+                    onChange={(_value, option) => setFilterPaid(option)}
+                    classNames={{
+                      input: `w-fit`,
+                    }}
+                  />
+                </>
               }
             />
           )}

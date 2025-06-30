@@ -33,7 +33,6 @@ import { Link } from "react-router-dom";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useUpdateHistory } from "../../../api/history/hooks/useUpdateHistory";
 import { EmptyStateHistory } from "../../../assets/images";
-import moment from "moment";
 
 const DirectorHistoryPage = () => {
   const { user } = useContext(AuthContext);
@@ -317,7 +316,7 @@ const DirectorHistoryPage = () => {
                 key={index + 1}
                 classNames={{
                   section: `space-y-5`,
-                  root: `rounded-2xl px-8 py-7 bg-primary/[0.3] border-2 border-black_primary shadow-[4px_4px_0] shadow-black_primary/[0.7]   hover:translate-y-1.5 hover:translate-x-1.5 duration-500 hover:shadow-[0px_0px_0]  duration-300 `,
+                  root: `rounded-2xl px-8 py-7 bg-primary/[0.1] border-2 border-black_primary shadow-[4px_4px_0] shadow-black_primary/[0.7]   hover:translate-y-1.5 hover:translate-x-1.5 duration-500 hover:shadow-[0px_0px_0]  duration-300 `,
                 }}
               >
                 <Card.Section>
