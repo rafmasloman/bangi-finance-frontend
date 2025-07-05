@@ -1,5 +1,4 @@
 import {
-  ActionIcon,
   Checkbox,
   Divider,
   Group,
@@ -14,7 +13,6 @@ import BaseButton from "../../../../shared/components/button/BaseButton";
 import TableDataHead from "../../../../shared/components/table/TableDataHead";
 import TableDataBody from "../../../../shared/components/table/TableDataBody";
 import PaymentStatusBadge from "./PaymentStatusBadge";
-import { TbEdit } from "react-icons/tb";
 import CurrencyFormatter from "../../../../shared/components/formatter/CurrencyFormatter";
 import { useCreateSupplier } from "../../../../api/supplier/hooks/useCreateSupplier";
 import { useUpdateSupplier } from "../../../../api/supplier/hooks/useUpdateSupplier";
@@ -82,8 +80,7 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
   const [opened, { open, close }] = useDisclosure(false);
-  const [openedEditForm, { open: openEdit, close: closeEdit }] =
-    useDisclosure();
+  const [openedEditForm, { close: closeEdit }] = useDisclosure();
   const [
     openedEditPaymentForm,
     { open: openEditPayment, close: closeEditPayment },
@@ -172,13 +169,13 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
     }
   };
 
-  const handleOpenModalEdit = (supplierId: string | null) => {
-    if (supplierId) {
-      setSupplierId(supplierId);
-    }
+  // const handleOpenModalEdit = (supplierId: string | null) => {
+  //   if (supplierId) {
+  //     setSupplierId(supplierId);
+  //   }
 
-    openEdit();
-  };
+  //   openEdit();
+  // };
 
   const handleOpenModalPaymentStatus = (supplierId: string) => {
     // if (supplierId) {
