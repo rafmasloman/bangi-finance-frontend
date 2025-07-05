@@ -377,7 +377,7 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
                     // },
 
                     {
-                      key: "service",
+                      key: "totalAmount",
                       render: (row) => (
                         <CurrencyFormatter
                           currency="IDR"

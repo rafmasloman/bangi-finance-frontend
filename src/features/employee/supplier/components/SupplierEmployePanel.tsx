@@ -1,6 +1,7 @@
 import {
   ActionIcon,
   Checkbox,
+  Divider,
   Group,
   Stack,
   Table,
@@ -19,7 +20,7 @@ import { useCreateSupplier } from "../../../../api/supplier/hooks/useCreateSuppl
 import { useUpdateSupplier } from "../../../../api/supplier/hooks/useUpdateSupplier";
 import { useGetSupplierDetail } from "../../../../api/supplier/hooks/useGetSupplierDetail";
 import { useDisclosure } from "@mantine/hooks";
-import { useContext, useEffect, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { ISupplierRequestParams } from "../../../../api/supplier/SupplierApiInterface";
 import { tableHeadSuppliers } from "../helpers/supplier.helper";
 import moment from "moment";
@@ -70,6 +71,7 @@ interface ISupplierEmployeePanelProps {
       name: string;
     };
   }[];
+  controlInput: ReactNode;
 }
 
 const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
@@ -94,6 +96,8 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
     supplierId ?? undefined
     // openedEditForm || openedEditPaymentForm,
   );
+
+  console.log("props suppliers = ", props.suppliers);
 
   const handleCheckAll = () => {
     if (
@@ -139,6 +143,8 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
     //   historyId,
     //   userId: user?.id,
     // };
+
+    console.log("values supplier = ", values);
 
     const data = {
       nomorFaktur: values.nomorFaktur,
@@ -270,6 +276,16 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
               </BaseButton>
             </Group>
           </Group>
+
+          <Divider my={"md"} />
+
+          <Stack className="">
+            <Text className="font-semibold text-base lg:text-md">
+              Filter Supplier
+            </Text>
+            <Group justify="flex-start ">{props.controlInput}</Group>
+          </Stack>
+
           <Stack className="overflow-x-auto scrollbar-hide">
             <Table
               classNames={{
@@ -317,37 +333,44 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
                       render: (row) => <Text>{row.supplierCompany.name}</Text>,
                     },
                     {
-                      key: "evidence",
+                      key: "nomorFaktur",
                       render: (row) => (
-                        <Text className="text-nowrap">{row.evidence}</Text>
+                        <Text className="text-nowrap">{row.nomorFaktur}</Text>
                       ),
                     },
+                    // {
+                    //   key: "evidence",
+                    //   render: (row) => (
+                    //     <Text className="text-nowrap">{row.evidence}</Text>
+                    //   ),
+                    // },
+                    // {
+                    //   key: "quantity",
+                    //   render: (row) => <Text>{row.quantity}</Text>,
+                    // },
+                    // {
+                    //   key: "price",
+                    //   render: (row) => (
+                    //     <CurrencyFormatter
+                    //       currency="IDR"
+                    //       value={row.price}
+                    //       className="text-nowrap"
+                    //     />
+                    //   ),
+                    // },
+                    // {
+                    //   key: "discount",
+                    //   render: (row) => <Text>{row.discount}%</Text>,
+                    // },
+                    // {
+                    //   key: "ppn",
+                    //   render: (row) => (
+                    //     <CurrencyFormatter currency="IDR" value={row.ppn} />
+                    //   ),
+                    // },
+
                     {
-                      key: "quantity",
-                      render: (row) => <Text>{row.quantity}</Text>,
-                    },
-                    {
-                      key: "price",
-                      render: (row) => (
-                        <CurrencyFormatter
-                          currency="IDR"
-                          value={row.price}
-                          className="text-nowrap"
-                        />
-                      ),
-                    },
-                    {
-                      key: "discount",
-                      render: (row) => <Text>{row.discount}%</Text>,
-                    },
-                    {
-                      key: "ppn",
-                      render: (row) => (
-                        <CurrencyFormatter currency="IDR" value={row.ppn} />
-                      ),
-                    },
-                    {
-                      key: "service",
+                      key: "totalAmount",
                       render: (row) => (
                         <CurrencyFormatter
                           currency="IDR"
@@ -355,6 +378,12 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
                         />
                       ),
                     },
+
+                    {
+                      key: "jatuhTempo",
+                      render: (row) => <Text>{row.jatuhTempo}</Text>,
+                    },
+
                     {
                       key: "status",
                       render: (row) => (
@@ -369,21 +398,6 @@ const SupplierEmployeePanel = (props: ISupplierEmployeePanelProps) => {
                             {row.paymentStatus}
                           </PaymentStatusBadge>
                         </UnstyledButton>
-                      ),
-                    },
-                    {
-                      key: "action",
-                      render: (row) => (
-                        <Group gap={10} wrap="nowrap">
-                          <ActionIcon
-                            onClick={() => handleOpenModalEdit(row.id)}
-                            radius={"md"}
-                            size={27}
-                            className="bg-indigo-500 text-lg"
-                          >
-                            <TbEdit />
-                          </ActionIcon>
-                        </Group>
                       ),
                     },
                   ]}

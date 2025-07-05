@@ -1,20 +1,23 @@
 import {
   ActionIcon,
   Card,
+  ComboboxItem,
   Group,
+  Select,
   SimpleGrid,
   Stack,
   Tabs,
   Text,
-} from '@mantine/core';
-import { FaBoxOpen } from 'react-icons/fa6';
-import { useGetAllSuppliers } from '../../../api/supplier/hooks/useGetAllSuppliers';
-import { useEffect, useState } from 'react';
-import CurrencyFormatter from '../../../shared/components/formatter/CurrencyFormatter';
-import SupplierCommunityPanel from '../../../features/director/supplier/components/SupplierCommunityPanel';
-import { useParams } from 'react-router-dom';
-import { useGetTotalPaymentSupplier } from '../../../api/supplier/hooks/useGetTotalPaymentSupplier';
-import SupplierEmployeePanel from '../../../features/employee/supplier/components/SupplierEmployePanel';
+} from "@mantine/core";
+import { FaBoxOpen } from "react-icons/fa6";
+import { useGetAllSuppliers } from "../../../api/supplier/hooks/useGetAllSuppliers";
+import { useEffect, useState } from "react";
+import CurrencyFormatter from "../../../shared/components/formatter/CurrencyFormatter";
+import SupplierCommunityPanel from "../../../features/director/supplier/components/SupplierCommunityPanel";
+import { useParams } from "react-router-dom";
+import { useGetTotalPaymentSupplier } from "../../../api/supplier/hooks/useGetTotalPaymentSupplier";
+import SupplierEmployeePanel from "../../../features/employee/supplier/components/SupplierEmployePanel";
+import { useGetAllSupplierCategoryBySupplier } from "../../../api/supplier-category/hooks/useGetSupplierCategoryBySupplier";
 
 const SupplierEmployeePage = () => {
   const { historyId } = useParams();
@@ -22,7 +25,24 @@ const SupplierEmployeePage = () => {
   const [totalPaidSupplier, setTotalPaidSupplier] = useState<number>(0);
   const [totalUnpaidSupplier, setTotalUnpaidSupplier] = useState<number>(0);
 
-  const suppliers = useGetAllSuppliers(historyId);
+  const [selectedSupCompany, setSelectedSupCompany] =
+    useState<ComboboxItem | null>(null);
+
+  const [filterJatuhTempo, setFilterJatuhTempo] = useState<ComboboxItem | null>(
+    null
+  );
+
+  const [filterPaid, setFilterPaid] = useState<ComboboxItem | null>(null);
+
+  const suppliers = useGetAllSuppliers(
+    historyId,
+    selectedSupCompany?.value,
+    filterJatuhTempo?.value,
+    filterPaid?.value
+  );
+
+  const supplierCompanies = useGetAllSupplierCategoryBySupplier();
+
   const totalPaymentSupplier = useGetTotalPaymentSupplier(historyId);
 
   useEffect(() => {
@@ -67,7 +87,7 @@ const SupplierEmployeePage = () => {
               <ActionIcon
                 variant="light"
                 size={40}
-                radius={'xl'}
+                radius={"xl"}
                 className="bg-primary "
               >
                 <FaBoxOpen className="text-2xl text-black_primary" />
@@ -101,7 +121,7 @@ const SupplierEmployeePage = () => {
                 <ActionIcon
                   variant="light"
                   size={40}
-                  radius={'xl'}
+                  radius={"xl"}
                   className="bg-white"
                 >
                   <FaBoxOpen className="text-2xl text-black_primary" />
@@ -121,7 +141,7 @@ const SupplierEmployeePage = () => {
                 {!totalPaymentSupplier.data?.paymentStatusAmount[0]
                   ? 0
                   : totalPaymentSupplier.data?.paymentStatusAmount[0]._count
-                      ._all}{' '}
+                      ._all}{" "}
                 Supplier telah dibayar
               </Text>
             </Stack>
@@ -142,7 +162,7 @@ const SupplierEmployeePage = () => {
                 <ActionIcon
                   variant="light"
                   size={40}
-                  radius={'xl'}
+                  radius={"xl"}
                   className="bg-white"
                 >
                   <FaBoxOpen className="text-2xl text-black_primary" />
@@ -162,7 +182,7 @@ const SupplierEmployeePage = () => {
                 {!totalPaymentSupplier.data?.paymentStatusAmount[1]
                   ? 0
                   : totalPaymentSupplier.data?.paymentStatusAmount[1]._count
-                      ._all}{' '}
+                      ._all}{" "}
                 Supplier belum membayar
               </Text>
             </Stack>
@@ -171,7 +191,7 @@ const SupplierEmployeePage = () => {
       </SimpleGrid>
 
       <Tabs
-        defaultValue={'suppliers'}
+        defaultValue={"suppliers"}
         classNames={{
           panel: `mt-7`,
           tab: `w-[180px] data-[active=true]:bg-primary/[0.5] px-5 py-3.5 data-[active=true]:text-black_primary data-[active=true]:border data-[active=true]:border-neutral-300 data-[active=true]:border-solid font-semibold`,
@@ -188,7 +208,82 @@ const SupplierEmployeePage = () => {
 
         <Tabs.Panel value="suppliers">
           {!suppliers.data?.suppliers ? null : (
-            <SupplierEmployeePanel suppliers={suppliers.data?.suppliers} />
+            <SupplierEmployeePanel
+              suppliers={suppliers.data?.suppliers}
+              controlInput={
+                <>
+                  <Select
+                    placeholder="Pilih Kategori Supplier"
+                    data={
+                      !supplierCompanies.data
+                        ? [
+                            {
+                              label: "",
+                              value: "",
+                            },
+                          ]
+                        : supplierCompanies.data?.map((supplier) => {
+                            return {
+                              label: supplier.name,
+                              value: supplier.id.toString(),
+                            };
+                          })
+                    }
+                    value={selectedSupCompany ? selectedSupCompany.value : null}
+                    onChange={(_value, option) => setSelectedSupCompany(option)}
+                    classNames={{
+                      input: `w-fit`,
+                    }}
+                  />
+
+                  <Select
+                    placeholder="Filter By Jatuh Tempo"
+                    data={[
+                      {
+                        label: "Sudah Jatuh Tempo",
+                        value: "overdue",
+                      },
+                      {
+                        label: "Dalam 3 Hari",
+                        value: "next_3_days",
+                      },
+                      {
+                        label: "Dalam 7 Hari",
+                        value: "next_7_days",
+                      },
+                      {
+                        label: "Lebih dari 7 Hari",
+                        value: "upcoming",
+                      },
+                    ]}
+                    value={filterJatuhTempo ? filterJatuhTempo.value : null}
+                    onChange={(_value, option) => setFilterJatuhTempo(option)}
+                    classNames={{
+                      input: `w-fit`,
+                    }}
+                  />
+
+                  <Select
+                    placeholder="Filter By Status Pembayaran"
+                    data={[
+                      {
+                        label: "Sudah Bayar",
+                        value: "paid",
+                      },
+                      {
+                        label: "Belum Bayar",
+                        value: "unpaid",
+                      },
+                    ]}
+                    value={filterPaid ? filterPaid.value : null}
+                    onChange={(_value, option) => setFilterPaid(option)}
+                    classNames={{
+                      input: `w-fit`,
+                    }}
+                  />
+                </>
+              }
+            />
           )}
         </Tabs.Panel>
 

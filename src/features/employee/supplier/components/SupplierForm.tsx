@@ -73,14 +73,6 @@ const SupplierForm = (props: ISupplierFormProps) => {
         </Grid.Col>
 
         <Grid.Col span={{ base: 12, md: 6 }}>
-          <NumberInput
-            placeholder="Masukkan Jumlah"
-            label="Jumlah"
-            {...supplierForm.getInputProps("quantity")}
-          />
-        </Grid.Col>
-
-        <Grid.Col span={{ base: 12, md: 6 }}>
           <DatePickerInput
             placeholder="Masukkan Tanggal"
             label="Tanggal"
@@ -89,36 +81,28 @@ const SupplierForm = (props: ISupplierFormProps) => {
           />
         </Grid.Col>
 
-        <Grid.Col span={{ base: 12 }}>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <DatePickerInput
+            placeholder="Masukkan Tanggal Jatuh Tempo"
+            label="Tanggal Jatuh Tempo"
+            valueFormat={"DD MMMM YY"}
+            {...supplierForm.getInputProps("jatuhTempo")}
+          />
+        </Grid.Col>
+
+        <Grid.Col span={{ base: 12, md: 6 }}>
           <BaseTextInput
-            placeholder="Masukkan Keterangan"
-            label="Keterangan"
-            {...supplierForm.getInputProps("evidence")}
+            placeholder="Masukkan Nomor Faktur"
+            label="Nomor Faktur"
+            {...supplierForm.getInputProps("nomorFaktur")}
           />
         </Grid.Col>
 
         <Grid.Col span={{ base: 12, md: 6 }}>
           <BaseCurrencyInput
-            placeholder="Masukkan Harga"
-            label="Harga"
-            {...supplierForm.getInputProps("price")}
-          />
-        </Grid.Col>
-
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <NumberInput
-            placeholder="Masukkan Discount"
-            label="Discount"
-            {...supplierForm.getInputProps("discount")}
-            max={100}
-          />
-        </Grid.Col>
-
-        <Grid.Col>
-          <BaseCurrencyInput
-            placeholder="Masukan PPN"
-            label="PPN"
-            {...supplierForm.getInputProps("ppn")}
+            placeholder="Masukkan Total Harga"
+            label="Total Harga"
+            {...supplierForm.getInputProps("totalAmount")}
           />
         </Grid.Col>
       </Grid>

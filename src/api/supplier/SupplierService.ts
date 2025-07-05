@@ -44,6 +44,8 @@ class SupplierService {
       const data: IApiBaseResponse<ISupplierResponseData> =
         await suppliers.data;
 
+      console.log("data = ", data);
+
       return data;
     } catch (error) {
       throw error;
