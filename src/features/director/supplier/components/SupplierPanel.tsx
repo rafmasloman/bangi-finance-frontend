@@ -337,7 +337,7 @@ const SupplierPanel = (props: ISupplierPanelProps) => {
                     },
                     {
                       key: "supplier",
-                      render: (row) => <Text>{row.supplierCompany.name}</Text>,
+                      render: (row) => <Text>{row.supplierCompany?.name}</Text>,
                     },
                     {
                       key: "nomorFaktur",
